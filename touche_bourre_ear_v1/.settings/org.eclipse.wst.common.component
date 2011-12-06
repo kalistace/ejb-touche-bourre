@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="touche_bourre_ear_v1">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="touche_bourre_ear_v1EJB.jar" deploy-path="/" handle="module:/resource/touche_bourre_ear_v1EJB/touche_bourre_ear_v1EJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="touche_bourre_ear_v1Web.war" deploy-path="/" handle="module:/resource/touche_bourre_ear_v1Web/touche_bourre_ear_v1Web">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
