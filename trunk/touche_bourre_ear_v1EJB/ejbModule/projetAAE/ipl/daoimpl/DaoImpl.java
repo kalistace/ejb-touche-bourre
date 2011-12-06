@@ -14,15 +14,13 @@ import javax.persistence.TypedQuery;
 
 import projetAAE.ipl.dao.Dao;
 
-
 @SuppressWarnings("serial")
-public abstract class DaoImpl<K, E> implements Dao<K, E> 
-{
+public abstract class DaoImpl<K, E> implements Dao<K, E> {
 	private Class<E> entityClass;
 
-	@PersistenceContext(unitName="music")
+	@PersistenceContext(unitName = "music")
 	private EntityManager entityManager;
-	
+
 	@SuppressWarnings("unchecked")
 	public DaoImpl() {
 		ParameterizedType genericSuperclass = (ParameterizedType) getClass()
@@ -41,7 +39,7 @@ public abstract class DaoImpl<K, E> implements Dao<K, E>
 	}
 
 	public E mettreAJour(E entite) {
-		return entityManager.merge(entite);		
+		return entityManager.merge(entite);
 	}
 
 	public E recharger(K id) {
@@ -59,14 +57,15 @@ public abstract class DaoImpl<K, E> implements Dao<K, E>
 	public List<E> lister() {
 		return liste("select e from " + entityClass.getName() + " e");
 	}
-	
+
 	public void flush() {
 		entityManager.flush();
 	}
 
 	protected List<E> liste(String queryString, Object... params) {
 		List<E> entités = null;
-		TypedQuery<E> query = entityManager.createQuery(queryString, entityClass);
+		TypedQuery<E> query = entityManager.createQuery(queryString,
+				entityClass);
 		int i = 0, j = 1;
 		while (i < params.length) {
 			if (params[i] instanceof Date) {
@@ -89,7 +88,8 @@ public abstract class DaoImpl<K, E> implements Dao<K, E>
 
 	protected E recherche(String queryString, Object... params) {
 		try {
-			TypedQuery<E> query = entityManager.createQuery(queryString, entityClass);
+			TypedQuery<E> query = entityManager.createQuery(queryString,
+					entityClass);
 			int i = 0, j = 1;
 			while (i < params.length) {
 				if (params[i] instanceof Date) {
