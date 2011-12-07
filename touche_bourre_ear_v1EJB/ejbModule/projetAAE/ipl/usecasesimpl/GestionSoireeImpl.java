@@ -2,19 +2,26 @@ package projetAAE.ipl.usecasesimpl;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import projetAAE.ipl.domaine.Fetard_Soiree;
+import projetAAE.ipl.dao.Fetard_SoireeDao;
+import projetAAE.ipl.dao.SoireeDao;
+import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.usecases.GestionSoiree;
 
 @Stateless
 public class GestionSoireeImpl implements GestionSoiree {
+	
+	
+	@EJB Fetard_SoireeDao fetard_SoireeDao;
+	@EJB SoireeDao SoireeDao;
 
 	@Override
 	public Soiree creerSoiree(String pseudoFetard1) {
-		// TODO Auto-generated method stub
-		return null;
+		Fetard fetard = fetardDao.rechercher()
+		return new Soiree(fetard);
 	}
 
 	@Override

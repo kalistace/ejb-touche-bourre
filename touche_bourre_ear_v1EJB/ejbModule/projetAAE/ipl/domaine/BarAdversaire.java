@@ -1,6 +1,5 @@
 package projetAAE.ipl.domaine;
 
-import java.util.ArrayList;
 
 public class BarAdversaire {
 	private int[][] matrice;
