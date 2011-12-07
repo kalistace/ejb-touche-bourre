@@ -66,6 +66,8 @@ public class Soiree implements Serializable{
 	
 	private int nbrFetardPret;
 	
+	private int nbrFetardConnecte;
+	
 	private Fetard_Soiree fetard_Soiree_Courant;
 	
 	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))	
@@ -158,5 +160,17 @@ public class Soiree implements Serializable{
 
 	public Etat getEtat() {
 		return etat;
+	}
+
+	public int getNbrFetardPret() {
+		return nbrFetardPret;
+	}
+
+	public int getNbrFetardConnecte() {
+		return nbrFetardConnecte;
+	}
+
+	public Fetard_Soiree getFetard_Soiree_Courant() {
+		return fetard_Soiree_Courant;
 	}
 }
