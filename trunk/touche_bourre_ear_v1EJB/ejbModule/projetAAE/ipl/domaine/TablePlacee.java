@@ -3,10 +3,28 @@ package projetAAE.ipl.domaine;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TablePlacee {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="TABLEPLACEES", schema="TOUCHEBOURRE")
+public class TablePlacee {
+	
+	@Id
+	@GeneratedValue
 	private int id;
 	
+	@ManyToMany
+	@JoinTable(schema="JACK",
+			joinColumns=@JoinColumn(name="PARTIE_ID"),
+			inverseJoinColumns=@JoinColumn(name="JOUEUR_ID"))
+	@OrderBy("pseudo")
 	private List<Coordonnee> coordonnees;
 	private Table table;
 	private int vies;
