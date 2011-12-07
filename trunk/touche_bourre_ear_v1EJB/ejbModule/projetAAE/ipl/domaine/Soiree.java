@@ -14,10 +14,6 @@ import javax.persistence.Table;
 @Table(name="SOIREES", schema="TOUCHEBOURRE")
 public class Soiree implements Serializable{
 
-	@Id
-	@GeneratedValue
-	private int id;
-	
 	public enum Etat {
 		INITIAL_ATTENTE_FETARD {
 			boolean ajouterFetard(Fetard fetard, Soiree soiree) {
@@ -34,10 +30,7 @@ public class Soiree implements Serializable{
 		},
 		EN_PLACEMENT {
 			boolean estPret(Fetard fetard, Soiree soiree) {
-				if (soiree.getFetard_Soiree(fetard) != null){
-					return false;
-				}
-				if(soiree.fetardSoiree1 == null){
+				if (soiree.getFetard_Soiree(fetard) == null){
 					return false;
 				}
 				soiree.fetardSoiree2 = new Fetard_Soiree(fetard, soiree);
@@ -53,6 +46,15 @@ public class Soiree implements Serializable{
 			return false;
 		}
 	}
+	
+	@Id
+	@GeneratedValue
+	private int id;
+	
+	private int nbrFetardPret;
+	
+	private Fetard_Soiree fetard_Soiree_Courant;
+	
 	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))	
 	private Fetard_Soiree fetardSoiree1;
 	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))
@@ -67,7 +69,9 @@ public class Soiree implements Serializable{
 	
 	public Soiree(String nom, Fetard fetard1) {
 		this.nom = nom;
-		fetardSoiree1 = new Fetard_Soiree(fetard1, this);
+		this.fetardSoiree1 = new Fetard_Soiree(fetard1, this);
+		this.fetard_Soiree_Courant = null;
+		this.nbrFetardPret = 0;
 	}
 	
 	private Fetard_Soiree getFetard_Soiree(Fetard fetard) {
