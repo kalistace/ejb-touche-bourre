@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -33,9 +34,9 @@ public class Fetard_Soiree implements Serializable{
 	@Transient//ignore
 	BarAdversaire barAdversaire;
 	
-//	@ManyToOne
-//	@JoinColumn(nullable = false)
-//	Soiree soiree;
+	@OneToOne
+	@JoinColumn(nullable = false)
+	Soiree soiree;
 
 	public Fetard_Soiree(Fetard fetard) {
 		this.fetard = fetard;

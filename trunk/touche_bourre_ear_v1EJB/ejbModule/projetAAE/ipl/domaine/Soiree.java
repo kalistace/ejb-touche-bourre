@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,15 +20,16 @@ public class Soiree implements Serializable{
 	@GeneratedValue
 	private int id;
 
-	@OneToMany(mappedBy = "soiree", cascade = (CascadeType.ALL))	
-	private Map<String, Fetard_Soiree> lesFetards;
+	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))	
+	private Fetard_Soiree fetardSoiree1;
+	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))
+	private Fetard_Soiree fetardSoiree2;
 
 	public Soiree(Fetard fetard1) {
-		lesFetards = new Hashtable<String, Fetard_Soiree>(2);
-		lesFetards.put(fetard1.getPseudo(), new Fetard_Soiree(fetard1));
+		fetardSoiree1 = new Fetard_Soiree(fetard1);
 	}
 
 	public void rejoindrePartie(Fetard fetard2) {
-		lesFetards.put(fetard2.getPseudo(), new Fetard_Soiree(fetard2));
+		fetardSoiree2 = new Fetard_Soiree(fetard2);
 	}
 }
