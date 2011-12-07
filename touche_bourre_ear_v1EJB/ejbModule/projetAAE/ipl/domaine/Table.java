@@ -1,5 +1,9 @@
 package projetAAE.ipl.domaine;
 
-public class Table {
-
+public enum Table {
+	Comptoir,
+	TableDePotes,
+	TableDeFilles,
+	TableDeGarcons,
+	TableDeCouple
 }
