@@ -25,7 +25,12 @@ public class Soiree implements Serializable{
 				}
 				soiree.fetardSoiree2 = new Fetard_Soiree(fetard, soiree);
 				soiree.etat = EN_PLACEMENT;
+				soiree.nbrFetardConnecte++;
 				return true;
+			}
+			boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
+				soiree.nbrFetardConnecte--;
+				return false;
 			}
 		},
 		EN_PLACEMENT {
@@ -87,6 +92,7 @@ public class Soiree implements Serializable{
 		this.fetardSoiree1 = new Fetard_Soiree(fetard1, this);
 		this.fetard_Soiree_Courant = null;
 		this.nbrFetardPret = 0;
+		this.nbrFetardConnecte = 1;
 	}
 	
 	private Fetard_Soiree getFetard_Soiree(Fetard fetard) {
