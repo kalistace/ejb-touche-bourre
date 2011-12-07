@@ -20,8 +20,9 @@ public class GestionSoireeImpl implements GestionSoiree {
 
 	@Override
 	public Soiree creerSoiree(String pseudoFetard1) {
-		Fetard fetard = fetardDao.rechercher()
-		return new Soiree(fetard);
+		//Fetard fetard = fetardDao.rechercher()
+		//return new Soiree(fetard);
+		return null;
 	}
 
 	@Override

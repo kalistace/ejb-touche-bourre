@@ -2,9 +2,12 @@ package projetAAE.ipl.daoimpl;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
+
 import projetAAE.ipl.dao.SoireeDao;
 import projetAAE.ipl.domaine.Soiree;
 
+@Stateless
 public class SoireeDaoImpl implements SoireeDao {
 
 	@Override
