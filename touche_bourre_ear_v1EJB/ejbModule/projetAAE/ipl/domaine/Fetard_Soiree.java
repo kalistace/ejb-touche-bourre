@@ -1,13 +1,17 @@
 package projetAAE.ipl.domaine;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -29,10 +33,14 @@ public class Fetard_Soiree implements Serializable{
 	@OneToOne
 	@JoinColumn(nullable = false)
 	private Soiree soiree;
+		
+	@OneToMany(cascade=CascadeType.ALL)
+	@MapKey(name="table")
+	private Map<projetAAE.ipl.domaine.Table, TablePlacee> mesTables = new HashMap<projetAAE.ipl.domaine.Table, TablePlacee>();
 	
-	private List<TablePlacee> mesTables;
-	
-	private List<Tournee> mesTournees;
+	@OneToMany(cascade=CascadeType.ALL)
+	@MapKey(name="id")
+	private Map<Integer, Tournee> mesTournees = new HashMap<Integer, Tournee>();
 	
 	public Fetard_Soiree(){
 		
