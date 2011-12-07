@@ -27,13 +27,13 @@ public class TablePlacee {
 			inverseJoinColumns=@JoinColumn(name="COORDONNEE_ID"))
 	private List<Coordonnee> coordonnees;
 	@Enumerated(EnumType.STRING)
-	private Table table;
+	private ETable table;
 	private int vies;
 	
 	public TablePlacee(){
 		
 	}
-	public TablePlacee(List<Coordonnee> coordonnees, Table table, int vies) {
+	public TablePlacee(List<Coordonnee> coordonnees, ETable table, int vies) {
 		this.coordonnees = coordonnees;
 		this.table = table;
 		this.vies = vies;
@@ -43,7 +43,7 @@ public class TablePlacee {
 		return new ArrayList<Coordonnee>(coordonnees);
 	}
 
-	public Table getTable() {
+	public ETable getTable() {
 		return table;
 	}
 

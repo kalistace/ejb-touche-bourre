@@ -30,11 +30,21 @@ public class Soiree implements Serializable{
 		},
 		EN_PLACEMENT {
 			boolean estPret(Fetard fetard, Soiree soiree) {
-				if (soiree.getFetard_Soiree(fetard) == null){
+				Fetard_Soiree monFetard_Soiree = soiree.getFetard_Soiree(fetard);
+				if ( monFetard_Soiree == null){
 					return false;
 				}
-				soiree.fetardSoiree2 = new Fetard_Soiree(fetard, soiree);
-				soiree.etat = EN_PLACEMENT;
+				if(soiree.nbrFetardPret >= 2){
+					return false;
+				}
+				
+				soiree.nbrFetardPret++;
+				if(soiree.nbrFetardPret==1){
+					soiree.fetard_Soiree_Courant = monFetard_Soiree;
+				}
+				else{
+					soiree.etat = EN_COURS;
+				}
 				return true;
 			}
 		}, 
@@ -42,6 +52,9 @@ public class Soiree implements Serializable{
 		}, 
 		FINIE {		
 		};
+		boolean estPret(Fetard fetard, Soiree soiree){
+			return false;
+		}
 		boolean ajouterFetard(Fetard fetard, Soiree soiree){
 			return false;
 		}
@@ -89,7 +102,11 @@ public class Soiree implements Serializable{
 	public boolean ajouterFetard(Fetard fetard, Soiree soiree){
 		return etat.ajouterFetard(fetard, this);
 	}
-
+	
+	boolean estPret(Fetard fetard, Soiree soiree){
+		return false;
+	}
+	
 	public int getId() {
 		return id;
 	}
