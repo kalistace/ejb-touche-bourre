@@ -1,6 +1,7 @@
 package projetAAE.ipl.domaine;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 @Entity
@@ -24,24 +24,22 @@ public class Fetard_Soiree implements Serializable{
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	Fetard fetard;
-	
-	//@OneToOne(cascade = CascadeType.ALL) @PrimaryKeyJoinColumn
-	@Transient//ignore
-	Bar propreBar;
-	
-	//@OneToOne(cascade = CascadeType.ALL) @PrimaryKeyJoinColumn
-	@Transient//ignore
-	BarAdversaire barAdversaire;
-	
+	private Fetard fetard;
+
 	@OneToOne
 	@JoinColumn(nullable = false)
-	Soiree soiree;
+	private Soiree soiree;
+	
+	private List<TablePlacee> mesTables;
+	
+	private List<Tournee> mesTournees;
+	
+	public Fetard_Soiree(){
+		
+	}
 
 	public Fetard_Soiree(Fetard fetard) {
 		this.fetard = fetard;
-		this.propreBar = new Bar(GRANDEURBAR);
-		this.barAdversaire = new BarAdversaire(GRANDEURBAR);
 	}
 
 	public Fetard getFetard() {

@@ -17,6 +17,10 @@ public class Fetard implements Serializable{
 	
 	@Column(nullable=false, unique=true)
 	private String pseudo;
+	
+	public Fetard(){
+		
+	}
 
 	public Fetard(String pseudo) {
 		this.pseudo = pseudo;
