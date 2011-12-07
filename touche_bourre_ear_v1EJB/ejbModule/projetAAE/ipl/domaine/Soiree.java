@@ -25,6 +25,9 @@ public class Soiree implements Serializable{
 	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))
 	private Fetard_Soiree fetardSoiree2;
 
+	public Soiree() {
+	}
+	
 	public Soiree(Fetard fetard1) {
 		fetardSoiree1 = new Fetard_Soiree(fetard1);
 	}
