@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -19,14 +21,14 @@ public class Biere implements Serializable {
 	@Column(name = "ID")
 	private int id;
 	
-	@Column(nullable=false)
+	@Column
 	private int x;
 	
-	@Column(nullable=false)
+	@Column
 	private int y;
 	
-	@Column
-	private Table tableTouchee;
+	@Enumerated(EnumType.STRING)
+	private ETable tableTouchee;
 	
 	
 	public Biere() {
@@ -42,7 +44,7 @@ public class Biere implements Serializable {
 	}
 	
 	public void setTableTouchee(ETable t) {
-		//this.tableTouchee = t;
+		this.tableTouchee = t;
 	}
 
 }
