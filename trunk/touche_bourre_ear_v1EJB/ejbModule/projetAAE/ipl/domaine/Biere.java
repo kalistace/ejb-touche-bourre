@@ -18,7 +18,7 @@ import projetAAE.ipl.util.Util;
 public class Biere implements Serializable {
 	
 	@Id @GeneratedValue
-	@Column(name = "ID")
+	@Column(name = "ID_BIERE")
 	private int id;
 	
 	@Column
