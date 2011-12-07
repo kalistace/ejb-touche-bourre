@@ -54,8 +54,9 @@ public class Fetard_Soiree implements Serializable{
 		
 	}
 
-	public Fetard_Soiree(Fetard fetard) {
+	public Fetard_Soiree(Fetard fetard, Soiree soiree) {
 		this.fetard = fetard;
+		this.soiree = soiree;
 	}
 
 	public Fetard getFetard() {
