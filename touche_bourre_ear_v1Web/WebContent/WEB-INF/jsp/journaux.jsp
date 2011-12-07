@@ -4,9 +4,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Bons souvenirs de copains</title>
 </head>
 <body>
-
+	<h1>Selectionnez une soirée:</h1>
+	<table border=1>
+		<c:forEach var="soiree" items="${journaux}">
+			<tr><td colspan="2">${soiree.nom}</td></tr>
+			<tr><td>//todo afficher vainqueur avec fond vert</td>
+			<td><c:url var="urlJournal" value="journal.html"/>
+			<form action="${urlJournal}" method="post">
+			<input class = "btnSmall" type = "submit" value = "Journal"/>
+			</form></td></tr>
+		</c:forEach>
+	</table>
 </body>
 </html>
