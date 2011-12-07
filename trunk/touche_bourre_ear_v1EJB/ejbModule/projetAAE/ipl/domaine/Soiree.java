@@ -22,10 +22,13 @@ public class Soiree implements Serializable{
 	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))
 	private Fetard_Soiree fetardSoiree2;
 
+	private String nom;
+	
 	public Soiree() {
 	}
 	
-	public Soiree(Fetard fetard1) {
+	public Soiree(String nom, Fetard fetard1) {
+		this.nom = nom;
 		fetardSoiree1 = new Fetard_Soiree(fetard1);
 	}
 
