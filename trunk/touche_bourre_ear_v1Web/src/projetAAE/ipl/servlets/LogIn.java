@@ -44,7 +44,7 @@ javax.servlet.Servlet  {
 				session.invalidate(); // détruit la session
 				session = request.getSession();
 			}
-				session.setAttribute("pseudo", pseudo);
+			session.setAttribute("pseudo", pseudo);
 		}
 
 		
