@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import projetAAE.ipl.valueObject.Coordonnees;
+import projetAAE.ipl.exceptions.ArgumentInvalideException;
 
 @Entity
 @Table(name = "FETARDS_SOIREES", schema = "TOUCHEBOURRE", uniqueConstraints = @UniqueConstraint(columnNames = {
@@ -65,6 +65,10 @@ public class Fetard_Soiree implements Serializable{
 	public Fetard getFetard() {
 		return fetard;
 	}
+	
+	public int getNbBieresParTournee() {
+		return nbBieresParTournee;
+	}
 
 	public int getId() {
 		return id;
@@ -83,8 +87,20 @@ public class Fetard_Soiree implements Serializable{
 		return true;
 	}
 	
-	public boolean lancerTournee(Coordonnees[] coord) {
-		return false;
+	private boolean ajouterTablePlacee(TablePlacee tp) {
+		if(mesTablePlacees.contains(tp)) return false;
+		mesTablePlacees.add(tp);
+		return true;
+	}
+	
+	public boolean lancerTournee(Coordonnee[] coord) throws ArgumentInvalideException {
+		if(coord.length != nbBieresParTournee) return false;
+		
+		Tournee t = new Tournee();
+		for(Coordonnee c : coord) {
+			t.ajouterBiere(new Biere(c.getCoordColonne(), c.getCoordLigne()));
+		}
+		return true;
 	}
 	
 
