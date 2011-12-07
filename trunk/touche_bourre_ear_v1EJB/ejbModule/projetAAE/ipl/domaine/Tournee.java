@@ -35,7 +35,25 @@ public class Tournee {
 	public int getId() {
 		return id;
 	}
-
+	
+	public List<Biere> getBieres() {
+		return bieres;
+	}
+	
+	public boolean ajouterBiere(Biere b) {
+		if(bieres.contains(b)) return false;
+		bieres.add(b);
+		return true;
+	}
+	
+	public boolean supprimerBiere(Biere b) {
+		if(!bieres.contains(b)) return false;
+		bieres.remove(b);
+		return true;
+	}
+	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

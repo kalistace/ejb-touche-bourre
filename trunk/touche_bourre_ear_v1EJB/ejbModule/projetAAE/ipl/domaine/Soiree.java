@@ -84,6 +84,8 @@ public class Soiree implements Serializable{
 		return null;
 	}
 
+	
+	
 	public boolean ajouterFetard(Fetard fetard, Soiree soiree){
 		return etat.ajouterFetard(fetard, this);
 	}

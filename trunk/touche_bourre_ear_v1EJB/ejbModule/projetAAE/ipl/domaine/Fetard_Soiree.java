@@ -2,21 +2,21 @@ package projetAAE.ipl.domaine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import projetAAE.ipl.valueObject.Coordonnees;
 
 @Entity
 @Table(name = "FETARDS_SOIREES", schema = "TOUCHEBOURRE", uniqueConstraints = @UniqueConstraint(columnNames = {
@@ -35,6 +35,9 @@ public class Fetard_Soiree implements Serializable{
 	@OneToOne
 	@JoinColumn(nullable = false)
 	private Soiree soiree;
+	
+	@Column
+	private int nbBieresParTournee;
 		
 //	@OneToMany(cascade=CascadeType.ALL)
 //	@MapKey(name="table")
@@ -66,6 +69,24 @@ public class Fetard_Soiree implements Serializable{
 	public int getId() {
 		return id;
 	}
+	
+	
+	private boolean ajouterTournee(Tournee t) {
+		if(mesTournees.contains(t)) return false;
+		mesTournees.add(t);
+		return true;
+	}
+	
+	private boolean supprimerTournee(Tournee t) {
+		if(!mesTournees.contains(t)) return false;
+		mesTournees.remove(t);
+		return true;
+	}
+	
+	public boolean lancerTournee(Coordonnees[] coord) {
+		return false;
+	}
+	
 
 	@Override
 	public int hashCode() {
