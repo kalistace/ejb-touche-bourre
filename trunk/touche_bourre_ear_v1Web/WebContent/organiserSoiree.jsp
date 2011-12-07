@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css"  href="./css/styles.css"/>
 <title>Touchée - bourré - Bienvenue !</title>
+<script type="text/javascript" src="js/creerSoiree.js"></script>
 </head>
 <body>
 	<div id="main">
@@ -14,8 +15,8 @@
 <div class = "login">
 <p class = "edtUser">Entrez le nom de la soirée:</p>
 <c:url var="urlsoiree" value="soiree.html"/>
-<form action="${urlsoiree}" method="post">
-<p class = "edtUser"> <input class = "loginput" type = "text" name = "nomSoiree"/> </p>
+<form action="${urlsoiree}" method="post" id="formCreerSoiree">
+<p class = "edtUser"> <input class = "loginput" type = "text" name = "nomSoiree" id="nomSoiree"/> </p>
 <p><input class = "btnSmall" type = "submit" value = "Commencer"/> </p>
 </form>
 
