@@ -1,25 +1,32 @@
 package projetAAE.ipl.domaine;
 
-public class Fetard {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="FETARDS", schema="TOUCHEBOURRE")
+public class Fetard implements Serializable{
+	
+	@Id @GeneratedValue
+	private int id;
+	
+	@Column(nullable=false, unique=true)
 	private String pseudo;
-
-	private Bar monBar;
-
-	private BarAdversaire barAdversaire;
 
 	public Fetard(String pseudo) {
 		this.pseudo = pseudo;
-		this.monBar = null;
-		this.barAdversaire = null;
 	}
 
 	public String getPseudo() {
 		return pseudo;
 	}
 
-	public void initialiserBar() {
-		monBar = new Bar(10);
-		barAdversaire =  new BarAdversaire(10);
+	public int getId() {
+		return id;
 	}
-
 }
