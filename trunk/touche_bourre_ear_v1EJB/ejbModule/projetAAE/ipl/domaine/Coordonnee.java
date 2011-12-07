@@ -21,6 +21,10 @@ public class Coordonnee implements Serializable {
 	@Column(nullable=false)
 	private int coordColonne;
 	
+	public Coordonnee(){
+		
+	}
+	
 	public Coordonnee(int coordLigne, int coordColonne) {
 		super();
 		this.coordLigne = coordLigne;

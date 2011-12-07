@@ -11,6 +11,9 @@ public class TablePlacee {
 	private Table table;
 	private int vies;
 	
+	public TablePlacee(){
+		
+	}
 	public TablePlacee(List<Coordonnee> coordonnees, Table table, int vies) {
 		this.coordonnees = coordonnees;
 		this.table = table;

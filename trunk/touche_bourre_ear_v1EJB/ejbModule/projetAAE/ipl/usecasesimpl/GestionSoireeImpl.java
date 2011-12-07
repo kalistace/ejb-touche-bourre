@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 
 import projetAAE.ipl.dao.Fetard_SoireeDao;
 import projetAAE.ipl.dao.SoireeDao;
-import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.usecases.GestionSoiree;
 
