@@ -18,9 +18,16 @@
     <servlet-name>Accueil</servlet-name>
     <jsp-file>/WEB-INF/jsp/accueil.jsp</jsp-file>
   </servlet>
-
   <servlet>
     <servlet-name>Soiree</servlet-name>
     <jsp-file>/WEB-INF/jsp/soiree.jsp</jsp-file>
+  </servlet>
+  <servlet>
+  <servlet-name>Rejoindre</servlet-name>
+    <jsp-file>/WEB-INF/jsp/rejoindre.jsp</jsp-file>
+  </servlet>
+  <servlet>
+    <servlet-name>Journaux</servlet-name>
+    <jsp-file>/WEB-INF/jsp/journaux.jsp</jsp-file>
   </servlet>
 </web-app>
