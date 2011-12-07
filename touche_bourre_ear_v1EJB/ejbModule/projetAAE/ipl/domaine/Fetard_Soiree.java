@@ -1,7 +1,9 @@
 package projetAAE.ipl.domaine;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -17,7 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "FETARDS_SOIREE", schema = "TOUCHEBOURRE", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "FETARDS_SOIREES", schema = "TOUCHEBOURRE", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"fetard_id", "soiree_id" }))
 public class Fetard_Soiree implements Serializable{
 	private static int GRANDEURBAR = 10;
@@ -34,13 +36,19 @@ public class Fetard_Soiree implements Serializable{
 	@JoinColumn(nullable = false)
 	private Soiree soiree;
 		
-	@OneToMany(cascade=CascadeType.ALL)
-	@MapKey(name="table")
-	private Map<projetAAE.ipl.domaine.Table, TablePlacee> mesTables = new HashMap<projetAAE.ipl.domaine.Table, TablePlacee>();
+//	@OneToMany(cascade=CascadeType.ALL)
+//	@MapKey(name="table")
+//	private Map<projetAAE.ipl.domaine.Table, TablePlacee> mesTables = new HashMap<projetAAE.ipl.domaine.Table, TablePlacee>();
+//	
+//	@OneToMany(cascade=CascadeType.ALL)
+//	@MapKey(name="id")
+//	private Map<Integer, Tournee> mesTournees = new HashMap<Integer, Tournee>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@MapKey(name="id")
-	private Map<Integer, Tournee> mesTournees = new HashMap<Integer, Tournee>();
+	private List<TablePlacee> mesTablePlacees = new ArrayList<TablePlacee>();
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Tournee> mesTournees = new ArrayList<Tournee>();
 	
 	public Fetard_Soiree(){
 		
