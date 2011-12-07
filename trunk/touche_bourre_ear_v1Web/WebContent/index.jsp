@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css"  href="./css/styles.css"/>
 <title>Touchée - bourré - Bienvenue !</title>
+<script type="text/javascript" src="js/login.js"></script>
 </head>
 <body>
 	<div id="main">
@@ -14,8 +15,8 @@
 <div class = "login">
 <p class = "edtUser">Entrez votre nom:</p>
 <c:url var="urlAccueil" value="accueil.html"/>
-<form action="${urlAccueil}" method="post">
-<p class = "edtUser"> <input class = "loginput" type = "text" name = "pseudo"/> </p>
+<form action="${urlAccueil}" method="post" id="formLogin">
+<p class = "edtUser"> <input class = "loginput" type = "text" name = "pseudo" id="pseudo"/> </p>
 <p><input class = "btnSmall" type = "submit" value = "Entrer"/> </p>
 </form>
 

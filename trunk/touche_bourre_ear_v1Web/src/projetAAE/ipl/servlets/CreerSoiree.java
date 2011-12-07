@@ -25,7 +25,7 @@ javax.servlet.Servlet  {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect(response.encodeRedirectURL("index.jsp"));
+		response.sendRedirect(response.encodeRedirectURL("organiserSoiree.jsp"));
 		return;
 	}
 

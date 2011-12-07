@@ -98,6 +98,22 @@
    text-indent:5px;
 }
 
+.loginputWrong {
+   border:1px solid red;
+   -webkit-border-radius:5px;
+   -moz-border-radius:5px;
+   border-radius:5px;
+   -webkit-box-shadow:0 0 5px #666 inset;
+   -moz-box-shadow:0 0 5px #666 inset;
+   box-shadow:0 0 5px #000;
+   height:25px;
+   line-height:25px;
+   width:200px;
+   text-indent:5px;
+   color: red;
+   background-color: darkred;
+}
+
 a {
 	color : #CCC;
 	text-shadow: 1px 1px #000;

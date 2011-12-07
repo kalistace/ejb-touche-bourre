@@ -18,11 +18,11 @@
 <form action="${urlSoiree}" method="post">
 <p><input class = "btnMedium" type = "submit" value = "Organiser une soirée"/> </p>
 </form>
-<c:url var="urlListerSoiree" value="listerSoiree.html"/> <!-- servlet -->
+<c:url var="urlListerSoiree" value="listerSoirees.html"/> <!-- servlet -->
 <form action="${urlListerSoiree}" method="post">
 <p><input class = "btnMedium" type = "submit" value = "Rejoindre une soirée"/> </p>
 </form>
-<c:url var="urlListerJournal" value="liserJournal.html"/> <!-- servlet -->
+<c:url var="urlListerJournal" value="listerJournaux.html"/> <!-- servlet -->
 <form action="${urlListerJournal}" method="post">
 <p><input class = "btnLarge" type = "submit" value = "Bons souvenirs de copains"/> </p>
 </form>
