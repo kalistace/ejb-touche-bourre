@@ -103,6 +103,13 @@ public class Soiree implements Serializable{
 		return etat.ajouterFetard(fetard, this);
 	}
 	
+	public Fetard_Soiree getAdversaire(Fetard_Soiree soi_meme) {
+		if(soi_meme.equals(fetardSoiree1)) return fetardSoiree2;
+		else if(soi_meme.equals(fetardSoiree2)) return fetardSoiree1;
+		return null;
+	}
+
+	
 	boolean estPret(Fetard fetard, Soiree soiree){
 		return false;
 	}
