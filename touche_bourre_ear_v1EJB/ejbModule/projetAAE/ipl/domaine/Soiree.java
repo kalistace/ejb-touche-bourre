@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -16,11 +17,48 @@ public class Soiree implements Serializable{
 	@Id
 	@GeneratedValue
 	private int id;
-
+	
+	public enum Etat {
+		INITIAL_ATTENTE_FETARD {
+			boolean ajouterFetard(Fetard fetard, Soiree soiree) {
+				if (soiree.getFetard_Soiree(fetard) != null){
+					return false;
+				}
+				if(soiree.fetardSoiree1 == null){
+					return false;
+				}
+				soiree.fetardSoiree2 = new Fetard_Soiree(fetard, soiree);
+				soiree.etat = EN_PLACEMENT;
+				return true;
+			}
+		},
+		EN_PLACEMENT {
+			boolean estPret(Fetard fetard, Soiree soiree) {
+				if (soiree.getFetard_Soiree(fetard) != null){
+					return false;
+				}
+				if(soiree.fetardSoiree1 == null){
+					return false;
+				}
+				soiree.fetardSoiree2 = new Fetard_Soiree(fetard, soiree);
+				soiree.etat = EN_PLACEMENT;
+				return true;
+			}
+		}, 
+		EN_COURS {
+		}, 
+		FINIE {		
+		};
+		boolean ajouterFetard(Fetard fetard, Soiree soiree){
+			return false;
+		}
+	}
 	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))	
 	private Fetard_Soiree fetardSoiree1;
 	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))
 	private Fetard_Soiree fetardSoiree2;
+	@Enumerated
+	private Etat etat = Etat.INITIAL_ATTENTE_FETARD;
 
 	private String nom;
 	
@@ -29,11 +67,21 @@ public class Soiree implements Serializable{
 	
 	public Soiree(String nom, Fetard fetard1) {
 		this.nom = nom;
-		fetardSoiree1 = new Fetard_Soiree(fetard1);
+		fetardSoiree1 = new Fetard_Soiree(fetard1, this);
+	}
+	
+	private Fetard_Soiree getFetard_Soiree(Fetard fetard) {
+		if(fetardSoiree1.getFetard().equals(fetard)){
+			return fetardSoiree1;
+		}
+		else if(fetardSoiree2.getFetard().equals(fetard)){
+			return fetardSoiree2;
+		}
+		return null;
 	}
 
-	public void rejoindrePartie(Fetard fetard2) {
-		fetardSoiree2 = new Fetard_Soiree(fetard2);
+	public boolean ajouterFetard(Fetard fetard, Soiree soiree){
+		return etat.ajouterFetard(fetard, this);
 	}
 
 	public int getId() {
@@ -68,5 +116,17 @@ public class Soiree implements Serializable{
 	
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public Fetard_Soiree getFetardSoiree1() {
+		return fetardSoiree1;
+	}
+
+	public Fetard_Soiree getFetardSoiree2() {
+		return fetardSoiree2;
+	}
+
+	public Etat getEtat() {
+		return etat;
 	}
 }
