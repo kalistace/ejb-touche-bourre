@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -169,7 +170,8 @@ public class Soiree implements Serializable {
 	private Fetard_Soiree fetardSoiree1;
 	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))
 	private Fetard_Soiree fetardSoiree2;
-	@Enumerated
+	
+	@Enumerated(EnumType.STRING)
 	private Etat etat = Etat.INITIAL_ATTENTE_FETARD;
 
 	private String nom;
