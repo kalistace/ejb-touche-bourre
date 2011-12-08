@@ -27,6 +27,9 @@ public class Biere implements Serializable {
 	@Column
 	private int y;
 	
+	@Column
+	private boolean aCoule;
+	
 	@Enumerated(EnumType.STRING)
 	private ETable tableTouchee;
 	
@@ -71,6 +74,16 @@ public class Biere implements Serializable {
 	public int getId() {
 		return id;
 	}
+
+	public boolean aCoule() {
+		return aCoule;
+	}
+
+	public void setaCoule(boolean aCoule) {
+		this.aCoule = aCoule;
+	}
+	
+	
 	
 	
 
