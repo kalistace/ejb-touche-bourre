@@ -13,9 +13,9 @@ import projetAAE.ipl.domaine.Soiree.Etat;
 public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao {
 
 	@Override
-	public Soiree rechercher(String pseudo) {
+	public Soiree rechercher(String nomSoiree) {
 		String queryString = "select s from Soiree s where s.pseudo = ?1";
-		return recherche(queryString, pseudo);
+		return recherche(queryString, nomSoiree);
 	}
 
 	@Override
@@ -33,11 +33,9 @@ public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao
 	}
 
 	@Override
-	public Soiree rechercheSoireeNonFinie(String pseudo) {
-		String etat = Etat.INITIAL_ATTENTE_FETARD.toString();
-		String etat2 = Etat.EN_PLACEMENT.toString();
-		String etat3 = Etat.EN_COURS.toString();
-		String queryString = "select s from Soiree s where s.pseudo = ?1 and (s.etat=?2 || s.etat=?3 || s.etat=?4)";
-		return recherche(queryString, pseudo, etat, etat2, etat3);
+	public Soiree rechercheSoireeNonFinie(String nomSoiree) {
+		String etat = Etat.FINIE.toString();
+		String queryString = "select s from Soiree s where s.pseudo = ?1 and s.etat!=?2";
+		return recherche(queryString, nomSoiree, etat);
 	}
 }
