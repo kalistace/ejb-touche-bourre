@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import projetAAE.ipl.exceptions.ArgumentInvalideException;
+import projetAAE.ipl.exceptions.DejaToucheException;
 import projetAAE.ipl.valueObject.XY;
 
 @Entity
@@ -78,8 +79,10 @@ public class Soiree implements Serializable{
 		}, 
 		EN_COURS {
 			
-			Tournee lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException{
+
+			Tournee lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException, DejaToucheException{
 				Tournee tournee = soiree.fetard_Soiree_Courant.lancerTournee(coord);
+
 				soiree.fetard_Soiree_Courant = soiree.getAdversaire(soiree.fetard_Soiree_Courant);
 				
 				if(soiree.fetardSoiree1.getNbBieresParTournee()==0){
@@ -116,7 +119,8 @@ public class Soiree implements Serializable{
 		boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
 			return false;
 		}
-		Tournee lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException{
+
+		Tournee lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException, DejaToucheException{
 			return null;
 		}
 	}
@@ -178,7 +182,7 @@ public class Soiree implements Serializable{
 		return etat.setJoueurPret(fetard, soiree);
 	}
 	
-	public Tournee lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException{
+	public Tournee lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException, DejaToucheException{
 		return etat.lancerTournee(soiree, coord);
 	}
 	

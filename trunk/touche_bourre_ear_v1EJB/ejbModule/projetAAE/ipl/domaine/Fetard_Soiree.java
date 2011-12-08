@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import projetAAE.ipl.exceptions.ArgumentInvalideException;
+import projetAAE.ipl.exceptions.DejaToucheException;
 import projetAAE.ipl.valueObject.XY;
 
 @Entity
@@ -94,11 +95,23 @@ public class Fetard_Soiree implements Serializable {
 		return tp;
 	}
 
-	// prends un tableau de "coups" en paramètre pour créer une "salve et
+	// prends un tableau de "coups" en paramètre pour créer une "salve" et
 	// l'ajouter au fetard_soirée
-	public Tournee lancerTournee(List<XY> coord) throws ArgumentInvalideException {
+	public Tournee lancerTournee(List<XY> coord)
+			throws ArgumentInvalideException, DejaToucheException {
 		if (coord.size() != nbBieresParTournee)
 			return null;
+		
+		// vérifier si on ne lance pas une Tournee sur des cases déjà atteintes
+		for(Tournee t : mesTournees) {
+			List<Biere> listeBieres = t.getBieres();
+			for(Biere b : listeBieres) {
+				for(XY c : coord) {
+					if(memePosition(b, c)) 
+						throw new DejaToucheException("Case déjà touchée par une salve antérieure");
+				}
+			}
+		}
 
 		Tournee t = new Tournee();
 		Fetard_Soiree adversaire = soiree.getAdversaire(this);
@@ -113,10 +126,15 @@ public class Fetard_Soiree implements Serializable {
 			// (décrémenter la vie de la table)
 			if (adversaire.coulerTable(b)) {
 				decrementerNbBieresParTournee();
+				b.setaCoule(true);
 			}
 		}
 		mesTournees.add(t);
 		return t;
+	}
+	
+	private boolean memePosition(Biere b, XY c) {
+		return b.getX() == c.getX() && b.getY() == c.getY();
 	}
 
 	private void decrementerNbBieresParTournee() {
