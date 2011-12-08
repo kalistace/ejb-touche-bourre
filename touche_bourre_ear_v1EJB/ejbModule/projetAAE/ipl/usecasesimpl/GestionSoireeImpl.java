@@ -12,7 +12,6 @@ import projetAAE.ipl.dao.SoireeDao;
 import projetAAE.ipl.domaine.ETable;
 import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
-import projetAAE.ipl.domaine.Soiree.Etat;
 import projetAAE.ipl.domaine.Tournee;
 import projetAAE.ipl.exceptions.ArgumentInvalideException;
 import projetAAE.ipl.exceptions.CaseDejaOccupeeException;
