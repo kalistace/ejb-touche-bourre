@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import projetAAE.ipl.valueObject.XY;
+
 @Entity
 @Table(name="SOIREES", schema="TOUCHEBOURRE")
 public class Soiree implements Serializable{
@@ -73,6 +75,11 @@ public class Soiree implements Serializable{
 			}
 		}, 
 		EN_COURS {
+			
+			boolean lancerTournee(Soiree soiree, List<XY> coord){
+				
+				return false;
+			}
 			
 			boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
 				soiree.nbrFetardConnecte--;
