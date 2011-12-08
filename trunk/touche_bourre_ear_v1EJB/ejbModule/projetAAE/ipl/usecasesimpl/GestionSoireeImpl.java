@@ -1,6 +1,7 @@
 package projetAAE.ipl.usecasesimpl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -8,12 +9,16 @@ import javax.ejb.Stateless;
 import projetAAE.ipl.dao.FetardDao;
 import projetAAE.ipl.dao.Fetard_SoireeDao;
 import projetAAE.ipl.dao.SoireeDao;
+import projetAAE.ipl.domaine.ETable;
 import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.domaine.Soiree.Etat;
 import projetAAE.ipl.domaine.Tournee;
 import projetAAE.ipl.exceptions.ArgumentInvalideException;
+import projetAAE.ipl.exceptions.CaseDejaOccupeeException;
 import projetAAE.ipl.exceptions.DejaToucheException;
+import projetAAE.ipl.exceptions.MemePositionException;
+import projetAAE.ipl.exceptions.TableDejaPlaceeException;
 import projetAAE.ipl.usecases.GestionSoiree;
 import projetAAE.ipl.valueObject.XY;
 
@@ -65,10 +70,18 @@ public class GestionSoireeImpl implements GestionSoiree {
 	}
 
 	@Override
-	public Soiree fetardPret(String nomSoiree, String pseudoFetard) {
+	public Soiree fetardPret(String nomSoiree, String pseudoFetard, Map<ETable, List<XY>> tables) {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard);
 		Soiree soiree = soireeDao.rechercher(nomSoiree);
-		soiree.setJoueurPret(fetard, soiree);
+		try {
+			soiree.setJoueurPret(fetard, soiree, tables);
+		} catch (MemePositionException e) {
+			e.printStackTrace();
+		} catch (TableDejaPlaceeException e) {
+			e.printStackTrace();
+		} catch (CaseDejaOccupeeException e) {
+			e.printStackTrace();
+		}
 		soireeDao.mettreAJour(soiree);
 		return soiree;
 	}
@@ -104,5 +117,4 @@ public class GestionSoireeImpl implements GestionSoiree {
 		}
 		return soireeDao.listerSoireeFinie(pseudoFetard);
 	}
-
 }

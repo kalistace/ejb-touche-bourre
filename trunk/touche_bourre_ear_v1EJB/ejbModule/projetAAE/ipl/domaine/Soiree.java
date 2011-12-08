@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,7 +18,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import projetAAE.ipl.exceptions.ArgumentInvalideException;
+import projetAAE.ipl.exceptions.CaseDejaOccupeeException;
 import projetAAE.ipl.exceptions.DejaToucheException;
+import projetAAE.ipl.exceptions.MemePositionException;
+import projetAAE.ipl.exceptions.TableDejaPlaceeException;
 import projetAAE.ipl.valueObject.XY;
 
 @Entity
@@ -47,7 +51,8 @@ public class Soiree implements Serializable {
 			}
 		},
 		EN_PLACEMENT {
-			boolean setJoueurPret(Fetard fetard, Soiree soiree) {
+			
+			boolean setJoueurPret(Fetard fetard, Soiree soiree, Map<ETable, List<XY>> tables) throws MemePositionException, TableDejaPlaceeException, CaseDejaOccupeeException {
 				Fetard_Soiree monFetard_Soiree = soiree
 						.getFetard_Soiree(fetard);
 				if (monFetard_Soiree == null) {
@@ -55,6 +60,10 @@ public class Soiree implements Serializable {
 				}
 				if (soiree.nbrFetardPret >= 2) {
 					return false;
+				}
+				for(ETable key : tables.keySet()){
+					List<XY> coordTable = tables.get(key);
+					monFetard_Soiree.placerTable(coordTable, key);
 				}
 				monFetard_Soiree.setPret(true);
 				soiree.nbrFetardPret++;
@@ -118,7 +127,7 @@ public class Soiree implements Serializable {
 		FINIE {
 
 		};
-		boolean setJoueurPret(Fetard fetard, Soiree soiree) {
+		boolean setJoueurPret(Fetard fetard, Soiree soiree, Map<ETable, List<XY>> tables) throws MemePositionException, TableDejaPlaceeException, CaseDejaOccupeeException {
 			return false;
 		}
 
@@ -192,8 +201,8 @@ public class Soiree implements Serializable {
 		return etat.ajouterFetard(fetard, this);
 	}
 
-	public boolean setJoueurPret(Fetard fetard, Soiree soiree) {
-		return etat.setJoueurPret(fetard, soiree);
+	public boolean setJoueurPret(Fetard fetard, Soiree soiree, Map<ETable, List<XY>> tables) throws MemePositionException, TableDejaPlaceeException, CaseDejaOccupeeException {
+		return etat.setJoueurPret(fetard, soiree, tables);
 	}
 
 	public Tournee lancerTournee(Soiree soiree, List<XY> coord)
