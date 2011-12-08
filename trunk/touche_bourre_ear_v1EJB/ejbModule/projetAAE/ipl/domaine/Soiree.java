@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import projetAAE.ipl.exceptions.ArgumentInvalideException;
 import projetAAE.ipl.valueObject.XY;
 
 @Entity
@@ -76,9 +77,19 @@ public class Soiree implements Serializable{
 		}, 
 		EN_COURS {
 			
-			boolean lancerTournee(Soiree soiree, List<XY> coord){
+			boolean lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException{
+				soiree.fetard_Soiree_Courant.lancerTournee(coord);
+				soiree.fetard_Soiree_Courant = soiree.getAdversaire(soiree.fetard_Soiree_Courant);
 				
-				return false;
+				if(soiree.fetardSoiree1.getNbBieresParTournee()==0){
+					soiree.gagnant = soiree.fetardSoiree1;
+					soiree.etat = FINIE;
+				}
+				else if(soiree.fetardSoiree2.getNbBieresParTournee()==0){
+					soiree.gagnant = soiree.fetardSoiree2;
+					soiree.etat = FINIE;
+				}
+				return true;
 			}
 			
 			boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
@@ -94,7 +105,6 @@ public class Soiree implements Serializable{
 		}, 
 		FINIE {
 			
-			
 		};
 		boolean estPret(Fetard fetard, Soiree soiree){
 			return false;
@@ -103,6 +113,9 @@ public class Soiree implements Serializable{
 			return false;
 		}
 		boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
+			return false;
+		}
+		boolean lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException{
 			return false;
 		}
 	}
