@@ -82,7 +82,7 @@ public class Fetard_Soiree implements Serializable {
 		return id;
 	}
 
-	public boolean placerTable(List<XY> coord, ETable etable) {
+	public TablePlacee placerTable(List<XY> coord, ETable etable) {
 
 		List<Coordonnee> listeCoord = new ArrayList<Coordonnee>();
 		for (XY c : coord) {
@@ -91,14 +91,14 @@ public class Fetard_Soiree implements Serializable {
 
 		TablePlacee tp = new TablePlacee(listeCoord, etable);
 		mesTablesPlacees.add(tp);
-		return true;
+		return tp;
 	}
 
 	// prends un tableau de "coups" en paramètre pour créer une "salve et
 	// l'ajouter au fetard_soirée
-	public boolean lancerTournee(List<XY> coord) throws ArgumentInvalideException {
+	public Tournee lancerTournee(List<XY> coord) throws ArgumentInvalideException {
 		if (coord.size() != nbBieresParTournee)
-			return false;
+			return null;
 
 		Tournee t = new Tournee();
 		Fetard_Soiree adversaire = soiree.getAdversaire(this);
@@ -116,7 +116,7 @@ public class Fetard_Soiree implements Serializable {
 			}
 		}
 		mesTournees.add(t);
-		return true;
+		return t;
 	}
 
 	private void decrementerNbBieresParTournee() {
