@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Bons souvenirs de copains</title>
+<link rel="stylesheet" type="text/css"  href="./css/styles.css"/>
 </head>
 <body>
 	<h1>Selectionnez une soirée:</h1>
@@ -15,6 +16,7 @@
 			<tr><td>//todo afficher vainqueur avec fond vert</td>
 			<td><c:url var="urlJournal" value="journal.html"/>
 			<form action="${urlJournal}" method="post">
+			<input type="hidden" value="${soiree.id}"/>
 			<input class = "btnSmall" type = "submit" value = "Journal"/>
 			</form></td></tr>
 		</c:forEach>

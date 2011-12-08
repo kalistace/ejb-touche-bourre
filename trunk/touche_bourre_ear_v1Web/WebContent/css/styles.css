@@ -23,6 +23,7 @@
       font-weight: normal;
       text-align: center;
       text-shadow: 0 1px #FCDA87;
+      line-height: 29px;
 }
 
 .btnSmall:hover {
@@ -44,6 +45,7 @@
       font-weight: normal;
       text-align: center;
       text-shadow: 0 1px #FCDA87;
+      line-height: 29px;
 }
 
 .btnMedium:hover {
@@ -65,6 +67,7 @@
       font-weight: normal;
       text-align: center;
       text-shadow: 0 1px #FCDA87;
+      line-height: 29px;
 }
 
 .btnLarge:hover {
@@ -112,6 +115,18 @@
    text-indent:5px;
    color: red;
    background-color: darkred;
+}
+
+.joinable {
+	color: #00FF00;
+}
+
+.unjoinable {
+	color: #FF0000;
+}
+
+td.biggerTD {
+	width: 150px;	
 }
 
 a {

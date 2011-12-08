@@ -5,9 +5,39 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Rejoindre une partie</title>
+<link rel="stylesheet" type="text/css"  href="./css/styles.css"/>
 </head>
 <body>
-
+	<h1>Selectionnez une soirée à rejoindre:</h1>
+	<table border=1>
+		<c:forEach var="soiree" items="${soireesEnCours}">
+			<tr>
+				<td colspan="2">${soiree.nom}</td>
+			</tr>
+			<tr>
+				<c:choose>
+					<c:when test="${soiree.nbrFetardConnecte=='1'}">
+						<td class="biggerTD">
+							<c:url var="urlSoiree" value="soiree.html"/>
+							<form action="${urlSoiree}" method="post">
+								<input class = "btnSmall" type = "submit" value = "Rejoindre"/>
+							</form>
+						</td>
+			      		<td class="joinable">${soiree.nbrFetardConnecte}/2</td>
+					</c:when>
+					<c:otherwise>
+						<td class="biggerTD">
+							<c:url var="urlSoiree" value="soiree.html"/>
+							<form action="${urlSoiree}" method="post">
+								<input class = "btnSmall" type = "submit" value = "Rejoindre" disabled="disabled"/>
+							</form>
+						</td>
+						<td class="unjoinable">${soiree.nbrFetardConnecte}/2</td>
+					</c:otherwise>
+				</c:choose>
+			</tr>
+		</c:forEach>
+	</table>
 </body>
 </html>

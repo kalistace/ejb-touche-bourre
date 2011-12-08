@@ -40,6 +40,7 @@ public class ListerJournaux extends HttpServlet {
 		journaux.add(new Soiree("Soiree 1", fetard));
 		journaux.add(new Soiree("Soiree 2", fetard));
 		request.setAttribute("journaux", journaux);
+		request.setAttribute("monPseudo", session.getAttribute("pseudo"));
 		RequestDispatcher rd = getServletContext().getNamedDispatcher("Journaux");
 		rd.forward(request, response);
 	}
