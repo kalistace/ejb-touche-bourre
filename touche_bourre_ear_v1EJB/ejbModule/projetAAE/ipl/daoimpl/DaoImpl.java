@@ -18,7 +18,7 @@ import projetAAE.ipl.dao.Dao;
 public abstract class DaoImpl<K, E> implements Dao<K, E> {
 	private Class<E> entityClass;
 
-	@PersistenceContext(unitName = "music")
+	@PersistenceContext(unitName = "TOUCHEBOURRE")
 	private EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
