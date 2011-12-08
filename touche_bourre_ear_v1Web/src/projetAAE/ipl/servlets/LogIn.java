@@ -45,6 +45,7 @@ javax.servlet.Servlet  {
 				session = request.getSession();
 			}
 			session.setAttribute("pseudo", pseudo);
+			gestionFetard.enregistrer(pseudo);
 		}
 
 		
