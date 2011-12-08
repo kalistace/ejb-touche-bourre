@@ -1,9 +1,11 @@
 package projetAAE.ipl.usecases;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Remote;
 
+import projetAAE.ipl.domaine.ETable;
 import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.domaine.Tournee;
 import projetAAE.ipl.valueObject.XY;
@@ -13,7 +15,7 @@ public interface GestionSoiree {
 	Soiree creerSoiree(String nomSoiree, String pseudoFetard1);
 	Soiree rejoindreSoiree(String nomSoiree, String pseudoFetard2);
 	List<Soiree> listerPartiesEnAttenteDePartenaire();
-	Soiree fetardPret(String nomSoiree, String fetard);
+	Soiree fetardPret(String nomSoiree, String fetard, Map<ETable, List<XY>> tables);
 	Tournee lancerUneTournee(String nomSoiree, String pseudoFetard, List<XY> coord);
 	List<Soiree> listerSoireesFinies(String pseudoFetard);
 }
