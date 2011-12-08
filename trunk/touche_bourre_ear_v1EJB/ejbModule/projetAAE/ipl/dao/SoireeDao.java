@@ -11,6 +11,7 @@ import projetAAE.ipl.domaine.Soiree;
 public interface SoireeDao extends Dao<Integer, Soiree> {
 	
 	public Soiree rechercher(String pseudo);
+	public Soiree rechercheSoireeNonFinie(String pseudo);
 	public List<Soiree> listerSoireeEnAttenteDeJoueur();
 	public List<Soiree> listerSoireeFinie(String pseudoFetard);
 }

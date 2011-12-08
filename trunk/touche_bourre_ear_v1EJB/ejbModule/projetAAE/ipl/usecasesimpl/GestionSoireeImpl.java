@@ -35,9 +35,9 @@ public class GestionSoireeImpl implements GestionSoiree {
 	@Override
 	public Soiree creerSoiree(String nomSoiree, String pseudoFetard1) {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard1);
-		Soiree soiree = soireeDao.rechercher(nomSoiree);
-		if (soiree != null && soiree.getEtat() != Etat.FINIE) {
-			return null;// throw exception
+		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
+		if(soiree != null){
+			return null;// throw exception, peut pas avoir 2 soirée 'en cours' avec le meme nom
 		}
 		soiree = new Soiree(nomSoiree, fetard);
 		soireeDao.enregistrer(soiree);
@@ -47,17 +47,12 @@ public class GestionSoireeImpl implements GestionSoiree {
 	@Override
 	public Soiree rejoindreSoiree(String nomSoiree, String pseudoFetard2) {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard2);
-		Soiree soiree = soireeDao.rechercher(nomSoiree);
+		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
 		if (soiree == null) {
 			return null;// throw exception
 		}
-		if (soiree != null) {
-			if (soiree.getEtat() == Etat.FINIE) {
-				return null;// throw exception
-			}
-			if (soiree.getNbrFetardConnecte() == 2) {
-				return null;// throw exception
-			}
+		if (soiree.getNbrFetardConnecte() == 2) {
+			return null;// throw exception
 		}
 		soiree.ajouterFetard(fetard, soiree);
 		soireeDao.mettreAJour(soiree);
@@ -72,7 +67,7 @@ public class GestionSoireeImpl implements GestionSoiree {
 	@Override
 	public Soiree fetardPret(String nomSoiree, String pseudoFetard, Map<ETable, List<XY>> tables) {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard);
-		Soiree soiree = soireeDao.rechercher(nomSoiree);
+		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
 		try {
 			soiree.setJoueurPret(fetard, soiree, tables);
 		} catch (MemePositionException e) {
@@ -88,7 +83,7 @@ public class GestionSoireeImpl implements GestionSoiree {
 	
 	@Override
 	public Tournee lancerUneTournee(String nomSoiree, String pseudoFetard, List<XY> coord) {
-		Soiree soiree = soireeDao.rechercher(nomSoiree);
+		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
 		Tournee tournee = null;
 		if(soiree == null){
 			return null;
