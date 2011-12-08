@@ -58,9 +58,11 @@ public class Fetard_Soiree implements Serializable {
 	// Tournee>();
 
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(nullable = false, name = "FETARD_SOIREE_ID")
 	private List<TablePlacee> mesTablesPlacees = new ArrayList<TablePlacee>();
 
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(nullable = false, name = "FETARD_SOIREE_ID")
 	private List<Tournee> mesTournees = new ArrayList<Tournee>();
 
 	public Fetard_Soiree() {
