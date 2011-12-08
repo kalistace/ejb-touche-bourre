@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
+import projetAAE.ipl.usecases.GestionSoiree;
+import projetAAE.ipl.usecasesimpl.GestionSoireeImpl;
 
 /**
  * Servlet implementation class ListerSoireesEnCours
@@ -21,6 +23,8 @@ import projetAAE.ipl.domaine.Soiree;
 public class ListerSoireesEnCours extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	private GestionSoiree ucc = new GestionSoireeImpl();
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -33,16 +37,7 @@ public class ListerSoireesEnCours extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Soiree> soireesEnCours = new ArrayList<Soiree>();
-		Soiree soiree1, soiree2, soiree3;
-		Fetard fet2 = new Fetard("rantan");
-		soiree1 = new Soiree("Soiree 1", new Fetard("zoubi"));
-		soiree2 = new Soiree("Soiree 2", new Fetard("bibi"));
-		soiree3 = new Soiree("Soiree 3", new Fetard("bibi"));
-		soiree3.ajouterFetard(fet2, soiree3);
-		soireesEnCours.add(soiree1);
-		soireesEnCours.add(soiree2);
-		soireesEnCours.add(soiree3);
+		List<Soiree> soireesEnCours = ucc.listerPartiesEnAttenteDePartenaire();
 		request.setAttribute("soireesEnCours", soireesEnCours);
 		RequestDispatcher rd = getServletContext().getNamedDispatcher("Rejoindre");
 		rd.forward(request, response);
