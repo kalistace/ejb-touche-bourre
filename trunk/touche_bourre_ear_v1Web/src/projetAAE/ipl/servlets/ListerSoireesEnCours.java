@@ -1,9 +1,9 @@
 package projetAAE.ipl.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.usecases.GestionSoiree;
 import projetAAE.ipl.usecasesimpl.GestionSoireeImpl;
@@ -22,8 +21,9 @@ import projetAAE.ipl.usecasesimpl.GestionSoireeImpl;
 @WebServlet("/listerSoirees.html")
 public class ListerSoireesEnCours extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	private GestionSoiree ucc = new GestionSoireeImpl();
+	
+    @EJB   
+	private GestionSoiree ucc;
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
