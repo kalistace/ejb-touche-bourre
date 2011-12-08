@@ -24,7 +24,7 @@ public class Tournee {
 	private int id;
 
 	@OneToMany(cascade = { CascadeType.ALL })
-    @JoinColumn(name = "TOURNEE_ID")
+    @JoinColumn(nullable = false, name = "TOURNEE_ID")
 	private List<Biere> bieres = new ArrayList<Biere>();
 
 
