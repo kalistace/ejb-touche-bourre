@@ -12,64 +12,92 @@ import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.domaine.Soiree.Etat;
 import projetAAE.ipl.domaine.Tournee;
+import projetAAE.ipl.exceptions.ArgumentInvalideException;
 import projetAAE.ipl.usecases.GestionSoiree;
+import projetAAE.ipl.valueObject.XY;
 
 @Stateless
 public class GestionSoireeImpl implements GestionSoiree {
-	
-	
-	@EJB 
+
+	@EJB
 	private Fetard_SoireeDao fetard_SoireeDao;
-	@EJB 
+	@EJB
 	private FetardDao fetardDao;
-	@EJB 
+	@EJB
 	private SoireeDao soireeDao;
 
 	@Override
 	public Soiree creerSoiree(String nomSoiree, String pseudoFetard1) {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard1);
 		Soiree soiree = soireeDao.rechercher(nomSoiree);
-		if(soiree != null && soiree.getEtat()!=Etat.FINIE){
-			return null;//throw exception
+		if (soiree != null && soiree.getEtat() != Etat.FINIE) {
+			return null;// throw exception
 		}
-		return new Soiree(nomSoiree, fetard);
+		soiree = new Soiree(nomSoiree, fetard);
+		soireeDao.enregistrer(soiree);
+		return soiree;
 	}
 
 	@Override
 	public Soiree rejoindreSoiree(String nomSoiree, String pseudoFetard2) {
-		// TODO Auto-generated method stub
-		return null;
+		Fetard fetard = fetardDao.rechercher(pseudoFetard2);
+		Soiree soiree = soireeDao.rechercher(nomSoiree);
+		if (soiree == null) {
+			return null;// throw exception
+		}
+		if (soiree != null) {
+			if (soiree.getEtat() == Etat.FINIE) {
+				return null;// throw exception
+			}
+			if (soiree.getNbrFetardConnecte() == 2) {
+				return null;// throw exception
+			}
+		}
+		soiree.ajouterFetard(fetard, soiree);
+		soireeDao.mettreAJour(soiree);
+		return soiree;
 	}
 
 	@Override
 	public List<Soiree> listerPartiesEnAttenteDePartenaire() {
-		// TODO Auto-generated method stub
-		return null;
+		return soireeDao.listerSoireeEnAttenteDeJoueur();
 	}
 
 	@Override
-	public Soiree fetardPret(String nomSoiree, String fetard) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Soiree demarrerSoiree(String nomSoiree) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Soiree joueurUnTour(String nomSoiree, String fetard) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Tournee> listerTournees(String nomSoiree) {
-		// TODO Auto-generated method stub
-		return null;
+	public Soiree fetardPret(String nomSoiree, String pseudoFetard) {
+		Fetard fetard = fetardDao.rechercher(pseudoFetard);
+		Soiree soiree = soireeDao.rechercher(nomSoiree);
+		soiree.setJoueurPret(fetard, soiree);
+		soireeDao.mettreAJour(soiree);
+		return soiree;
 	}
 	
-	
+	@Override
+	public Tournee lancerUneTournee(String nomSoiree, String pseudoFetard, List<XY> coord) {
+		Soiree soiree = soireeDao.rechercher(nomSoiree);
+		Tournee tournee = null;
+		if(soiree == null){
+			return null;
+		}
+		if(soiree.getFetard_Soiree_Courant().getFetard().getPseudo() != pseudoFetard){
+			return null;// throw exception
+		}
+		try {
+			tournee = soiree.lancerTournee(soiree, coord);
+		} catch (ArgumentInvalideException e) {
+			return null;//throw exception
+		}
+		soireeDao.mettreAJour(soiree);
+		return tournee;
+	}
+
+	@Override
+	public List<Soiree> listerSoireesFinies(String pseudoFetard) {
+		Fetard fetard = fetardDao.rechercher(pseudoFetard);
+		if(fetard==null){
+			return null;
+		}
+		return soireeDao.listerSoireeFinie(pseudoFetard);
+	}
+
 }
