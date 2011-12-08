@@ -14,10 +14,14 @@ public class GestionFetardImpl implements GestionFetard{
 	@EJB
 	private FetardDao fetardDao;
 	@Override
-	public Fetard enregistrer(String fetard) {
-		Fetard nouveauFetard = new Fetard(fetard);
-		fetardDao.enregistrer(nouveauFetard);
-		return nouveauFetard;
+	public Fetard enregistrer(String pseudo) {
+		Fetard fetard  = fetardDao.rechercher(pseudo);
+		if(fetard == null){
+			fetard = new Fetard(pseudo);
+			fetardDao.enregistrer(fetard);
+		}
+
+		return fetard;
 	}
 
 }
