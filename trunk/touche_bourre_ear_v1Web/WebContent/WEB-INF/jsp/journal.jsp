@@ -5,9 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Journal</title>
 </head>
 <body>
-
+	<c:forEach var="ligne" items="${lignes}">
+		<c:out value="${ligne}"/>
+	</c:forEach>
 </body>
 </html>

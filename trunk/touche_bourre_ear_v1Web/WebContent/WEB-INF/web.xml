@@ -30,4 +30,8 @@
     <servlet-name>Journaux</servlet-name>
     <jsp-file>/WEB-INF/jsp/journaux.jsp</jsp-file>
   </servlet>
+  <servlet>
+    <servlet-name>Journal</servlet-name>
+    <jsp-file>/WEB-INF/jsp/journaux.jsp</jsp-file>
+  </servlet>
 </web-app>
