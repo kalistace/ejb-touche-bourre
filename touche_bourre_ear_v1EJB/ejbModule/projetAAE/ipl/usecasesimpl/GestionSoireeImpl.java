@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import projetAAE.ipl.dao.Fetard_SoireeDao;
 import projetAAE.ipl.dao.SoireeDao;
 import projetAAE.ipl.domaine.Soiree;
+import projetAAE.ipl.domaine.Tournee;
 import projetAAE.ipl.usecases.GestionSoiree;
 
 @Stateless
@@ -53,4 +54,12 @@ public class GestionSoireeImpl implements GestionSoiree {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Tournee> listerTournees(String nomSoiree) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }

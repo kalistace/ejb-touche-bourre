@@ -1,6 +1,8 @@
 package projetAAE.ipl.domaine;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -153,6 +155,21 @@ public class Soiree implements Serializable{
 		if(soi_meme.equals(fetardSoiree1)) return fetardSoiree2;
 		else if(soi_meme.equals(fetardSoiree2)) return fetardSoiree1;
 		return null;
+	}
+	
+	public List<Tournee> listePermuteeEtOrdonneeDeTournees() {
+		
+		List<Tournee> liste1 = premierFetardAJouer.getMesTournees();
+		List<Tournee> liste2 = null;
+		if(premierFetardAJouer.equals(fetardSoiree1)) liste2 = fetardSoiree2.getMesTournees();
+		else liste2 = fetardSoiree1.getMesTournees();
+		List<Tournee> listeARenvoyer = new ArrayList<Tournee>();
+		
+		for(int i = 0 ; i < liste1.size(); i++) {
+			listeARenvoyer.add(liste1.get(i));
+			if(i < liste2.size()) listeARenvoyer.add(liste2.get(i));
+		}
+		return listeARenvoyer;
 	}
 
 	
