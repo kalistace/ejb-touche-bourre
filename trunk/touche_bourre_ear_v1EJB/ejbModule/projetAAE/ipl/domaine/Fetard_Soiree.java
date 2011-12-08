@@ -82,7 +82,7 @@ public class Fetard_Soiree implements Serializable {
 		return id;
 	}
 
-	public boolean placerTable(XY[] coord, ETable etable) {
+	public boolean placerTable(List<XY> coord, ETable etable) {
 
 		List<Coordonnee> listeCoord = new ArrayList<Coordonnee>();
 		for (XY c : coord) {
@@ -96,8 +96,8 @@ public class Fetard_Soiree implements Serializable {
 
 	// prends un tableau de "coups" en paramètre pour créer une "salve et
 	// l'ajouter au fetard_soirée
-	public boolean lancerTournee(XY[] coord) throws ArgumentInvalideException {
-		if (coord.length != nbBieresParTournee)
+	public boolean lancerTournee(List<XY> coord) throws ArgumentInvalideException {
+		if (coord.size() != nbBieresParTournee)
 			return false;
 
 		Tournee t = new Tournee();

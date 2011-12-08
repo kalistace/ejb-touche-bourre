@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import projetAAE.ipl.domaine.Soiree;
+import projetAAE.ipl.domaine.Tournee;
 
 @Remote
 public interface GestionSoiree {
@@ -14,4 +15,5 @@ public interface GestionSoiree {
 	Soiree fetardPret(String nomSoiree, String fetard);
 	Soiree demarrerSoiree(String nomSoiree);
 	Soiree joueurUnTour(String nomSoiree, String fetard);
+	List<Tournee> listerTournees(String nomSoiree);
 }
