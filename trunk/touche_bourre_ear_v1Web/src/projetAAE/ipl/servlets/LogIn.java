@@ -23,7 +23,7 @@ javax.servlet.Servlet  {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private GestionFetard gestionFetard = new GestionFetardImpl();
+	private GestionFetard gestionFetard;
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
