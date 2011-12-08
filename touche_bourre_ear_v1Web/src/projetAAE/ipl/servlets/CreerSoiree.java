@@ -8,6 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import projetAAE.ipl.usecases.GestionSoiree;
+import projetAAE.ipl.usecasesimpl.GestionSoireeImpl;
 
 /**
  * Servlet implementation class CreerSoiree
@@ -16,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CreerSoiree extends HttpServlet  implements
 javax.servlet.Servlet  {
 	private static final long serialVersionUID = 1L;
-	
+	private GestionSoiree ucc = new GestionSoireeImpl();
 	
 	
 	@Override
@@ -28,7 +32,8 @@ javax.servlet.Servlet  {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-	
+		
+		ucc.creerSoiree(request.getParameter("nomSoiree"), (String) request.getSession().getAttribute("pseudo"));
 		
 		//attribut soiree
 		RequestDispatcher rd = getServletContext().getNamedDispatcher("Soiree");
