@@ -17,31 +17,31 @@ public class Coordonnee implements Serializable {
 	private int id;
 
 	@Column(nullable=false)
-	private int coordLigne;
+	private int x;
 	@Column(nullable=false)
-	private int coordColonne;
+	private int y;
 	
 	public Coordonnee(){
 		
 	}
 	
-	public Coordonnee(int coordLigne, int coordColonne) {
+	public Coordonnee(int x, int y) {
 		super();
-		this.coordLigne = coordLigne;
-		this.coordColonne = coordColonne;
+		this.x = x;
+		this.y = y;
 	}
 	
-	public int getCoordLigne() {
-		return coordLigne;
+	public int getX() {
+		return x;
 	}
-	public int getCoordColonne() {
-		return coordColonne;
+	public int getY() {
+		return y;
 	}
-	public void setCoordLigne(int coordLigne) {
-		this.coordLigne = coordLigne;
+	public void setX(int x) {
+		this.x = x;
 	}
-	public void setCoordColonne(int coordColonne) {
-		this.coordColonne = coordColonne;
+	public void setY(int y) {
+		this.y = y;
 	}
 
 	@Override

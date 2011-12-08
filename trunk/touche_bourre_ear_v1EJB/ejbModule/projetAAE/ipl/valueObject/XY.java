@@ -3,13 +3,13 @@ package projetAAE.ipl.valueObject;
 import projetAAE.ipl.exceptions.ArgumentInvalideException;
 import projetAAE.ipl.util.Util;
 
-public class Coordonnees {
+public class XY {
 	
 	private int x;
 	
 	private int y;
 	
-	public Coordonnees(int x, int y) throws ArgumentInvalideException {
+	public XY(int x, int y) throws ArgumentInvalideException {
 		
 		Util.checkPositiveOrZero(x);
 		Util.checkPositiveOrZero(y);
