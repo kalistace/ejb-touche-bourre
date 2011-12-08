@@ -5,9 +5,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import projetAAE.ipl.dao.FetardDao;
 import projetAAE.ipl.dao.Fetard_SoireeDao;
 import projetAAE.ipl.dao.SoireeDao;
+import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
+import projetAAE.ipl.domaine.Soiree.Etat;
 import projetAAE.ipl.domaine.Tournee;
 import projetAAE.ipl.usecases.GestionSoiree;
 
@@ -15,14 +18,21 @@ import projetAAE.ipl.usecases.GestionSoiree;
 public class GestionSoireeImpl implements GestionSoiree {
 	
 	
-	@EJB Fetard_SoireeDao fetard_SoireeDao;
-	@EJB SoireeDao SoireeDao;
+	@EJB 
+	private Fetard_SoireeDao fetard_SoireeDao;
+	@EJB 
+	private FetardDao fetardDao;
+	@EJB 
+	private SoireeDao soireeDao;
 
 	@Override
-	public Soiree creerSoiree(String pseudoFetard1) {
-		//Fetard fetard = fetardDao.rechercher()
-		//return new Soiree(fetard);
-		return null;
+	public Soiree creerSoiree(String nomSoiree, String pseudoFetard1) {
+		Fetard fetard = fetardDao.rechercher(pseudoFetard1);
+		Soiree soiree = soireeDao.rechercher(nomSoiree);
+		if(soiree != null && soiree.getEtat()!=Etat.FINIE){
+			return null;//throw exception
+		}
+		return new Soiree(nomSoiree, fetard);
 	}
 
 	@Override
