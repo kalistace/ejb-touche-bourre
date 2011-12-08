@@ -20,21 +20,21 @@ public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao
 
 	@Override
 	public List<Soiree> listerSoireeEnAttenteDeJoueur() {
-		String etat = Etat.INITIAL_ATTENTE_FETARD.toString();
+		Etat etat = Etat.INITIAL_ATTENTE_FETARD;
 		String queryString = "select s from Soiree s where s.etat = ?1";
 		return liste(queryString, etat);
 	}
 
 	@Override
 	public List<Soiree> listerSoireeFinie(String pseudoFetard) {
-		String etat = Etat.FINIE.toString();
+		Etat etat = Etat.FINIE;
 		String queryString = "select s from Soiree s where s.etat = ?1 and  (s.fetardSoiree1.fetard.pseudo = ?2 or s.fetardSoiree2.fetard.pseudo = ?2)";
 		return liste(queryString, etat, pseudoFetard);
 	}
 
 	@Override
 	public Soiree rechercheSoireeNonFinie(String nomSoiree) {
-		String etat = Etat.FINIE.toString();
+		Etat etat = Etat.FINIE;
 		String queryString = "select s from Soiree s where s.nom = ?1 and s.etat!=?2";
 		return recherche(queryString, nomSoiree, etat);
 	}
