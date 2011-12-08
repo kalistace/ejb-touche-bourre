@@ -17,12 +17,14 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import projetAAE.ipl.exceptions.ArgumentInvalideException;
+import projetAAE.ipl.valueObject.XY;
 
 @Entity
 @Table(name = "FETARDS_SOIREES", schema = "TOUCHEBOURRE", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"fetard_id", "soiree_id" }))
 public class Fetard_Soiree implements Serializable{
 	private static int GRANDEURBAR = 10;
+	private static int NB_BIERES_PAR_TOURNEE_AU_DEBUT = 5;
 
 	@Id
 	@GeneratedValue
@@ -48,7 +50,7 @@ public class Fetard_Soiree implements Serializable{
 //	private Map<Integer, Tournee> mesTournees = new HashMap<Integer, Tournee>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	private List<TablePlacee> mesTablePlacees = new ArrayList<TablePlacee>();
+	private List<TablePlacee> mesTablesPlacees = new ArrayList<TablePlacee>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Tournee> mesTournees = new ArrayList<Tournee>();
@@ -60,6 +62,7 @@ public class Fetard_Soiree implements Serializable{
 	public Fetard_Soiree(Fetard fetard, Soiree soiree) {
 		this.fetard = fetard;
 		this.soiree = soiree;
+		this.nbBieresParTournee = NB_BIERES_PAR_TOURNEE_AU_DEBUT;
 	}
 
 	public Fetard getFetard() {
@@ -75,34 +78,85 @@ public class Fetard_Soiree implements Serializable{
 	}
 	
 	
-	private boolean ajouterTournee(Tournee t) {
-		if(mesTournees.contains(t)) return false;
+	
+	public boolean placerTable(XY[] coord, ETable etable) {
+		
+		List<Coordonnee> listeCoord = new ArrayList<Coordonnee>();
+		for(XY c : coord) {
+			listeCoord.add(new Coordonnee(c.getX(), c.getY()));
+		}
+		
+		TablePlacee tp = new TablePlacee(listeCoord, etable);
+		mesTablesPlacees.add(tp);
+		return true;
+	}
+	
+	
+	
+	// prends un tableau de "coups" en paramètre pour créer une "salve et l'ajouter au fetard_soirée
+	public boolean lancerTournee(XY[] coord) throws ArgumentInvalideException {
+		if(coord.length != nbBieresParTournee) return false;
+		
+		Tournee t = new Tournee();
+		Fetard_Soiree adversaire = soiree.getAdversaire(this);
+		
+		for(XY c : coord) {
+			// ajouter la Biere dans sa Tournee
+			Biere b = new Biere(c.getX(), c.getY(), adversaire.tableToucheePar(c));
+			t.ajouterBiere(b);
+			
+			// coulerTable ==> traiter le lancer de la Biere chez l'adversaire (décrémenter la vie de la table)
+			if(adversaire.coulerTable(b)) {
+				decrementerNbBieresParTournee();
+			}
+		}
 		mesTournees.add(t);
 		return true;
 	}
 	
-	private boolean supprimerTournee(Tournee t) {
-		if(!mesTournees.contains(t)) return false;
-		mesTournees.remove(t);
-		return true;
-	}
 	
-	private boolean ajouterTablePlacee(TablePlacee tp) {
-		if(mesTablePlacees.contains(tp)) return false;
-		mesTablePlacees.add(tp);
-		return true;
+	private void decrementerNbBieresParTournee() {
+		nbBieresParTournee--;
 	}
-	
-	public boolean lancerTournee(Coordonnee[] coord) throws ArgumentInvalideException {
-		if(coord.length != nbBieresParTournee) return false;
+
+	// renvoie true si la Biere a "coulé" la table, false sinon
+	private boolean coulerTable(Biere b) {
 		
-		Tournee t = new Tournee();
-		for(Coordonnee c : coord) {
-			t.ajouterBiere(new Biere(c.getCoordColonne(), c.getCoordLigne()));
+		if(b.getTableTouchee() == null) return false;
+		
+		for(TablePlacee tp : mesTablesPlacees) {
+			if(tp.getTable().equals(b.getTableTouchee())) {
+				tp.decrementerVies();
+				return tp.estCoulee();
+			}
 		}
-		return true;
+		return false;
+	}
+
+	// renvoie la table touchée par le "coup"
+	// renvoie null si le "coup" n'a rien touché
+	public ETable tableToucheePar(XY coord) {
+		
+		for(TablePlacee tp : mesTablesPlacees) {
+			List<Coordonnee> listeCoord = tp.getCoordonnees();
+			for(Coordonnee c : listeCoord) {
+				if(c.getX() == coord.getX() && c.getY() == coord.getY()) {
+					return tp.getTable();
+				}
+			}
+		}
+		return null;
 	}
 	
+	
+
+	public List<TablePlacee> getMesTablesPlacees() {
+		return mesTablesPlacees;
+	}
+
+	public List<Tournee> getMesTournees() {
+		return mesTournees;
+	}
 
 	@Override
 	public int hashCode() {

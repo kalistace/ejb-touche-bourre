@@ -35,16 +35,43 @@ public class Biere implements Serializable {
 		
 	}
 	
-	public Biere(int x, int y) throws ArgumentInvalideException {
+	public Biere(int x, int y, ETable tableTouchee) throws ArgumentInvalideException {
 		
 		Util.checkPositiveOrZero(x);
 		Util.checkPositiveOrZero(y);
 		this.x = x;
 		this.y = y;
+		this.tableTouchee = tableTouchee;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public ETable getTableTouchee() {
+		return tableTouchee;
+	}
+
+	public void setTableTouchee(ETable tableTouchee) {
+		this.tableTouchee = tableTouchee;
+	}
+
+	public int getId() {
+		return id;
 	}
 	
-	public void setTableTouchee(ETable t) {
-		this.tableTouchee = t;
-	}
+	
 
 }

@@ -3,6 +3,7 @@ package projetAAE.ipl.domaine;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,10 +23,8 @@ public class TablePlacee {
 	@GeneratedValue
 	private int id;
 	
-	@ManyToMany
-	@JoinTable(schema="TOUCHEBOURRE",
-			joinColumns=@JoinColumn(name="TABLEPLACEE_ID"),
-			inverseJoinColumns=@JoinColumn(name="COORDONNEE_ID"))
+	@OneToMany(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "TABLEPLACEE_ID")
 	private List<Coordonnee> coordonnees;
 	@Enumerated(EnumType.STRING)
 	private ETable table;
@@ -33,10 +33,18 @@ public class TablePlacee {
 	public TablePlacee(){
 		
 	}
-	public TablePlacee(List<Coordonnee> coordonnees, ETable table, int vies) {
+	public TablePlacee(List<Coordonnee> coordonnees, ETable table) {
 		this.coordonnees = coordonnees;
 		this.table = table;
-		this.vies = vies;
+		this.vies = coordonnees.size();
+	}
+	
+	public void decrementerVies() {
+		vies--;
+	}
+	
+	public boolean estCoulee() {
+		return vies == 0;
 	}
 
 	public List<Coordonnee> getCoordonnees() {
@@ -58,6 +66,7 @@ public class TablePlacee {
 	public void setVies(int vies) {
 		this.vies = vies;
 	}
+	
 
 	public int getId() {
 		return id;
