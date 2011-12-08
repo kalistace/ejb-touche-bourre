@@ -24,7 +24,7 @@ public class TablePlacee {
 	private int id;
 	
 	@OneToMany(cascade = { CascadeType.ALL })
-    @JoinColumn(name = "TABLEPLACEE_ID")
+    @JoinColumn(nullable = false, name = "TABLEPLACEE_ID")
 	private List<Coordonnee> coordonnees;
 	@Enumerated(EnumType.STRING)
 	private ETable table;
