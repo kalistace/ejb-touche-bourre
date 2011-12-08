@@ -17,7 +17,10 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import projetAAE.ipl.exceptions.ArgumentInvalideException;
+import projetAAE.ipl.exceptions.CaseDejaOccupeeException;
 import projetAAE.ipl.exceptions.DejaToucheException;
+import projetAAE.ipl.exceptions.MemePositionException;
+import projetAAE.ipl.exceptions.TableDejaPlaceeException;
 import projetAAE.ipl.valueObject.XY;
 
 @Entity
@@ -83,8 +86,29 @@ public class Fetard_Soiree implements Serializable {
 		return id;
 	}
 
-	public TablePlacee placerTable(List<XY> coord, ETable etable) {
+	public TablePlacee placerTable(List<XY> coord, ETable etable) throws MemePositionException, TableDejaPlaceeException, CaseDejaOccupeeException {
 
+		// vérifier si la liste ne contient pas 2 coordonnées identiques
+		for(XY a : coord) {
+			for(XY b : coord) {
+				if(coord.indexOf(a) == coord.indexOf(b)) continue;
+				if(a.getX() == b.getX() && a.getY() == b.getY())
+					throw new MemePositionException("La table est renseignée plusieurs fois par la même coordonnée");
+			}
+		}
+		
+		// vérifier qu'on ne place pas une table qui a déjà été placée
+		// vérifier qu'on ne place pas une table à un endroit qui contient déjà une autre table
+		for(TablePlacee tp : mesTablesPlacees) {
+			if(tp.getTable().equals(etable)) throw new TableDejaPlaceeException("Cette table a déjà été placée");
+			for(Coordonnee c : tp.getCoordonnees()) {
+				for(XY p : coord) {
+					if(c.getX() == p.getX() && c.getY() == p.getY()) throw new CaseDejaOccupeeException("Une table se trouve déjà à cet endroit");
+				}
+			}
+		}
+		
+		
 		List<Coordonnee> listeCoord = new ArrayList<Coordonnee>();
 		for (XY c : coord) {
 			listeCoord.add(new Coordonnee(c.getX(), c.getY()));
@@ -104,8 +128,7 @@ public class Fetard_Soiree implements Serializable {
 		
 		// vérifier si on ne lance pas une Tournee sur des cases déjà atteintes
 		for(Tournee t : mesTournees) {
-			List<Biere> listeBieres = t.getBieres();
-			for(Biere b : listeBieres) {
+			for(Biere b : t.getBieres()) {
 				for(XY c : coord) {
 					if(memePosition(b, c)) 
 						throw new DejaToucheException("Case déjà touchée par une salve antérieure");
