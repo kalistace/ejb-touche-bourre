@@ -22,7 +22,7 @@ import projetAAE.ipl.valueObject.XY;
 @Entity
 @Table(name = "FETARDS_SOIREES", schema = "TOUCHEBOURRE", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"fetard_id", "soiree_id" }))
-public class Fetard_Soiree implements Serializable{
+public class Fetard_Soiree implements Serializable {
 	private static int GRANDEURBAR = 10;
 	private static int NB_BIERES_PAR_TOURNEE_AU_DEBUT = 5;
 
@@ -37,38 +37,43 @@ public class Fetard_Soiree implements Serializable{
 	@OneToOne
 	@JoinColumn(nullable = false)
 	private Soiree soiree;
-	
+
 	@Column
 	private int nbBieresParTournee;
-		
-//	@OneToMany(cascade=CascadeType.ALL)
-//	@MapKey(name="table")
-//	private Map<projetAAE.ipl.domaine.Table, TablePlacee> mesTables = new HashMap<projetAAE.ipl.domaine.Table, TablePlacee>();
-//	
-//	@OneToMany(cascade=CascadeType.ALL)
-//	@MapKey(name="id")
-//	private Map<Integer, Tournee> mesTournees = new HashMap<Integer, Tournee>();
-	
-	@OneToMany(cascade=CascadeType.ALL)
+
+	private boolean pret;
+
+	// @OneToMany(cascade=CascadeType.ALL)
+	// @MapKey(name="table")
+	// private Map<projetAAE.ipl.domaine.Table, TablePlacee> mesTables = new
+	// HashMap<projetAAE.ipl.domaine.Table, TablePlacee>();
+	//
+	// @OneToMany(cascade=CascadeType.ALL)
+	// @MapKey(name="id")
+	// private Map<Integer, Tournee> mesTournees = new HashMap<Integer,
+	// Tournee>();
+
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<TablePlacee> mesTablesPlacees = new ArrayList<TablePlacee>();
-	
-	@OneToMany(cascade=CascadeType.ALL)
+
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Tournee> mesTournees = new ArrayList<Tournee>();
-	
-	public Fetard_Soiree(){
-		
+
+	public Fetard_Soiree() {
+
 	}
 
 	public Fetard_Soiree(Fetard fetard, Soiree soiree) {
 		this.fetard = fetard;
 		this.soiree = soiree;
+		this.pret = false;
 		this.nbBieresParTournee = NB_BIERES_PAR_TOURNEE_AU_DEBUT;
 	}
 
 	public Fetard getFetard() {
 		return fetard;
 	}
-	
+
 	public int getNbBieresParTournee() {
 		return nbBieresParTournee;
 	}
@@ -76,56 +81,56 @@ public class Fetard_Soiree implements Serializable{
 	public int getId() {
 		return id;
 	}
-	
-	
-	
+
 	public boolean placerTable(XY[] coord, ETable etable) {
-		
+
 		List<Coordonnee> listeCoord = new ArrayList<Coordonnee>();
-		for(XY c : coord) {
+		for (XY c : coord) {
 			listeCoord.add(new Coordonnee(c.getX(), c.getY()));
 		}
-		
+
 		TablePlacee tp = new TablePlacee(listeCoord, etable);
 		mesTablesPlacees.add(tp);
 		return true;
 	}
-	
-	
-	
-	// prends un tableau de "coups" en paramètre pour créer une "salve et l'ajouter au fetard_soirée
+
+	// prends un tableau de "coups" en paramètre pour créer une "salve et
+	// l'ajouter au fetard_soirée
 	public boolean lancerTournee(XY[] coord) throws ArgumentInvalideException {
-		if(coord.length != nbBieresParTournee) return false;
-		
+		if (coord.length != nbBieresParTournee)
+			return false;
+
 		Tournee t = new Tournee();
 		Fetard_Soiree adversaire = soiree.getAdversaire(this);
-		
-		for(XY c : coord) {
+
+		for (XY c : coord) {
 			// ajouter la Biere dans sa Tournee
-			Biere b = new Biere(c.getX(), c.getY(), adversaire.tableToucheePar(c));
+			Biere b = new Biere(c.getX(), c.getY(),
+					adversaire.tableToucheePar(c));
 			t.ajouterBiere(b);
-			
-			// coulerTable ==> traiter le lancer de la Biere chez l'adversaire (décrémenter la vie de la table)
-			if(adversaire.coulerTable(b)) {
+
+			// coulerTable ==> traiter le lancer de la Biere chez l'adversaire
+			// (décrémenter la vie de la table)
+			if (adversaire.coulerTable(b)) {
 				decrementerNbBieresParTournee();
 			}
 		}
 		mesTournees.add(t);
 		return true;
 	}
-	
-	
+
 	private void decrementerNbBieresParTournee() {
 		nbBieresParTournee--;
 	}
 
 	// renvoie true si la Biere a "coulé" la table, false sinon
 	private boolean coulerTable(Biere b) {
-		
-		if(b.getTableTouchee() == null) return false;
-		
-		for(TablePlacee tp : mesTablesPlacees) {
-			if(tp.getTable().equals(b.getTableTouchee())) {
+
+		if (b.getTableTouchee() == null)
+			return false;
+
+		for (TablePlacee tp : mesTablesPlacees) {
+			if (tp.getTable().equals(b.getTableTouchee())) {
 				tp.decrementerVies();
 				return tp.estCoulee();
 			}
@@ -136,19 +141,25 @@ public class Fetard_Soiree implements Serializable{
 	// renvoie la table touchée par le "coup"
 	// renvoie null si le "coup" n'a rien touché
 	public ETable tableToucheePar(XY coord) {
-		
-		for(TablePlacee tp : mesTablesPlacees) {
+
+		for (TablePlacee tp : mesTablesPlacees) {
 			List<Coordonnee> listeCoord = tp.getCoordonnees();
-			for(Coordonnee c : listeCoord) {
-				if(c.getX() == coord.getX() && c.getY() == coord.getY()) {
+			for (Coordonnee c : listeCoord) {
+				if (c.getX() == coord.getX() && c.getY() == coord.getY()) {
 					return tp.getTable();
 				}
 			}
 		}
 		return null;
 	}
-	
-	
+
+	public boolean isPret() {
+		return pret;
+	}
+
+	public void setPret(boolean pret) {
+		this.pret = pret;
+	}
 
 	public List<TablePlacee> getMesTablesPlacees() {
 		return mesTablesPlacees;

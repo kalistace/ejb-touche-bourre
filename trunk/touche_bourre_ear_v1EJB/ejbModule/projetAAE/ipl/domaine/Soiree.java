@@ -30,7 +30,9 @@ public class Soiree implements Serializable{
 			}
 			boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
 				soiree.nbrFetardConnecte--;
-				return false;
+				soiree.etat = FINIE;
+				//pas de gagnant
+				return true;
 			}
 		},
 		EN_PLACEMENT {
@@ -42,25 +44,56 @@ public class Soiree implements Serializable{
 				if(soiree.nbrFetardPret >= 2){
 					return false;
 				}
-				
+				monFetard_Soiree.setPret(true);
 				soiree.nbrFetardPret++;
 				if(soiree.nbrFetardPret==1){
 					soiree.fetard_Soiree_Courant = monFetard_Soiree;
+					soiree.premierFetardAJouer = monFetard_Soiree;
 				}
-				else{
+				else{//2 joueurs prêts
 					soiree.etat = EN_COURS;
+				}
+				return true;
+			}
+			
+			boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
+				Fetard_Soiree monFetard_Soiree = soiree.getFetard_Soiree(fetard);
+				soiree.nbrFetardConnecte--;
+				if(monFetard_Soiree.isPret()){
+					monFetard_Soiree.setPret(false);
+					soiree.nbrFetardPret--;
+				}
+				if(soiree.nbrFetardConnecte==0){
+					soiree.etat = FINIE;
+					//pas de gagnant
 				}
 				return true;
 			}
 		}, 
 		EN_COURS {
+			
+			boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
+				soiree.nbrFetardConnecte--;
+				if(soiree.nbrFetardConnecte==0){
+					soiree.etat = FINIE;
+					//le joueur restant gagne par forfait
+					soiree.gagnant = soiree.getAdversaire(soiree.getFetard_Soiree(fetard));
+				}
+				return true;
+			}
+			
 		}, 
-		FINIE {		
+		FINIE {
+			
+			
 		};
 		boolean estPret(Fetard fetard, Soiree soiree){
 			return false;
 		}
 		boolean ajouterFetard(Fetard fetard, Soiree soiree){
+			return false;
+		}
+		boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
 			return false;
 		}
 	}
@@ -73,9 +106,13 @@ public class Soiree implements Serializable{
 	
 	private int nbrFetardConnecte;
 	
+	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))
 	private Fetard_Soiree fetard_Soiree_Courant;
-	
-	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))	
+	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))
+	private Fetard_Soiree gagnant;
+	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))
+	private Fetard_Soiree premierFetardAJouer;
+	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))
 	private Fetard_Soiree fetardSoiree1;
 	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))
 	private Fetard_Soiree fetardSoiree2;
@@ -93,6 +130,7 @@ public class Soiree implements Serializable{
 		this.fetard_Soiree_Courant = null;
 		this.nbrFetardPret = 0;
 		this.nbrFetardConnecte = 1;
+		this.gagnant = null;
 	}
 	
 	private Fetard_Soiree getFetard_Soiree(Fetard fetard) {
@@ -178,5 +216,13 @@ public class Soiree implements Serializable{
 
 	public Fetard_Soiree getFetard_Soiree_Courant() {
 		return fetard_Soiree_Courant;
+	}
+
+	public Fetard_Soiree getGagnant() {
+		return gagnant;
+	}
+
+	public Fetard_Soiree getPremierFetardAJouer() {
+		return premierFetardAJouer;
 	}
 }
