@@ -14,7 +14,7 @@ public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao
 
 	@Override
 	public Soiree rechercher(String nomSoiree) {
-		String queryString = "select s from Soiree s where s.pseudo = ?1";
+		String queryString = "select s from Soiree s where s.nom = ?1";
 		return recherche(queryString, nomSoiree);
 	}
 
@@ -28,14 +28,14 @@ public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao
 	@Override
 	public List<Soiree> listerSoireeFinie(String pseudoFetard) {
 		String etat = Etat.FINIE.toString();
-		String queryString = "select s from Soiree s where s.etat = ?1 and s.fetardSoiree1.fetard.pseudo = ?2";
+		String queryString = "select s from Soiree s where s.etat = ?1 and  (s.fetardSoiree1.fetard.pseudo = ?2 or s.fetardSoiree2.fetard.pseudo = ?2)";
 		return liste(queryString, etat, pseudoFetard);
 	}
 
 	@Override
 	public Soiree rechercheSoireeNonFinie(String nomSoiree) {
 		String etat = Etat.FINIE.toString();
-		String queryString = "select s from Soiree s where s.pseudo = ?1 and s.etat!=?2";
+		String queryString = "select s from Soiree s where s.nom = ?1 and s.etat!=?2";
 		return recherche(queryString, nomSoiree, etat);
 	}
 }
