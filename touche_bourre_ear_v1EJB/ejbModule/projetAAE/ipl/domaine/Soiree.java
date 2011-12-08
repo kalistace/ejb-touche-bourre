@@ -2,6 +2,7 @@ package projetAAE.ipl.domaine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -41,7 +42,7 @@ public class Soiree implements Serializable{
 			}
 		},
 		EN_PLACEMENT {
-			boolean estPret(Fetard fetard, Soiree soiree) {
+			boolean setJoueurPret(Fetard fetard, Soiree soiree) {
 				Fetard_Soiree monFetard_Soiree = soiree.getFetard_Soiree(fetard);
 				if ( monFetard_Soiree == null){
 					return false;
@@ -77,8 +78,8 @@ public class Soiree implements Serializable{
 		}, 
 		EN_COURS {
 			
-			boolean lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException{
-				soiree.fetard_Soiree_Courant.lancerTournee(coord);
+			Tournee lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException{
+				Tournee tournee = soiree.fetard_Soiree_Courant.lancerTournee(coord);
 				soiree.fetard_Soiree_Courant = soiree.getAdversaire(soiree.fetard_Soiree_Courant);
 				
 				if(soiree.fetardSoiree1.getNbBieresParTournee()==0){
@@ -89,7 +90,7 @@ public class Soiree implements Serializable{
 					soiree.gagnant = soiree.fetardSoiree2;
 					soiree.etat = FINIE;
 				}
-				return true;
+				return tournee;
 			}
 			
 			boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
@@ -106,7 +107,7 @@ public class Soiree implements Serializable{
 		FINIE {
 			
 		};
-		boolean estPret(Fetard fetard, Soiree soiree){
+		boolean setJoueurPret(Fetard fetard, Soiree soiree){
 			return false;
 		}
 		boolean ajouterFetard(Fetard fetard, Soiree soiree){
@@ -115,14 +116,16 @@ public class Soiree implements Serializable{
 		boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
 			return false;
 		}
-		boolean lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException{
-			return false;
+		Tournee lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException{
+			return null;
 		}
 	}
 	
 	@Id
 	@GeneratedValue
 	private int id;
+	
+	private Calendar date;
 	
 	private int nbrFetardPret;
 	
@@ -171,6 +174,14 @@ public class Soiree implements Serializable{
 		return etat.ajouterFetard(fetard, this);
 	}
 	
+	public boolean setJoueurPret(Fetard fetard, Soiree soiree){
+		return etat.setJoueurPret(fetard, soiree);
+	}
+	
+	public Tournee lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException{
+		return etat.lancerTournee(soiree, coord);
+	}
+	
 	public Fetard_Soiree getAdversaire(Fetard_Soiree soi_meme) {
 		if(soi_meme.equals(fetardSoiree1)) return fetardSoiree2;
 		else if(soi_meme.equals(fetardSoiree2)) return fetardSoiree1;
@@ -190,11 +201,6 @@ public class Soiree implements Serializable{
 			if(i < liste2.size()) listeARenvoyer.add(liste2.get(i));
 		}
 		return listeARenvoyer;
-	}
-
-	
-	boolean estPret(Fetard fetard, Soiree soiree){
-		return false;
 	}
 	
 	public int getId() {
