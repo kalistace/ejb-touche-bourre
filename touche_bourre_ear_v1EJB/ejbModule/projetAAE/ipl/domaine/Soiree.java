@@ -3,6 +3,7 @@ package projetAAE.ipl.domaine;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,22 +13,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import projetAAE.ipl.exceptions.ArgumentInvalideException;
 import projetAAE.ipl.exceptions.DejaToucheException;
 import projetAAE.ipl.valueObject.XY;
 
 @Entity
-@Table(name="SOIREES", schema="TOUCHEBOURRE")
-public class Soiree implements Serializable{
+@Table(name = "SOIREES", schema = "TOUCHEBOURRE")
+public class Soiree implements Serializable {
 
 	public enum Etat {
 		INITIAL_ATTENTE_FETARD {
 			boolean ajouterFetard(Fetard fetard, Soiree soiree) {
-				if (soiree.getFetard_Soiree(fetard) != null){
+				if (soiree.getFetard_Soiree(fetard) != null) {
 					return false;
 				}
-				if(soiree.fetardSoiree1 == null){
+				if (soiree.fetardSoiree1 == null) {
 					return false;
 				}
 				soiree.fetardSoiree2 = new Fetard_Soiree(fetard, soiree);
@@ -35,106 +38,118 @@ public class Soiree implements Serializable{
 				soiree.nbrFetardConnecte++;
 				return true;
 			}
+
 			boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
 				soiree.nbrFetardConnecte--;
 				soiree.etat = FINIE;
-				//pas de gagnant
+				// pas de gagnant
 				return true;
 			}
 		},
 		EN_PLACEMENT {
 			boolean setJoueurPret(Fetard fetard, Soiree soiree) {
-				Fetard_Soiree monFetard_Soiree = soiree.getFetard_Soiree(fetard);
-				if ( monFetard_Soiree == null){
+				Fetard_Soiree monFetard_Soiree = soiree
+						.getFetard_Soiree(fetard);
+				if (monFetard_Soiree == null) {
 					return false;
 				}
-				if(soiree.nbrFetardPret >= 2){
+				if (soiree.nbrFetardPret >= 2) {
 					return false;
 				}
 				monFetard_Soiree.setPret(true);
 				soiree.nbrFetardPret++;
-				if(soiree.nbrFetardPret==1){
+				if (soiree.nbrFetardPret == 1) {
 					soiree.fetard_Soiree_Courant = monFetard_Soiree;
 					soiree.premierFetardAJouer = monFetard_Soiree;
-				}
-				else{//2 joueurs prêts
+				} else {// 2 joueurs prêts
 					soiree.etat = EN_COURS;
 				}
 				return true;
 			}
-			
+
 			boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
-				Fetard_Soiree monFetard_Soiree = soiree.getFetard_Soiree(fetard);
+				Fetard_Soiree monFetard_Soiree = soiree
+						.getFetard_Soiree(fetard);
 				soiree.nbrFetardConnecte--;
-				if(monFetard_Soiree.isPret()){
+				if (monFetard_Soiree.isPret()) {
 					monFetard_Soiree.setPret(false);
 					soiree.nbrFetardPret--;
 				}
-				if(soiree.nbrFetardConnecte==0){
+				if (soiree.nbrFetardConnecte == 0) {
 					soiree.etat = FINIE;
-					//pas de gagnant
+					// pas de gagnant
 				}
 				return true;
 			}
-		}, 
+		},
 		EN_COURS {
-			
 
-			Tournee lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException, DejaToucheException{
-				Tournee tournee = soiree.fetard_Soiree_Courant.lancerTournee(coord);
+			Tournee lancerTournee(Soiree soiree, List<XY> coord)
+					throws ArgumentInvalideException, DejaToucheException {
+				Tournee tournee = soiree.fetard_Soiree_Courant
+						.lancerTournee(coord);
 
-				soiree.fetard_Soiree_Courant = soiree.getAdversaire(soiree.fetard_Soiree_Courant);
-				
-				if(soiree.fetardSoiree1.getNbBieresParTournee()==0){
+				soiree.fetard_Soiree_Courant = soiree
+						.getAdversaire(soiree.fetard_Soiree_Courant);
+
+				if (soiree.fetardSoiree1.getNbBieresParTournee() == 0) {
 					soiree.gagnant = soiree.fetardSoiree1;
 					soiree.etat = FINIE;
-				}
-				else if(soiree.fetardSoiree2.getNbBieresParTournee()==0){
+				} else if (soiree.fetardSoiree2.getNbBieresParTournee() == 0) {
 					soiree.gagnant = soiree.fetardSoiree2;
 					soiree.etat = FINIE;
+					soiree.dateFin = new GregorianCalendar();
 				}
 				return tournee;
 			}
-			
+
 			boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
 				soiree.nbrFetardConnecte--;
-				if(soiree.nbrFetardConnecte==0){
+				if (soiree.nbrFetardConnecte == 0) {
 					soiree.etat = FINIE;
-					//le joueur restant gagne par forfait
-					soiree.gagnant = soiree.getAdversaire(soiree.getFetard_Soiree(fetard));
+					// le joueur restant gagne par forfait
+					soiree.gagnant = soiree.getAdversaire(soiree
+							.getFetard_Soiree(fetard));
 				}
 				return true;
 			}
-			
-		}, 
+
+		},
 		FINIE {
-			
+
 		};
-		boolean setJoueurPret(Fetard fetard, Soiree soiree){
+		boolean setJoueurPret(Fetard fetard, Soiree soiree) {
 			return false;
 		}
-		boolean ajouterFetard(Fetard fetard, Soiree soiree){
+
+		boolean ajouterFetard(Fetard fetard, Soiree soiree) {
 			return false;
 		}
+
 		boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
 			return false;
 		}
 
-		Tournee lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException, DejaToucheException{
+		Tournee lancerTournee(Soiree soiree, List<XY> coord)
+				throws ArgumentInvalideException, DejaToucheException {
 			return null;
 		}
 	}
-	
+
 	@Id
 	@GeneratedValue
 	private int id;
-	
-	private Calendar date;
-	
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar dateDebut;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar dateFin;
+
 	private int nbrFetardPret;
-	
+
 	private int nbrFetardConnecte;
-	
+
 	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))
 	private Fetard_Soiree fetard_Soiree_Courant;
 	@OneToOne(mappedBy = "soiree", cascade = (CascadeType.ALL))
@@ -149,10 +164,10 @@ public class Soiree implements Serializable{
 	private Etat etat = Etat.INITIAL_ATTENTE_FETARD;
 
 	private String nom;
-	
+
 	public Soiree() {
 	}
-	
+
 	public Soiree(String nom, Fetard fetard1) {
 		this.nom = nom;
 		this.fetardSoiree1 = new Fetard_Soiree(fetard1, this);
@@ -160,53 +175,58 @@ public class Soiree implements Serializable{
 		this.nbrFetardPret = 0;
 		this.nbrFetardConnecte = 1;
 		this.gagnant = null;
+		this.dateDebut = new GregorianCalendar();
+		this.dateFin = null;
 	}
-	
+
 	private Fetard_Soiree getFetard_Soiree(Fetard fetard) {
-		if(fetardSoiree1.getFetard().equals(fetard)){
+		if (fetardSoiree1.getFetard().equals(fetard)) {
 			return fetardSoiree1;
-		}
-		else if(fetardSoiree2.getFetard().equals(fetard)){
+		} else if (fetardSoiree2.getFetard().equals(fetard)) {
 			return fetardSoiree2;
 		}
 		return null;
 	}
 
-	
-	
-	public boolean ajouterFetard(Fetard fetard, Soiree soiree){
+	public boolean ajouterFetard(Fetard fetard, Soiree soiree) {
 		return etat.ajouterFetard(fetard, this);
 	}
-	
-	public boolean setJoueurPret(Fetard fetard, Soiree soiree){
+
+	public boolean setJoueurPret(Fetard fetard, Soiree soiree) {
 		return etat.setJoueurPret(fetard, soiree);
 	}
-	
-	public Tournee lancerTournee(Soiree soiree, List<XY> coord) throws ArgumentInvalideException, DejaToucheException{
+
+	public Tournee lancerTournee(Soiree soiree, List<XY> coord)
+			throws ArgumentInvalideException, DejaToucheException {
 		return etat.lancerTournee(soiree, coord);
 	}
-	
+
 	public Fetard_Soiree getAdversaire(Fetard_Soiree soi_meme) {
-		if(soi_meme.equals(fetardSoiree1)) return fetardSoiree2;
-		else if(soi_meme.equals(fetardSoiree2)) return fetardSoiree1;
+		if (soi_meme.equals(fetardSoiree1))
+			return fetardSoiree2;
+		else if (soi_meme.equals(fetardSoiree2))
+			return fetardSoiree1;
 		return null;
 	}
-	
+
 	public List<Tournee> listePermuteeEtOrdonneeDeTournees() {
-		
+
 		List<Tournee> liste1 = premierFetardAJouer.getMesTournees();
 		List<Tournee> liste2 = null;
-		if(premierFetardAJouer.equals(fetardSoiree1)) liste2 = fetardSoiree2.getMesTournees();
-		else liste2 = fetardSoiree1.getMesTournees();
+		if (premierFetardAJouer.equals(fetardSoiree1))
+			liste2 = fetardSoiree2.getMesTournees();
+		else
+			liste2 = fetardSoiree1.getMesTournees();
 		List<Tournee> listeARenvoyer = new ArrayList<Tournee>();
-		
-		for(int i = 0 ; i < liste1.size(); i++) {
+
+		for (int i = 0; i < liste1.size(); i++) {
 			listeARenvoyer.add(liste1.get(i));
-			if(i < liste2.size()) listeARenvoyer.add(liste2.get(i));
+			if (i < liste2.size())
+				listeARenvoyer.add(liste2.get(i));
 		}
 		return listeARenvoyer;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -232,11 +252,11 @@ public class Soiree implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 	public String getNom() {
 		return nom;
 	}
-	
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
@@ -271,5 +291,13 @@ public class Soiree implements Serializable{
 
 	public Fetard_Soiree getPremierFetardAJouer() {
 		return premierFetardAJouer;
+	}
+
+	public Calendar getDateDebut() {
+		return dateDebut;
+	}
+
+	public Calendar getDateFin() {
+		return dateFin;
 	}
 }
