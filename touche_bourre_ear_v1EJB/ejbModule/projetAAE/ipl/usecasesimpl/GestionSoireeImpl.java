@@ -13,6 +13,7 @@ import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.domaine.Soiree.Etat;
 import projetAAE.ipl.domaine.Tournee;
 import projetAAE.ipl.exceptions.ArgumentInvalideException;
+import projetAAE.ipl.exceptions.DejaToucheException;
 import projetAAE.ipl.usecases.GestionSoiree;
 import projetAAE.ipl.valueObject.XY;
 
@@ -83,7 +84,11 @@ public class GestionSoireeImpl implements GestionSoiree {
 			return null;// throw exception
 		}
 		try {
-			tournee = soiree.lancerTournee(soiree, coord);
+			try {
+				tournee = soiree.lancerTournee(soiree, coord);
+			} catch (DejaToucheException e) {
+				return null;
+			}
 		} catch (ArgumentInvalideException e) {
 			return null;//throw exception
 		}
