@@ -9,7 +9,7 @@ import projetAAE.ipl.domaine.Tournee;
 
 @Remote
 public interface GestionSoiree {
-	Soiree creerSoiree(String pseudoFetard1);
+	Soiree creerSoiree(String nomSoiree, String pseudoFetard1);
 	Soiree rejoindreSoiree(String nomSoiree, String pseudoFetard2);
 	List<Soiree> listerPartiesEnAttenteDePartenaire();
 	Soiree fetardPret(String nomSoiree, String fetard);

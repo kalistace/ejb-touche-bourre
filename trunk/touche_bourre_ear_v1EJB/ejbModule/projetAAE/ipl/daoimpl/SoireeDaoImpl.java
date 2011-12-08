@@ -5,51 +5,15 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import projetAAE.ipl.dao.SoireeDao;
+import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
 
 @Stateless
-public class SoireeDaoImpl implements SoireeDao {
+public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao {
 
 	@Override
-	public Soiree rechercher(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Soiree rechercher(String pseudo) {
+		String queryString = "select j from Soiree j where j.pseudo = ?1";
+		return recherche(queryString, pseudo);
 	}
-
-	@Override
-	public Soiree enregistrer(Soiree entite) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Soiree mettreAJour(Soiree entite) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Soiree recharger(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void supprimer(Integer id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<Soiree> lister() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void flush() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

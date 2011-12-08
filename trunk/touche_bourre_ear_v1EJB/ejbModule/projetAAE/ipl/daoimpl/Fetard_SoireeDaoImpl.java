@@ -5,43 +5,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import projetAAE.ipl.dao.Fetard_SoireeDao;
+import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Fetard_Soiree;
 
 @Stateless
-public class Fetard_SoireeDaoImpl implements Fetard_SoireeDao {
-
-	@Override
-	public Fetard_Soiree rechercher(Integer id) {
-		return null;
-	}
-
-	@Override
-	public Fetard_Soiree enregistrer(Fetard_Soiree entite) {
-		return null;
-	}
-
-	@Override
-	public Fetard_Soiree mettreAJour(Fetard_Soiree entite) {
-		return null;
-	}
-
-	@Override
-	public Fetard_Soiree recharger(Integer id) {
-		return null;
-	}
-
-	@Override
-	public void supprimer(Integer id) {
-
-	}
-
-	@Override
-	public List<Fetard_Soiree> lister() {
-		return null;
-	}
-
-	@Override
-	public void flush() {
-	}
+public class Fetard_SoireeDaoImpl extends DaoImpl<Integer, Fetard_Soiree> implements Fetard_SoireeDao {
 
 }
