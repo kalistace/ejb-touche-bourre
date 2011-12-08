@@ -16,7 +16,7 @@
 			<tr><td>//todo afficher vainqueur avec fond vert</td>
 			<td><c:url var="urlJournal" value="journal.html"/>
 			<form action="${urlJournal}" method="post">
-			<input type="hidden" value="${soiree.id}"/>
+			<c:set var="soiree" value="${soiree}" scope="request"/>
 			<input class = "btnSmall" type = "submit" value = "Journal"/>
 			</form></td></tr>
 		</c:forEach>

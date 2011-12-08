@@ -8,21 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- ${joueurCourant} == pseudoPremierJoueur au début -->
-	<!-- == ${joueurNext} ==pseudoDeuxiemeJoueur au début -->
-	
-	<c:set var="tmp" value="${joueurCourant}"
-    scope="request" />
-    <c:set var="joueurNext" value="${tmp}" scope="request" />
-	
-	<c:forEach var="tournee" items="${tournees}">
-	    <tr><td colspan="2">${soiree.nom}</td></tr>
-		<tr><td>//todo afficher vainqueur avec fond vert</td>
-		<td><c:url var="urlJournal" value="journal.html"/>
-		<form action="${urlJournal}" method="post">
-		<input type="hidden" value="${soiree.id}"/>
-		<input class = "btnSmall" type = "submit" value = "Journal"/>
-		</form></td></tr>
-	</c:forEach>
+
 </body>
 </html>
