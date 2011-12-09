@@ -38,7 +38,7 @@ public class Fetard_Soiree implements Serializable {
 	@JoinColumn(nullable = false)
 	private Fetard fetard;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Soiree soiree;
 
