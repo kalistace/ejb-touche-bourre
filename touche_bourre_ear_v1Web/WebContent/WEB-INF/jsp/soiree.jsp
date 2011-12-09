@@ -22,7 +22,10 @@
 	var tournee = 1;
 	var myTables=new Array();
 	$(document).ready(function() {
-	
+
+	//	alert('${nomSoiree}');
+		
+		
 		$( ".draggable" ).draggable({ revert: 'invalid',
 									  grid: [ 40,40 ],		  
 								  	  snapMode: 'inner'
@@ -123,20 +126,8 @@
         		} 
         );
 
-		
-		$(document).click(function(){
-			var params = "tables=";
-			var req = new AjaxRequest("POST","pret.html",params, true);
-			req.handleResponse = function() {
-				rep=req.xhr.responseText;
-				alert(rep);
-				if(rep != 0) {
-					$("#msgTop").fadeIn().text("Placez les tables dans le bar à gauche!");
-				}
-			};
-			req.process();	
-					
-		});
+
+		setInterval( "deuxJoueursConnectes()", 3000 );
         
        
 		$("#tabPlacement td").click(function(){
@@ -147,32 +138,32 @@
         		}
         
         );
-       
+
+	    
                                     
         $("#tabTirs td").click(function(){
         		
         			var col = $(this).index();	
         			var row = $(this).parent().index();
-        			if(pret){
+        			if(pret && $(this).text()==""){
         				
         				$("#bieres").children().last().fadeOut(function(){ 
         				$(this).remove()});
         				$(this).text(tournee);
         				
-        			if($("#bieres").children().length <= 1)
-        			{
-        				pret=false;
-        				tournee++;
-        				//afficher resulat
-        				//donne la main à l'autre joueur
-        				$("#msgTop").text("Attendez...");
-        			}
+        				if($("#bieres").children().length <= 1)
+        				{
+        					pret=false;
+        					tournee++;
+        					//afficher resulat
+        					//donne la main à l'autre joueur
+        					$("#msgTop").text("Attendez...");
+        				}
 
         			
         			}
-        			       
-        		}
-        
+   	       
+        	}
         );
 	});
 	
@@ -185,6 +176,20 @@
 			$("#bieres").append("<img alt='beer' src='img/beer.png'/>").hide().fadeIn("slow");
 		}
 	
+	}
+	function deuxJoueursConnectes(){
+		var params = "tables=";
+		var req = new AjaxRequest("POST","pret.html",params, true);
+		req.handleResponse = function() {
+			rep=req.xhr.responseText;
+			//alert(rep);
+			if(rep != 0) {
+				$("#msgTop").fadeIn().text("Placez les tables dans le bar à gauche!");
+				$("tablesAPlacer").fadeIn();
+				$("#adversaire").fadeIn().text(rep);
+			} 
+		};
+		req.process();	
 	}
 	
 	</script>
@@ -332,8 +337,9 @@
 
 </div>
 
-<div id="tablesAPlacer" class="milieu" >
+<div class="milieu" style ="" >
 <p id="msgTop" class="msg">Attendez l'autre joueur...</p>
+<div id="tablesAPlacer" style ="display:;" >
 <div class="draggable 1">
 	<div class="caseV"><img alt="case" src="img/coupleV2.png"/></div>
 	<div class="caseV"><img alt="case" src="img/coupleV1.png"/></div>
@@ -401,12 +407,13 @@
 	<div class="caseH"><img alt="case" src="img/comptoire5.png"/></div>
 </div>
 </div>
+</div>
 
 </div><!-- millieu -->
 
 
 <div class="droite">
-<p class="msg">L'autre</p>
+<p class="msg" id="adversaire">...</p>
 <table class="tab" id="tabTirs">
 <tr>
 <td></td>
