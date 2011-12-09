@@ -26,10 +26,13 @@ public class HandleLeavePartie extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		System.out.println("in handleleavepartieservlet");
 		String nomSoiree = (String) session.getAttribute("nomSoiree");
 		String pseudo = (String) session.getAttribute("pseudo");
-		if (nomSoiree != null || pseudo != null)
+		if (nomSoiree != null || pseudo != null) {
 			uccGestionSoiree.fetardDeconnecte(nomSoiree, pseudo);
+			System.out.println("handleleavepartieservlet in if");
+		}
 	}
 
 	/**
