@@ -19,4 +19,5 @@ public interface GestionSoiree {
 	Tournee lancerUneTournee(String nomSoiree, String pseudoFetard, List<XY> coord);
 	List<Soiree> listerSoireesFinies(String pseudoFetard);
 	Soiree fetardDeconnecte(String nomSoiree, String pseudoFetard);
+	Soiree commencerPlacement(String nomSoiree) throws Exception;
 }
