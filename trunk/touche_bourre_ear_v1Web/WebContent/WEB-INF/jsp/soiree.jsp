@@ -132,7 +132,7 @@
         
         );
 
-		$(document).mousemove(function(){
+		$(document).click(function(){
 			var params = "tables=";
 			var req = new AjaxRequest("POST","pret.html",params, true);
 			req.handleResponse = function() {
