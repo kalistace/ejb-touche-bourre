@@ -10,6 +10,13 @@
 <script type="text/javascript" src="js/login.js"></script>
 </head>
 <body>
+<c:if test="${param['timeout']=='1'}">
+	<p class="warningmsg">Vous avez été déconnecté pour cause d'inactivité.</p>
+</c:if>
+
+<c:if test="${param['alreadyLogged']=='1'}">
+	<p class="warningmsg">Vous êtes déjà en ligne sur une autre session. Veuillez utilisez celle-ci ou vous déconnectez de celle-ci.</p>
+</c:if>
 	<div id="main">
 
 <div class = "login">
@@ -24,19 +31,5 @@
 </div>
 
 </div>
-<c:if test="${param['timeout']=='1'}">
-	<script type="text/javascript">
-		alert("Vous avez été déconnecté pour cause d'inactivité.")
-		window.location.href = ".";
-	</script>
-</c:if>
-
-<c:if test="${param['alreadyLogged']=='1'}">
-	<script type="text/javascript">
-		alert("Vous êtes déjà en ligne sur une autre session. Veuillez utilisez celle-ci ou vous déconnectez de celle-ci");
-		window.location.href = ".";
-	</script>
-</c:if>
-
 </body>
 </html>
