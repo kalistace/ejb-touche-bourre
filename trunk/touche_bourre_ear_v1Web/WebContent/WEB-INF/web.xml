@@ -38,6 +38,13 @@
     <servlet-name>RepPret</servlet-name>
     <jsp-file>/WEB-INF/jsp/repret.jsp</jsp-file>
   </servlet>
+ <servlet>
+    <servlet-name>HandleLeavePartie</servlet-name>
+</servlet>
+<servlet-mapping>
+    <servlet-name>HandleLeavePartie</servlet-name>
+    <url-pattern>/HandleLeavePartie</url-pattern>
+</servlet-mapping>
 
   	<listener>
 		<listener-class>projetAAE.ipl.listener.SessionListener</listener-class>
