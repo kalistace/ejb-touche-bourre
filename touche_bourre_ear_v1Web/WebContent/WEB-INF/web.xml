@@ -32,7 +32,7 @@
   </servlet>
   <servlet>
     <servlet-name>Journal</servlet-name>
-    <jsp-file>/WEB-INF/jsp/journaux.jsp</jsp-file>
+    <jsp-file>/WEB-INF/jsp/journal.jsp</jsp-file>
   </servlet>
    <servlet>
     <servlet-name>RepPret</servlet-name>
