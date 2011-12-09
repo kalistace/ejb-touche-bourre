@@ -18,4 +18,5 @@ public interface GestionSoiree {
 	Soiree fetardPret(String nomSoiree, String fetard, Map<ETable, List<XY>> tables);
 	Tournee lancerUneTournee(String nomSoiree, String pseudoFetard, List<XY> coord);
 	List<Soiree> listerSoireesFinies(String pseudoFetard);
+	Soiree fetardDeconnecte(String nomSoiree, String pseudoFetard);
 }

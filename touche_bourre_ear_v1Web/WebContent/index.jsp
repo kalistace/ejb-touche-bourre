@@ -24,6 +24,11 @@
 </div>
 
 </div>
-
+<c:if test="${param['timeout']=='1'}">
+	<script type="text/javascript">
+		alert("Vous avez été déconnecté pour cause d'inactivité.")
+		window.location.href = ".";
+	</script>
+</c:if>
 </body>
 </html>

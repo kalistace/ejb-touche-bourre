@@ -44,7 +44,7 @@ public class Soiree implements Serializable {
 				return true;
 			}
 
-			boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
+			boolean fetardDeconnecte(Fetard fetard, Soiree soiree) {
 				soiree.nbrFetardConnecte--;
 				soiree.etat = FINIE;
 				// pas de gagnant
@@ -77,7 +77,7 @@ public class Soiree implements Serializable {
 				return true;
 			}
 
-			boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
+			boolean fetardDeconnecte(Fetard fetard, Soiree soiree) {
 				Fetard_Soiree monFetard_Soiree = soiree
 						.getFetard_Soiree(fetard);
 				soiree.nbrFetardConnecte--;
@@ -113,7 +113,7 @@ public class Soiree implements Serializable {
 				return tournee;
 			}
 
-			boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
+			boolean fetardDeconnecte(Fetard fetard, Soiree soiree) {
 				soiree.nbrFetardConnecte--;
 				if (soiree.nbrFetardConnecte == 0) {
 					soiree.etat = FINIE;
@@ -136,7 +136,7 @@ public class Soiree implements Serializable {
 			return false;
 		}
 
-		boolean FetardDeconnecte(Fetard fetard, Soiree soiree) {
+		boolean fetardDeconnecte(Fetard fetard, Soiree soiree) {
 			return false;
 		}
 
@@ -210,6 +210,10 @@ public class Soiree implements Serializable {
 	public Tournee lancerTournee(Soiree soiree, List<XY> coord)
 			throws ArgumentInvalideException, DejaToucheException {
 		return etat.lancerTournee(soiree, coord);
+	}
+	
+	public boolean fetardDeconnecte(Fetard fetard, Soiree soiree) {
+		return etat.fetardDeconnecte(fetard, soiree);
 	}
 
 	public Fetard_Soiree getAdversaire(Fetard_Soiree soi_meme) {
