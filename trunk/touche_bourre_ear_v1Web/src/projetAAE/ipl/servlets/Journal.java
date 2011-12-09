@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import projetAAE.ipl.domaine.Biere;
 import projetAAE.ipl.domaine.ETable;
@@ -39,6 +40,11 @@ public class Journal extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Soiree soiree = (Soiree) request.getAttribute("soiree");
+		HttpSession session = request.getSession(false);
+		if(session == null || (session!= null && session.getAttribute("pseudo") == null)) {
+			response.sendRedirect(response.encodeRedirectURL("index.jsp?timeout=1"));
+			return;
+		}
 		List<Tournee> tournees = soiree.listePermuteeEtOrdonneeDeTournees();
 		List<String> resultats = new ArrayList<String>();
 		Fetard_Soiree fetardCourant = soiree.getPremierFetardAJouer();

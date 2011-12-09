@@ -111,4 +111,19 @@ public class GestionSoireeImpl implements GestionSoiree {
 		}
 		return soireeDao.listerSoireeFinie(pseudoFetard);
 	}
+
+	@Override
+	public Soiree fetardDeconnecte(String nomSoiree, String pseudoFetard) {
+		Fetard fetard = fetardDao.rechercher(pseudoFetard);
+		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
+		if(fetard == null){
+			return null;
+		}
+		if(soiree == null){
+			return null;
+		}
+		soiree.fetardDeconnecte(fetard, soiree);
+		soireeDao.mettreAJour(soiree);
+		return soiree;
+	}
 }
