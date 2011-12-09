@@ -98,17 +98,17 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 		}
 		
 			soiree = gestionSoiree.fetardPret(nomSoiree, (String)request.getSession().getAttribute("pseudo"), mtables);
-			if(soiree.getFetardSoiree1().getFetard().getPseudo() == (String)sess.getAttribute("pseudo")){
+			
+			
+			
+			if(soiree.getFetardSoiree2().getFetard().getPseudo().equals(sess.getAttribute("pseudo"))){
 				request.setAttribute("pret",soiree.getFetardSoiree1().getFetard().getPseudo());
-			}else {			
-				request.setAttribute("pret",soiree.getFetardSoiree2().getFetard().getPseudo());			
+			}else {		
+				request.setAttribute("pret",soiree.getFetardSoiree2().getFetard().getPseudo());
 			}
-			
-			
+					
 			RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
 			rd.forward(request, response);
-			
-			
-		
+
 	}
 }

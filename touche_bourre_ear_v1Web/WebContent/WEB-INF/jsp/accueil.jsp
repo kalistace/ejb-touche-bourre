@@ -9,7 +9,7 @@
 <title>Touchée - bourré - Bienvenue !</title>
 </head>
 <body>
-	<div id="main">
+<div id="main">
 
 <div class = "login">
 

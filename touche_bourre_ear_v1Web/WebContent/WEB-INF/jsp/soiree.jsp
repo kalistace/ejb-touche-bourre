@@ -21,6 +21,7 @@
 	var pret = false;
 	var tournee = 1;
 	var myTables=new Array();
+	var deuxiemeConnecte = 0;
 	$(document).ready(function() {
 
 	//	alert('${nomSoiree}');
@@ -121,14 +122,29 @@
 		
 		$("#pret").click(function(){		
         			pret=true;
+        			var params = "tables="+myTables.toString();
+        			var req = new AjaxRequest("POST","pret.html",params, true);
+        			req.handleResponse = function() {
+        				rep=req.xhr.responseText;
+        				//alert(rep);
+        				//if(rep != 0) {
+        			//		$("#msgTop").fadeIn().text("Placez les tables dans le bar à gauche!");
+        				//	$("#tablesAPlacer").fadeIn();
+        				//	$("#adversaire").fadeIn().text(rep);
+        				//	deuxiemeConnecte=1;
+        				//} 
+        			};
+        			req.process();	
+        		
         			afficherBieres();
         			$(this).fadeOut();
         		} 
         );
 
 
-		setInterval( "deuxJoueursConnectes()", 3000 );
-        
+		if(deuxiemeConnecte==0){
+			setInterval( "deuxJoueursConnectes()", 3000 );
+		} 
        
 		$("#tabPlacement td").click(function(){
         		
@@ -185,8 +201,9 @@
 			//alert(rep);
 			if(rep != 0) {
 				$("#msgTop").fadeIn().text("Placez les tables dans le bar à gauche!");
-				$("tablesAPlacer").fadeIn();
+				$("#tablesAPlacer").fadeIn();
 				$("#adversaire").fadeIn().text(rep);
+				deuxiemeConnecte=1;
 			} 
 		};
 		req.process();	
@@ -339,7 +356,7 @@
 
 <div class="milieu" style ="" >
 <p id="msgTop" class="msg">Attendez l'autre joueur...</p>
-<div id="tablesAPlacer" style ="display:;" >
+<div id="tablesAPlacer" style ="display:none;" >
 <div class="draggable 1">
 	<div class="caseV"><img alt="case" src="img/coupleV2.png"/></div>
 	<div class="caseV"><img alt="case" src="img/coupleV1.png"/></div>

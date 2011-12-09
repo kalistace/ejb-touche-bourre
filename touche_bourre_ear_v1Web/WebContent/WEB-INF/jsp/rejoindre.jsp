@@ -9,8 +9,10 @@
 <link rel="stylesheet" type="text/css"  href="./css/styles.css"/>
 </head>
 <body>
-	<h1>Selectionnez une soirée à rejoindre:</h1>
-	<table border=1>
+<div class = "login">
+
+<p class = "edtUser">Selectionnez une soirée à rejoindre:</p>
+<table border=1>
 		<c:forEach var="soiree" items="${soireesEnCours}">
 			<tr>
 				<td colspan="2">${soiree.nom}</td>
@@ -26,6 +28,8 @@
 			      		<td class="joinable">${soiree.nbrFetardConnecte}/2</td>
 			</tr>
 		</c:forEach>
-	</table>
+</table>
+</div>
+
 </body>
 </html>
