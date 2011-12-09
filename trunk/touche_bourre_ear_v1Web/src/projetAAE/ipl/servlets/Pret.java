@@ -41,14 +41,16 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 		String tables = request.getParameter("tables");
 		HttpSession sess = request.getSession();
 		String nomSoiree = (String)sess.getAttribute("nomSoiree");
-		System.out.println("SOIREEE: "+nomSoiree);
+		
 		if(tables.equals("")){
-			System.out.println("x");
+			
 			try {
-			   gestionSoiree.fetardPret("FIST", (String)request.getSession().getAttribute("pseudo"), null);
+			   gestionSoiree.commencerPlacement(nomSoiree);
+			   
 			}
 			catch(Exception e){
-				request.setAttribute("pret","false");
+				System.out.println(e.getMessage());
+				request.setAttribute("pret",0);
 				RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
 				rd.forward(request, response);
 				return;
@@ -89,16 +91,9 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 			tables = String.copyValueOf(tables.toCharArray(), 2, tables.toCharArray().length-2).toString();	
 		}
 		
-		try {
-			gestionSoiree.fetardPret("FIST", (String)request.getSession().getAttribute("pseudo"), mtables);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		
+	
+			gestionSoiree.fetardPret(nomSoiree, (String)request.getSession().getAttribute("pseudo"), mtables);
+	
 		
 	}
 }

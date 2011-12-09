@@ -106,40 +106,34 @@
 					 }
 				////////////////////
 				}
-		/*if(nbrTables==0){ 
-
-					var params = "tables=" + myTables.toString();
-					var req = new AjaxRequest("POST","pret.html",params, true);
-					req.handleResponse = function() {
-						var resultatsRecherche = document.getElementById("id_result");
-						resultatsRecherche.innerHTML = req.xhr.responseText;
-					};
-					req.process();
+				if(nbrTables==0){ 
 					$("#pret").fadeIn();		
-					alert(myTables.toString());			
-				}		*/									
+				}										
 			}
 			
 
 		});
+
 		
-		$("#pret").click(function(){
-        		
+		$("#pret").click(function(){		
         			pret=true;
         			afficherBieres();
         			$(this).fadeOut();
-        		}
-        
+        		} 
         );
 
+		
 		$(document).click(function(){
 			var params = "tables=";
 			var req = new AjaxRequest("POST","pret.html",params, true);
 			req.handleResponse = function() {
-				alert(req.xhr.responseText);
+				rep=req.xhr.responseText;
+				alert(rep);
+				if(rep != 0) {
+					$("#msgTop").fadeIn().text("Placez les tables dans le bar à gauche!");
+				}
 			};
-			req.process();
-			$("#pret").fadeIn();		
+			req.process();	
 					
 		});
         
@@ -337,8 +331,8 @@
 
 </div>
 
-<div id="tablesAPlacer" class="milieu">
-<p id="msgTop" class="msg">Placez les tables dans le bar à gauche!</p>
+<div id="tablesAPlacer" class="milieu" >
+<p id="msgTop" class="msg">Attendez l'autre joueur...</p>
 <div class="draggable 1">
 	<div class="caseV"><img alt="case" src="img/coupleV2.png"/></div>
 	<div class="caseV"><img alt="case" src="img/coupleV1.png"/></div>
