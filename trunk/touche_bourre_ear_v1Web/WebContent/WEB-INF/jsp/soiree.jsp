@@ -11,7 +11,6 @@
 	<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>		
 	<script src="js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
 	<script src="js/ajax.js" type="text/javascript"></script>	
-	<script type="text/javascript" src="WebContent/js/keepAlive.js"></script>
 	<script type="text/javascript" src="js/handleLeavePartie.js"></script>
 	<link rel="stylesheet" type="text/css"  href="css/jquery-ui-1.8.16.custom.css"/>
 	<link rel="stylesheet" type="text/css"  href="css/soiree.css"/>
@@ -22,6 +21,12 @@
 	var tournee = 1;
 	var myTables=new Array();
 	var deuxiemeConnecte = 0;
+
+	
+	var refreshIntervalId = setInterval( "deuxJoueursConnectes()", 3000 );
+
+	
+	
 	$(document).ready(function() {
 
 	//	alert('${nomSoiree}');
@@ -127,24 +132,16 @@
         			req.handleResponse = function() {
         				rep=req.xhr.responseText;
         				//alert(rep);
-        				//if(rep != 0) {
-        			//		$("#msgTop").fadeIn().text("Placez les tables dans le bar à gauche!");
-        				//	$("#tablesAPlacer").fadeIn();
-        				//	$("#adversaire").fadeIn().text(rep);
-        				//	deuxiemeConnecte=1;
-        				//} 
+        				if(rep == 1) {
+        				  afficherBieres();
+              			$(this).fadeOut();
+        				} else $("#msgTop").fadeIn().text("l autre pas pret!");
         			};
         			req.process();	
-        		
-        			afficherBieres();
-        			$(this).fadeOut();
+
         		} 
         );
 
-
-		if(deuxiemeConnecte==0){
-			setInterval( "deuxJoueursConnectes()", 3000 );
-		} 
        
 		$("#tabPlacement td").click(function(){
         		
@@ -193,12 +190,12 @@
 		}
 	
 	}
+	
 	function deuxJoueursConnectes(){
 		var params = "tables=";
-		var req = new AjaxRequest("POST","pret.html",params, true);
+		var req = new AjaxRequest("POST","connecte.html",params, true);
 		req.handleResponse = function() {
 			rep=req.xhr.responseText;
-			//alert(rep);
 			if(rep != 0) {
 				$("#msgTop").fadeIn().text("Placez les tables dans le bar à gauche!");
 				$("#tablesAPlacer").fadeIn();
@@ -207,6 +204,9 @@
 			} 
 		};
 		req.process();	
+		if(deuxiemeConnecte != 0){
+			clearInterval(refreshIntervalId);
+		} 
 	}
 	
 	</script>
