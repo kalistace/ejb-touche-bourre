@@ -11,6 +11,17 @@
 
 }
 
+.rejoindre {
+		background: url("../img/topSoiree.jpg") no-repeat ;
+		background-position: top;
+		margin: 0 auto;
+		text-align: center;
+		height: 500px;
+		width: 332px;
+		padding-top:280px;
+
+}
+
 .btnSmall {
 	
 	  background: url("../img/base-button-arrow-small.png") no-repeat;
