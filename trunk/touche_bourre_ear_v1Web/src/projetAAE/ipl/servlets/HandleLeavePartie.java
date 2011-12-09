@@ -15,7 +15,7 @@ import projetAAE.ipl.usecases.GestionSoiree;
 /**
  * Servlet implementation class HandleLeavePartie
  */
-@WebServlet("/HandleLeavePartie")
+@WebServlet("/handleLeavePartie.html")
 public class HandleLeavePartie extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
@@ -30,8 +30,8 @@ public class HandleLeavePartie extends HttpServlet {
 		String nomSoiree = (String) session.getAttribute("nomSoiree");
 		String pseudo = (String) session.getAttribute("pseudo");
 		if (nomSoiree != null || pseudo != null) {
-			uccGestionSoiree.fetardDeconnecte(nomSoiree, pseudo);
 			System.out.println("handleleavepartieservlet in if");
+			uccGestionSoiree.fetardDeconnecte(nomSoiree, pseudo);
 		}
 	}
 
