@@ -42,6 +42,15 @@ javax.servlet.Servlet  {
 			response.sendRedirect(response.encodeRedirectURL("index.jsp?timeout=1"));
 			return;
 		}
+		
+		HttpSession session2 = request.getSession();
+		synchronized (session2) {
+			if (session2.getAttribute("nomSoiree") != null) {
+				session2.invalidate(); // détruit la session
+				session = request.getSession();
+			}
+			session2.setAttribute("nomSoiree", request.getParameter("nomSoiree"));
+		}
 		session.setMaxInactiveInterval(5);
 		ucc.creerSoiree(request.getParameter("nomSoiree"), (String) session.getAttribute("pseudo"));
 		//attribut soiree
