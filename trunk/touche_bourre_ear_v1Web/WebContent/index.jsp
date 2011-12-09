@@ -30,5 +30,13 @@
 		window.location.href = ".";
 	</script>
 </c:if>
+
+<c:if test="${param['alreadyLogged']=='1'}">
+	<script type="text/javascript">
+		alert("Vous êtes déjà en ligne sur une autre session. Veuillez utilisez celle-ci ou vous déconnectez de celle-ci");
+		window.location.href = ".";
+	</script>
+</c:if>
+
 </body>
 </html>
