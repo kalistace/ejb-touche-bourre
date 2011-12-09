@@ -11,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -168,7 +169,7 @@ public class Soiree implements Serializable {
 	@OneToOne(cascade = (CascadeType.ALL))
 	private Fetard_Soiree premierFetardAJouer;
 	
-	@OneToMany(mappedBy = "soiree")
+	@OneToMany(mappedBy = "soiree", cascade = (CascadeType.ALL), fetch = FetchType.EAGER)
 	private List<Fetard_Soiree> lesDeuxFetard_Soiree = new ArrayList<Fetard_Soiree>();
 	
 	
