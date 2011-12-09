@@ -16,26 +16,14 @@
 				<td colspan="2">${soiree.nom}</td>
 			</tr>
 			<tr>
-				<c:choose>
-					<c:when test="${soiree.nbrFetardConnecte=='1'}">
 						<td class="biggerTD">
-							<c:url var="urlSoiree" value="soiree.html"/>
+							<c:url var="urlSoiree" value="rejoindre.html"/>
 							<form action="${urlSoiree}" method="post">
+								<input type="hidden" name="nomSoiree" value="${soiree.nom}"/>
 								<input class = "btnSmall" type = "submit" value = "Rejoindre"/>
 							</form>
 						</td>
 			      		<td class="joinable">${soiree.nbrFetardConnecte}/2</td>
-					</c:when>
-					<c:otherwise>
-						<td class="biggerTD">
-							<c:url var="urlSoiree" value="soiree.html"/>
-							<form action="${urlSoiree}" method="post">
-								<input class = "btnSmall" type = "submit" value = "Rejoindre" disabled="disabled"/>
-							</form>
-						</td>
-						<td class="unjoinable">${soiree.nbrFetardConnecte}/2</td>
-					</c:otherwise>
-				</c:choose>
 			</tr>
 		</c:forEach>
 	</table>

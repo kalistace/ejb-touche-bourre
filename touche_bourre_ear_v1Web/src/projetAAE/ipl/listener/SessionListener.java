@@ -35,6 +35,7 @@ public class SessionListener implements HttpSessionListener {
 		System.out.println("fin de session...");
 		HttpSession session = se.getSession();
 		if(session.getMaxInactiveInterval()==TIMEOUTPARTIE){
+			System.out.println("CED JE TE FISTE!");
 			gestionSoiree.fetardDeconnecte((String)session.getAttribute("nomSoiree"), (String)session.getAttribute("pseudo"));
 		}
 	}
