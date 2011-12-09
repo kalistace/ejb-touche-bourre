@@ -284,10 +284,12 @@ public class Soiree implements Serializable {
 	}
 
 	public Fetard_Soiree getFetardSoiree1() {
+		if(lesDeuxFetard_Soiree.size() < 1) return null;
 		return lesDeuxFetard_Soiree.get(0);
 	}
 
 	public Fetard_Soiree getFetardSoiree2() {
+		if(lesDeuxFetard_Soiree.size() < 2) return null;
 		return lesDeuxFetard_Soiree.get(1);
 	}
 
