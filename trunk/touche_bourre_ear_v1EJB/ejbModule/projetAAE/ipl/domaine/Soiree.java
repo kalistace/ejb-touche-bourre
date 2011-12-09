@@ -193,6 +193,9 @@ public class Soiree implements Serializable {
 	}
 
 	private Fetard_Soiree getFetard_Soiree(Fetard fetard) {
+		if(getFetardSoiree1() == null) return null;
+		if (getFetardSoiree2() == null) return null;
+		
 		if (getFetardSoiree1().getFetard().equals(fetard)) {
 			return getFetardSoiree1();
 		} else if (getFetardSoiree2().getFetard().equals(fetard)) {
