@@ -44,7 +44,7 @@ public class Rejoindre extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String soiree = (String)request.getAttribute("nomSoiree");
+		String soiree = (String)request.getParameter("nomSoiree");
 		HttpSession session = request.getSession(false);
 		
 		if(session == null || (session!= null && session.getAttribute("pseudo") == null)) {
@@ -53,6 +53,9 @@ public class Rejoindre extends HttpServlet {
 		}
 		
 		gestionSoiree.rejoindreSoiree(soiree, (String)session.getAttribute("pseudo"));
+		
+		
+		session.setAttribute("nomSoiree", soiree);
 		
 		RequestDispatcher rd = getServletContext().getNamedDispatcher("Soiree");
 		rd.forward(request, response);

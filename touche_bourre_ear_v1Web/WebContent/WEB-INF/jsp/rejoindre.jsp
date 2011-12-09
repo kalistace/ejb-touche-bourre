@@ -19,7 +19,7 @@
 						<td class="biggerTD">
 							<c:url var="urlSoiree" value="rejoindre.html"/>
 							<form action="${urlSoiree}" method="post">
-								<input type="hidden" name="nomSoiree" value="${soiree.nom}"/>
+								<input type="text" name="nomSoiree" value="${soiree.nom}"/>
 								<input class = "btnSmall" type = "submit" value = "Rejoindre"/>
 							</form>
 						</td>
