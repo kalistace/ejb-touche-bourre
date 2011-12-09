@@ -12,6 +12,7 @@
 	<script src="js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
 	<script src="js/ajax.js" type="text/javascript"></script>	
 	<script type="text/javascript" src="WebContent/js/keepAlive.js"></script>
+	<script type="text/javascript" src="js/handleLeavePartie.js"></script>
 	<link rel="stylesheet" type="text/css"  href="css/jquery-ui-1.8.16.custom.css"/>
 	<link rel="stylesheet" type="text/css"  href="css/soiree.css"/>
 	
