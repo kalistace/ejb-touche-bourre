@@ -54,8 +54,10 @@ public class Soiree implements Serializable {
 			}
 		},
 		EN_PLACEMENT {
-			
-			boolean setJoueurPret(Fetard fetard, Soiree soiree, Map<ETable, List<XY>> tables) throws MemePositionException, TableDejaPlaceeException, CaseDejaOccupeeException {
+
+			boolean setJoueurPret(Fetard fetard, Soiree soiree,
+					Map<ETable, List<XY>> tables) throws MemePositionException,
+					TableDejaPlaceeException, CaseDejaOccupeeException {
 				Fetard_Soiree monFetard_Soiree = soiree
 						.getFetard_Soiree(fetard);
 				if (monFetard_Soiree == null) {
@@ -64,7 +66,7 @@ public class Soiree implements Serializable {
 				if (soiree.nbrFetardPret >= 2) {
 					return false;
 				}
-				for(ETable key : tables.keySet()){
+				for (ETable key : tables.keySet()) {
 					List<XY> coordTable = tables.get(key);
 					monFetard_Soiree.placerTable(coordTable, key);
 				}
@@ -130,7 +132,9 @@ public class Soiree implements Serializable {
 		FINIE {
 
 		};
-		boolean setJoueurPret(Fetard fetard, Soiree soiree, Map<ETable, List<XY>> tables) throws MemePositionException, TableDejaPlaceeException, CaseDejaOccupeeException {
+		boolean setJoueurPret(Fetard fetard, Soiree soiree,
+				Map<ETable, List<XY>> tables) throws MemePositionException,
+				TableDejaPlaceeException, CaseDejaOccupeeException {
 			return false;
 		}
 
@@ -168,11 +172,10 @@ public class Soiree implements Serializable {
 	private Fetard_Soiree gagnant;
 	@OneToOne(cascade = (CascadeType.ALL))
 	private Fetard_Soiree premierFetardAJouer;
-	
+
 	@OneToMany(mappedBy = "soiree", cascade = (CascadeType.ALL), fetch = FetchType.EAGER)
 	private List<Fetard_Soiree> lesDeuxFetard_Soiree = new ArrayList<Fetard_Soiree>();
-	
-	
+
 	@Enumerated(EnumType.STRING)
 	private Etat etat = Etat.INITIAL_ATTENTE_FETARD;
 
@@ -193,13 +196,10 @@ public class Soiree implements Serializable {
 	}
 
 	private Fetard_Soiree getFetard_Soiree(Fetard fetard) {
-		if(getFetardSoiree1() == null) return null;
-		if (getFetardSoiree2() == null) return null;
-		
-		if (getFetardSoiree1().getFetard().equals(fetard)) {
-			return getFetardSoiree1();
-		} else if (getFetardSoiree2().getFetard().equals(fetard)) {
-			return getFetardSoiree2();
+		for (Fetard_Soiree fetardTmp : lesDeuxFetard_Soiree) {
+			if (fetardTmp.getFetard().equals(fetard)) {
+				return fetardTmp;
+			}
 		}
 		return null;
 	}
@@ -208,7 +208,9 @@ public class Soiree implements Serializable {
 		return etat.ajouterFetard(fetard, this);
 	}
 
-	public boolean setJoueurPret(Fetard fetard, Soiree soiree, Map<ETable, List<XY>> tables) throws MemePositionException, TableDejaPlaceeException, CaseDejaOccupeeException {
+	public boolean setJoueurPret(Fetard fetard, Soiree soiree,
+			Map<ETable, List<XY>> tables) throws MemePositionException,
+			TableDejaPlaceeException, CaseDejaOccupeeException {
 		return etat.setJoueurPret(fetard, soiree, tables);
 	}
 
@@ -216,7 +218,7 @@ public class Soiree implements Serializable {
 			throws ArgumentInvalideException, DejaToucheException {
 		return etat.lancerTournee(soiree, coord);
 	}
-	
+
 	public boolean fetardDeconnecte(Fetard fetard, Soiree soiree) {
 		return etat.fetardDeconnecte(fetard, soiree);
 	}
@@ -246,11 +248,10 @@ public class Soiree implements Serializable {
 		}
 		return listeARenvoyer;
 	}
-	
+
 	private void rajouterFetard_Soiree(Fetard_Soiree fs) {
 		lesDeuxFetard_Soiree.add(fs);
 	}
-	
 
 	public int getId() {
 		return id;
@@ -287,12 +288,14 @@ public class Soiree implements Serializable {
 	}
 
 	public Fetard_Soiree getFetardSoiree1() {
-		if(lesDeuxFetard_Soiree.size() < 1) return null;
+		if (lesDeuxFetard_Soiree.size() < 1)
+			return null;
 		return lesDeuxFetard_Soiree.get(0);
 	}
 
 	public Fetard_Soiree getFetardSoiree2() {
-		if(lesDeuxFetard_Soiree.size() < 2) return null;
+		if (lesDeuxFetard_Soiree.size() < 2)
+			return null;
 		return lesDeuxFetard_Soiree.get(1);
 	}
 
