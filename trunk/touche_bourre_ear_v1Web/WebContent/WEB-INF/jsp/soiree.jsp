@@ -6,10 +6,11 @@
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-	<title>Soirée</title>
+	<title>${nomSoiree}</title>
 
 	<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>		
-	<script src="js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>	
+	<script src="js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+	<script src="js/ajax.js" type="text/javascript"></script>	
 	<script type="text/javascript" src="WebContent/js/keepAlive.js"></script>
 	<link rel="stylesheet" type="text/css"  href="css/jquery-ui-1.8.16.custom.css"/>
 	<link rel="stylesheet" type="text/css"  href="css/soiree.css"/>
@@ -18,7 +19,7 @@
 	var nbrTables = 5;
 	var pret = false;
 	var tournee = 1;
-
+	var myTables=new Array();
 	$(document).ready(function() {
 	
 		$( ".draggable" ).draggable({ revert: 'invalid',
@@ -58,15 +59,18 @@
 				}
 				//placement
 				if(placementV){
+					myTables.push("T" + typeTable);
 					for( i=0;i<t;i++){
 						casesd = $("#tabPlacement").children().children().eq(y+i).children().eq(x);				
 						casesd.html(ui.draggable.children().eq(i).html()).addClass("case");
+						myTables.push(x);
+						myTables.push(y+i);
 					}
 					casesd.removeClass("droppable");
 					
 					$("."+typeTable).fadeOut();
 					
-					ui.helper.remove();	
+					ui.draggable.remove();	
 					nbrTables--;
 									
 				}else {
@@ -85,16 +89,16 @@
 					if(casesd.html() != "")	placementH = false;		
 				}
 				if(placementH){
+					myTables.push("T" + typeTable);
 					for(var i=0;i<t;i++){
-						var casesd = $("#tabPlacement").children().children().eq(y).children().eq(x+i);				
+						casesd = $("#tabPlacement").children().children().eq(y).children().eq(x+i);				
 						casesd.html(ui.draggable.children().eq(i).html()).addClass("case");
-						casesd.removeClass("droppable");
-								
-						$("."+typeTable).fadeOut();
-												
-						ui.draggable.remove();	
-					
+						myTables.push(x+i);
+						myTables.push(y);												
 					}
+					casesd.removeClass("droppable");
+					$("."+typeTable).fadeOut();
+					ui.draggable.remove();	
 					nbrTables--;
 				}else {
 						ui.draggable.draggable('option','revert',true);
@@ -102,12 +106,18 @@
 					 }
 				////////////////////
 				}
-				if(nbrTables==0){ 
-				
-					$("#pret").fadeIn();					
-				}
-				
-														
+		/*if(nbrTables==0){ 
+
+					var params = "tables=" + myTables.toString();
+					var req = new AjaxRequest("POST","pret.html",params, true);
+					req.handleResponse = function() {
+						var resultatsRecherche = document.getElementById("id_result");
+						resultatsRecherche.innerHTML = req.xhr.responseText;
+					};
+					req.process();
+					$("#pret").fadeIn();		
+					alert(myTables.toString());			
+				}		*/									
 			}
 			
 
@@ -121,6 +131,17 @@
         		}
         
         );
+
+		$(document).mousemove(function(){
+			var params = "tables=";
+			var req = new AjaxRequest("POST","pret.html",params, true);
+			req.handleResponse = function() {
+				alert(req.xhr.responseText);
+			};
+			req.process();
+			$("#pret").fadeIn();		
+					
+		});
         
        
 		$("#tabPlacement td").click(function(){
