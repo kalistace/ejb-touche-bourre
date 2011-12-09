@@ -80,17 +80,17 @@ public class Journal extends HttpServlet {
 			}
 		}
 		
-		// CRÉATION DES STRINGS RESULTATS
+		// CRï¿½ATION DES STRINGS RESULTATS
 		resultats.add("Nom de la partie: "+soiree.getNom());
-		String date = "Début de la partie: ";
+		String date = "Dï¿½but de la partie: ";
 		date += soiree.getDateDebut().get(Calendar.DAY_OF_MONTH) + " ";
 		date += soiree.getDateDebut().get(Calendar.MONTH) + " ";
-		date += soiree.getDateDebut().get(Calendar.YEAR) + " à ";
+		date += soiree.getDateDebut().get(Calendar.YEAR) + " ï¿½ ";
 		date += soiree.getDateDebut().get(Calendar.HOUR_OF_DAY) + "h";
 		if (soiree.getDateDebut().get(Calendar.MINUTE) < 10) date += "0";
 		date += + soiree.getDateDebut().get(Calendar.MINUTE);
 		resultats.add(date);
-		resultats.add("Fêtards: "+fetardCourant.getFetard().getPseudo()+ " vs. "+nextFetard.getFetard().getPseudo());
+		resultats.add("Fï¿½tards: "+fetardCourant.getFetard().getPseudo()+ " vs. "+nextFetard.getFetard().getPseudo());
 		resultats.add(""); //espace
 		for (Tournee tournee : tournees) {
 			String res = fetardCourant.getFetard().getPseudo() + " sert en ";
@@ -145,22 +145,22 @@ public class Journal extends HttpServlet {
 			    if (entry.getValue() > 0) {
 			    	res += tableNames.get(entry.getKey()) + "servi(e) " + entry.getValue() + " fois";
 				    if (isCoule.get(entry.getKey()))
-				    	res += " et bourré(e)";
+				    	res += " et bourrï¿½(e)";
 				    res += ". ";
 			    }
 			}
 			if (coupsRate > 1)
-				res += coupsRate +" bières cassées.";
+				res += coupsRate +" biÃ¨res cassÃ©es.";
 			if (coupsRate == 1)
-				res += coupsRate +" bière cassée.";
+				res += coupsRate +" biÃ¨re cassÃ©e.";
 			resultats.add(res);
 		}
-		/*String duree = soiree.getGagnant().getFetard().getPseudo() + " a gagné la partie en ";
+		/*String duree = soiree.getGagnant().getFetard().getPseudo() + " a gagnï¿½ la partie en ";
 		Calendar dateDebut = soiree.getDateDebut();
 		Calendar dateFin = soiree.getDateFin();
 		//heureFin += soiree.getD
 		resultats.add(duree);*/
-		resultats.add(soiree.getGagnant().getFetard().getPseudo()+ " a gagné la partie en WTFFFFF?");
+		resultats.add(soiree.getGagnant().getFetard().getPseudo()+ " a gagnÃ© la partie en WTFFFFF?");
 		request.setAttribute("lignes", resultats);
 		RequestDispatcher rd = getServletContext().getNamedDispatcher("Journal");
 		rd.forward(request, response);
