@@ -103,6 +103,10 @@
 	text-shadow: 1px 1px black;
 }
 
+.topRight {
+	float: left;
+}
+
 .loginput {
    border:none;
    -webkit-border-radius:5px;
