@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import projetAAE.ipl.domaine.ETable;
 import projetAAE.ipl.domaine.Fetard;
+import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.exceptions.ArgumentInvalideException;
 import projetAAE.ipl.usecases.GestionSoiree;
 import projetAAE.ipl.valueObject.XY;
@@ -42,10 +43,13 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 		HttpSession sess = request.getSession();
 		String nomSoiree = (String)sess.getAttribute("nomSoiree");
 		
+		Soiree soiree = null;
+		
 		if(tables.equals("")){
 			
 			try {
-			   gestionSoiree.commencerPlacement(nomSoiree);
+			   
+			   soiree = gestionSoiree.commencerPlacement(nomSoiree);
 			   
 			}
 			catch(Exception e){
@@ -57,6 +61,7 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 			}
 		}
 		
+		//get nom adver;
 		System.out.println("PSEEEEEUUUDDOOOOO"+ (String)request.getSession().getAttribute("pseudo"));
 		
 		HashMap<ETable, List<XY>> mtables = new HashMap<ETable,List<XY>>();
