@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 
 import projetAAE.ipl.dao.FetardDao;
 import projetAAE.ipl.dao.Fetard_SoireeDao;
@@ -23,7 +23,7 @@ import projetAAE.ipl.usecases.GestionSoiree;
 import projetAAE.ipl.valueObject.XY;
 
 
-@Stateless
+@Singleton
 public class GestionSoireeImpl implements GestionSoiree {
 
 	@EJB
