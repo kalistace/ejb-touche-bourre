@@ -98,6 +98,11 @@
 	text-shadow: 1px 1px #CCC;
 }
 
+.warningmsg {
+	color: red;
+	text-shadow: 1px 1px black;
+}
+
 .loginput {
    border:none;
    -webkit-border-radius:5px;
