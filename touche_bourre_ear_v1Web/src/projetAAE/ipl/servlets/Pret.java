@@ -61,6 +61,7 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 			}
 		}
 		
+		
 		//get nom adver;
 		System.out.println("PSEEEEEUUUDDOOOOO"+ (String)request.getSession().getAttribute("pseudo"));
 		
@@ -96,9 +97,18 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 			tables = String.copyValueOf(tables.toCharArray(), 2, tables.toCharArray().length-2).toString();	
 		}
 		
-	
-			gestionSoiree.fetardPret(nomSoiree, (String)request.getSession().getAttribute("pseudo"), mtables);
-	
+			soiree = gestionSoiree.fetardPret(nomSoiree, (String)request.getSession().getAttribute("pseudo"), mtables);
+			if(soiree.getFetardSoiree1().getFetard().getPseudo() == (String)sess.getAttribute("pseudo")){
+				request.setAttribute("pret",soiree.getFetardSoiree1().getFetard().getPseudo());
+			}else {			
+				request.setAttribute("pret",soiree.getFetardSoiree2().getFetard().getPseudo());			
+			}
+			
+			
+			RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
+			rd.forward(request, response);
+			
+			
 		
 	}
 }
