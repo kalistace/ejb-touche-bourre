@@ -1,13 +1,11 @@
 package projetAAE.ipl.daoimpl;
 
-import java.util.List;
-
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 
 import projetAAE.ipl.dao.FetardDao;
 import projetAAE.ipl.domaine.Fetard;
 
-@Stateless
+@Singleton
 public class FetardDaoImpl extends DaoImpl<Integer, Fetard> implements FetardDao {
 
 	@Override

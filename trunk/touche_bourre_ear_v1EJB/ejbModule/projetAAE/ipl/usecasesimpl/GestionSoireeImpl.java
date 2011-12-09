@@ -36,6 +36,8 @@ public class GestionSoireeImpl implements GestionSoiree {
 	@Override
 	public Soiree creerSoiree(String nomSoiree, String pseudoFetard1) {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard1);
+		if(fetard == null) return null;
+		
 		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
 		if(soiree != null){
 			return null;// throw exception, peut pas avoir 2 soirée 'en cours' avec le meme nom
