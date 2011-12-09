@@ -12,6 +12,7 @@ import projetAAE.ipl.dao.SoireeDao;
 import projetAAE.ipl.domaine.ETable;
 import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
+import projetAAE.ipl.domaine.Soiree.Etat;
 import projetAAE.ipl.domaine.Tournee;
 import projetAAE.ipl.exceptions.ArgumentInvalideException;
 import projetAAE.ipl.exceptions.CaseDejaOccupeeException;
@@ -20,6 +21,7 @@ import projetAAE.ipl.exceptions.MemePositionException;
 import projetAAE.ipl.exceptions.TableDejaPlaceeException;
 import projetAAE.ipl.usecases.GestionSoiree;
 import projetAAE.ipl.valueObject.XY;
+
 
 @Stateless
 public class GestionSoireeImpl implements GestionSoiree {
@@ -124,6 +126,19 @@ public class GestionSoireeImpl implements GestionSoiree {
 		}
 		soiree.fetardDeconnecte(fetard, soiree);
 		soireeDao.mettreAJour(soiree);
+		return soiree;
+	}
+
+	@Override
+	public Soiree commencerPlacement(String nomSoiree) throws Exception {
+		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
+		
+		if(soiree==null){
+			throw new Exception("soiree null");
+		}
+		if(soiree.getEtat()!=Etat.EN_PLACEMENT){
+			throw new Exception("conditions non remplies pour commencer le placement");
+		}
 		return soiree;
 	}
 }
