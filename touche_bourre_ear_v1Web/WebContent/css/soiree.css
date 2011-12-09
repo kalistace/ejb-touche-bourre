@@ -1,0 +1,124 @@
+@CHARSET "UTF-8";
+	body{
+		background-color: #000;
+	}
+	
+	#head{
+	
+	margin: auto;
+	width: 1070px;
+	height: 137px;
+	background-image:url('../img/topSoiree.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	
+	}
+	#container{
+	
+	margin: auto;
+	width: 1070px;
+	
+	}
+	.gauche{ 
+	
+		float:left;
+		width:410px;
+	}
+	
+	.milieu{ 
+	float:left;
+	width:250px;
+		}
+	
+	.droite{ 
+		float: left;
+		width:410px;
+	}
+	
+	.draggable {
+		float: left;
+		font-size: x-small;
+	}
+	
+	.droppable {
+		width: 40px;
+		height: 40px;
+		border:0.1em #402F1D solid; /*#402F1D*/
+	}
+	
+	.caseV { 
+		width: 40px;
+		height: 40px;
+			
+		
+	}
+	.caseH { 
+		width: 40px;
+		height: 40px;
+		float:left;
+	}
+	table tr td, table tr th { padding: 0; }
+
+	.tab {
+	
+		border-collapse: collapse;
+		background-image: url('../img/backTab.png') ;
+		background-position: center;
+		background-repeat: no-repeat;	
+	}
+	
+	
+	.tab td:hover {
+		
+		background-image: url('../img/backHover.png') ;
+
+	}
+	
+	#tabTirs td {
+		width: 40px;
+		height: 40px;
+		border:0.1em #402F1D solid;
+		color: #FBC13C;
+		text-align: center;
+		font-weight: bold;
+		
+		
+	}
+	
+	.msg {
+	
+	color : #FFF;
+	text-shadow: 1px 1px #CCC;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+	
+	}
+	#bieres{
+	
+		text-align: center;
+	
+	}
+	
+	.btnSmall {
+	
+	  background: url("../img/base-button-arrow-small.png") no-repeat;
+      width: 106px;
+      height: 29px;
+      color: black;	
+      border : 0;
+   	  cursor: pointer;
+      font-size: 14px;
+      font-weight: normal;
+      text-align: center;
+      text-shadow: 0 1px #FCDA87;
+      line-height: 29px;
+}
+
+.btnSmall:hover {
+	background-position: 0px -29px;
+}
+
+.btnSmall:active {
+	background-position: 0px -58px;
+}
