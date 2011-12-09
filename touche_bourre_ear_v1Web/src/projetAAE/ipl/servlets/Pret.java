@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import projetAAE.ipl.domaine.ETable;
 import projetAAE.ipl.domaine.Fetard;
@@ -38,22 +39,21 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String tables = request.getParameter("tables");
-		String nomSoiree = request.getParameter("nomSoiree");
-		
-		gestionSoiree.fetardPret("FIST", (String)request.getSession().getAttribute("pseudo"), new HashMap<ETable,List<XY>>());
-		/*if(tables.equals("")){
+		HttpSession sess = request.getSession();
+		String nomSoiree = (String)sess.getAttribute("nomSoiree");
+		System.out.println("SOIREEE: "+nomSoiree);
+		if(tables.equals("")){
 			System.out.println("x");
 			try {
 			   gestionSoiree.fetardPret("FIST", (String)request.getSession().getAttribute("pseudo"), null);
 			}
 			catch(Exception e){
-				System.out.println("exex");
 				request.setAttribute("pret","false");
 				RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
 				rd.forward(request, response);
 				return;
 			}
-		}*/
+		}
 		
 		System.out.println("PSEEEEEUUUDDOOOOO"+ (String)request.getSession().getAttribute("pseudo"));
 		
@@ -89,7 +89,12 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 			tables = String.copyValueOf(tables.toCharArray(), 2, tables.toCharArray().length-2).toString();	
 		}
 		
-		gestionSoiree.fetardPret("FIST", (String)request.getSession().getAttribute("pseudo"), mtables);
+		try {
+			gestionSoiree.fetardPret("FIST", (String)request.getSession().getAttribute("pseudo"), mtables);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		
