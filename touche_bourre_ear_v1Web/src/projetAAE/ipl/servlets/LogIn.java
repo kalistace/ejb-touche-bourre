@@ -42,8 +42,8 @@ javax.servlet.Servlet  {
 		
 		synchronized (session) {
 			if (session.getAttribute("pseudo") != null) {
-				session.invalidate(); // détruit la session
-				session = request.getSession();
+				response.sendRedirect(response.encodeRedirectURL("index.jsp?alreadyLogged=1"));
+				return;
 			}
 			session.setAttribute("pseudo", pseudo);
 			gestionFetard.enregistrer(pseudo);
