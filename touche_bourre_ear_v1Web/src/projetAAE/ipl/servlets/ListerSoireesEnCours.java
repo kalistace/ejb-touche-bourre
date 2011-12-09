@@ -38,6 +38,7 @@ public class ListerSoireesEnCours extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Soiree> soireesEnCours = ucc.listerPartiesEnAttenteDePartenaire();
+		System.out.println(soireesEnCours.size());
 		request.setAttribute("soireesEnCours", soireesEnCours);
 		RequestDispatcher rd = getServletContext().getNamedDispatcher("Rejoindre");
 		rd.forward(request, response);
