@@ -131,11 +131,14 @@
         			var req = new AjaxRequest("POST","pret.html",params, true);
         			req.handleResponse = function() {
         				rep=req.xhr.responseText;
-        				//alert(rep);
+        				alert(rep);
         				if(rep == 1) {
         				  afficherBieres();
               			$(this).fadeOut();
-        				} else $("#msgTop").fadeIn().text("l autre pas pret!");
+        				} else { 
+            				//pret
+            				$("#msgTop").fadeIn().text("En attente de l'autre fétard!");
+            			}
         			};
         			req.process();	
 
@@ -143,14 +146,7 @@
         );
 
        
-		$("#tabPlacement td").click(function(){
-        		
-        			var col = $(this).index();	
-        			var row = $(this).parent().index();
-        			//alert("col: "+col+" row: "+row);
-        		}
-        
-        );
+
 
 	    
                                     

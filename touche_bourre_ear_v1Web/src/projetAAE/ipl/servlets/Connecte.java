@@ -51,7 +51,7 @@ public class Connecte extends javax.servlet.http.HttpServlet implements
 			   
 			}
 			catch(Exception e){
-				System.out.println(e.getMessage());
+				
 				request.setAttribute("var",0);
 				RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
 				rd.forward(request, response);

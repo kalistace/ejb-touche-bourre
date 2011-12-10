@@ -14,9 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import projetAAE.ipl.domaine.ETable;
-import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
-import projetAAE.ipl.exceptions.ArgumentInvalideException;
+import projetAAE.ipl.domaine.Soiree.Etat;
 import projetAAE.ipl.usecases.GestionSoiree;
 import projetAAE.ipl.valueObject.XY;
 
@@ -42,11 +41,9 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 		String tables = request.getParameter("tables");
 		HttpSession sess = request.getSession();
 		String nomSoiree = (String)sess.getAttribute("nomSoiree");
-		
+		System.out.println(tables);
 		Soiree soiree = null;
-				
-	
-		
+
 		HashMap<ETable, List<XY>> mtables = new HashMap<ETable,List<XY>>();
 		mtables.put(ETable.TableDeCouple, new ArrayList<XY>());
 		mtables.put(ETable.TableDeFilles,  new ArrayList<XY>());
@@ -56,39 +53,56 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 		
 		
 		ETable currentT = ETable.TableDeCouple;
-		while(tables.length()>0){
-			
-			if(tables.charAt(0)=='T'){
-				switch (tables.charAt(1)){
-					case 1 : currentT = ETable.TableDeCouple;break;
-					case 2 : currentT = ETable.TableDeFilles;break;
-					case 3 : currentT = ETable.TableDeGarcons;break;
-					case 4 : currentT = ETable.TableDePotes;break;
-					case 5 : currentT = ETable.Comptoir;break;
+		XY c = new XY(-1,-1);
+		
+		String[] ntables = tables.split(",");
+		for ( String t : ntables){			
+			if(t.charAt(0)=='T'){
+				switch (t.charAt(1)){
+					case '1' : currentT = ETable.TableDeCouple;break;
+					case '2' : currentT = ETable.TableDeFilles;break;
+					case '3' : currentT = ETable.TableDeGarcons;break;
+					case '4' : currentT = ETable.TableDePotes;break;
+					case '5' : currentT = ETable.Comptoir;break;
 				}
-			}else{
 				
-				XY c = null;
-				try {
-					c = new XY((int)tables.charAt(0),(int)tables.charAt(1));
-				} catch (ArgumentInvalideException e) {}
-				List<XY> cr = new ArrayList<XY>(mtables.get(currentT));
-				cr.add(c);
-				mtables.put(currentT,cr);
+			}else{
+				if(c.getX()==-1){
+					c.setX(Integer.parseInt(t));
+					continue;
+				}
+				else { 
+					List<XY> cr = mtables.get(currentT);
+					c.setY(Integer.parseInt(t));
+					cr.add(c);
+					c = new XY(-1,-1);
+					
+					mtables.put(currentT,cr);
+				}
 			}
-			tables = String.copyValueOf(tables.toCharArray(), 2, tables.toCharArray().length-2).toString();	
 		}
 		
-			
+		for (ETable key : mtables.keySet()) {
+			System.out.println(key.toString());
+			List<XY> coordTable = mtables.get(key);
+			System.out.println(coordTable.toString());
+			//monFetard_Soiree.placerTable(coordTable, key);
+		}
 			try {
 			soiree = gestionSoiree.fetardPret(nomSoiree, (String)request.getSession().getAttribute("pseudo"), mtables);
 			}
 			catch(Exception e) {
+				
+				e.printStackTrace();
 				request.setAttribute("var",0);
 				RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
 				rd.forward(request, response);
 				return;
 			}
+			
+			if(soiree.getEtat()==Etat.EN_PLACEMENT){
+				request.setAttribute("var",2); //timer
+			}else request.setAttribute("var",1); //placera les bieres
 
 			request.setAttribute("var",1);		
 			RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
