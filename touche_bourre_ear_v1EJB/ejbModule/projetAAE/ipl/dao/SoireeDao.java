@@ -14,4 +14,5 @@ public interface SoireeDao extends Dao<Integer, Soiree> {
 	public Soiree rechercheSoireeNonFinie(String pseudo);
 	public List<Soiree> listerSoireeEnAttenteDeJoueur();
 	public List<Soiree> listerSoireeFinie(String pseudoFetard);
+	public Soiree chargerTournee(String pseudoFetard, Soiree soiree);
 }

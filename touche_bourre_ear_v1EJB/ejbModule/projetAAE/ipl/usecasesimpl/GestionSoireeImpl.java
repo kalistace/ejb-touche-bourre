@@ -112,6 +112,7 @@ public class GestionSoireeImpl implements GestionSoiree {
 		} catch (ArgumentInvalideException e) {
 			throw new Exception("mauvaises coordonnées");
 		}
+		soiree = soireeDao.chargerTournee(pseudoFetard, soiree);
 		soireeDao.mettreAJour(soiree);
 		return soiree;
 	}
