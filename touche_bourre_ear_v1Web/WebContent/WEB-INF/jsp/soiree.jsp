@@ -149,19 +149,24 @@
         		
         			var col = $(this).index();	
         			var row = $(this).parent().index();
+        			var coord = new Array();
         			if(pret && $(this).text()==""){
         				
         				$("#bieres").children().last().fadeOut(function(){ 
         				$(this).remove()});
         				$(this).text(tournee);
-        				
+        				coord.push(col+row);
         				if($("#bieres").children().length <= 1)
         				{
         					pret=false;
-        					tournee++;
+        					gererTournee(coord.toString());
+        					//nr tournee -> size sur liste de tournees
+        					//gere tournee
+        					//envoyer resultats
+        					//recupérer resulats
         					//afficher resulat
-        					//donne la main à l'autre joueur
-        					$("#msgTop").text("Attendez...");
+        					//changer le joueur courant
+        					
         				}
 
         			
@@ -208,9 +213,8 @@
 			req.handleResponse = function() {
 				rep=req.xhr.responseText;
 				if(rep == 1) {
-				alert("fist");
 				clearInterval(refeshIntervalPretId);
-				afficherBieres();
+				courant();			
 				} else { 
 					$("#msgTop").fadeOut().fadeIn().text("En attente de l'autre fétard!");
 					
@@ -218,6 +222,40 @@
 			};
 			req.process();	
 		}, 3000);
+	}
+
+	function courant() {
+
+		var params = "";
+		var req = new AjaxRequest("POST","encours.html",params, true);
+		req.handleResponse = function() {
+			rep=req.xhr.responseText;
+			if(rep == 1) {
+				pret = true;
+				afficherBieres();
+				$("#msgTop").fadeOut().fadeIn().text("Cliquez sur le bar de droite");
+			} else { 
+				$("#msgTop").fadeOut().fadeIn().text("Ce n'est pas votre tour!");		
+			}
+		};
+		req.process();	
+
+	}
+
+	function gererTournee(coord){
+		var params = "";
+		var req = new AjaxRequest("POST","tournee.html",params, true);
+		/*req.handleResponse = function() {
+			rep=req.xhr.responseText;
+			if(rep == 1) {
+				pret = true;
+				afficherBieres();
+				$("#msgTop").fadeOut().fadeIn().text("Cliquez sur le bar de droite");
+			} else { 
+				$("#msgTop").fadeOut().fadeIn().text("Ce n'est pas votre tour!");		
+			}
+		};*/
+		req.process();	
 	}
 
 		
