@@ -178,6 +178,14 @@ input:focus { outline:none; }
 .vert {
 	background-color: #058103;
 }
+#msgTopRes, #tablesTouchees {
+	
+	margin: auto;
+	margin-top : 200px;
+}
+.servie {
+position:absolute;
 
-
+z-index:1;
+}
 

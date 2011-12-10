@@ -253,11 +253,15 @@
 		};
 		req.process();	
 	}
+	
 	function tableServies(rep){
-		for (table in rep)
+		table = rep.split(",");
+		for ( t in table)
 		{
-		alert(person[table]);
+		 $("."+t).append("<img alt='servie' src='img/servie.png' class='servie'/>")
 		}
+		$("#msgTopRes").fadeIn();
+		$("#tablesTouchees").fadeIn();
 	}
 
 		
@@ -442,8 +446,6 @@
 	<div class="caseV"><img alt="case" src="img/comptoireV4.png"/></div>	
 	<div class="caseV"><img alt="case" src="img/comptoireV5.png"/></div>	
 </div>
-
-
 <!--  -->
 <div style="width: 210px">
 <div class="draggable 1" style="width: 90px">
@@ -477,7 +479,49 @@
 	<div class="caseH"><img alt="case" src="img/comptoire5.png"/></div>
 </div>
 </div>
+
 </div>
+
+<p id="msgTopRes" style ="display:none;" class="msg">Tables servies:</p>
+<div id="tablesTouchees" style ="display:none;" >
+
+<!--  -->
+<div style="width: 210px">
+<div class="TableDeCouple" style="width: 90px">
+	<div class="caseH"><img alt="case" src="img/couple1.png"/></div>
+	<div class="caseH"><img alt="case" src="img/couple2.png"/></div>
+</div>
+
+<div class="TableDeFilles"  style="width: 130px">
+	<div class="caseH"><img alt="case" src="img/filles1.png"/></div>
+	<div class="caseH"><img alt="case" src="img/filles2.png"/></div>
+	<div class="caseH"><img alt="case" src="img/filles3.png"/></div>
+</div>
+
+<div class="TableDeGarcons" style="width: 130px">
+	<div class="caseH"><img alt="case" src="img/garcons1.png"/></div>
+	<div class="caseH"><img alt="case" src="img/garcons2.png"/></div>
+	<div class="caseH"><img alt="case" src="img/garcons3.png"/></div>
+</div>
+
+<div class="TableDePotes" style="width: 170px">
+	<div class="caseH"><img alt="case" src="img/potes1.png"/></div>
+	<div class="caseH"><img alt="case" src="img/potes2.png"/></div>
+	<div class="caseH"><img alt="case" src="img/potes3.png"/></div>
+	<div class="caseH"><img alt="case" src="img/potes4.png"/></div>
+</div>
+<div class="Comptoir" style="width: 210px">
+	<div class="caseH"><img alt="case" src="img/comptoire1.png"/></div>
+	<div class="caseH"><img alt="case" src="img/comptoire2.png"/></div>
+	<div class="caseH"><img alt="case" src="img/comptoire3.png"/></div>
+	<div class="caseH"><img alt="case" src="img/comptoire4.png"/></div>
+	<div class="caseH"><img alt="case" src="img/comptoire5.png"/></div>
+</div>
+</div>
+
+</div>
+
+
 
 </div><!-- millieu -->
 
