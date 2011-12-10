@@ -21,8 +21,8 @@
 	var tournee = 1;
 	var myTables=new Array();
 	var deuxiemeConnecte = 0;
+	var refeshIntervalPretId;
 
-	
 	var refreshIntervalId = setInterval( "deuxJoueursConnectes()", 3000 );
 
 	
@@ -126,18 +126,16 @@
 
 		
 		$("#pret").click(function(){		
-        			pret=true;
         			var params = "tables="+myTables.toString();
         			var req = new AjaxRequest("POST","pret.html",params, true);
         			req.handleResponse = function() {
         				rep=req.xhr.responseText;
-        				alert(rep);
         				if(rep == 1) {
         				  afficherBieres();
               			$(this).fadeOut();
-        				} else { 
-            				//pret
+        				} else { /*2*/
             				$("#msgTop").fadeIn().text("En attente de l'autre fétard!");
+            				var r = intervalPret();
             			}
         			};
         			req.process();	
@@ -204,6 +202,27 @@
 			clearInterval(refreshIntervalId);
 		} 
 	}
+
+	function pret(){
+		var params = "-1";
+		var req = new AjaxRequest("POST","pret.html",params, true);
+		req.handleResponse = function() {
+			rep=req.xhr.responseText;
+			if(rep == 1) {
+			clearInterval(refeshIntervalPretId);
+			afficherBieres();
+			} else { 
+				$("#msgTop").fadeIn().text("En attente de l'autre fétard!");
+				refeshIntervalPretId = intervalPret();
+			}
+		};
+		req.process();	
+	}
+	function intervalPret() {
+	    return(setInterval(pret, 3000));
+	}
+
+		
 	
 	</script>
 </head>
