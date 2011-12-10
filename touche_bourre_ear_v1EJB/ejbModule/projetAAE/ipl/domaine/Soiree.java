@@ -80,6 +80,7 @@ public class Soiree implements Serializable {
 					soiree.premierFetardAJouer = monFetard_Soiree;
 				} else {// 2 joueurs prêts
 					soiree.etat = EN_COURS;
+					soiree.dateDebut = new GregorianCalendar();
 				}
 				return true;
 			}
@@ -127,6 +128,7 @@ public class Soiree implements Serializable {
 					// le joueur restant gagne par forfait
 					soiree.gagnant = soiree.getAdversaire(soiree
 							.getFetard_Soiree(fetard));
+					soiree.dateFin = new GregorianCalendar();
 				}
 				return true;
 			}
@@ -194,7 +196,7 @@ public class Soiree implements Serializable {
 		this.nbrFetardPret = 0;
 		this.nbrFetardConnecte = 1;
 		this.gagnant = null;
-		this.dateDebut = new GregorianCalendar();
+		this.dateDebut = null;
 		this.dateFin = null;
 	}
 
@@ -236,14 +238,15 @@ public class Soiree implements Serializable {
 	}
 
 	public List<Tournee> listePermuteeEtOrdonneeDeTournees() {
-
+		List<Tournee> listeARenvoyer = new ArrayList<Tournee>();
+		if (nbrFetardPret != 2 || lesDeuxFetard_Soiree.size() != 2)
+			return listeARenvoyer;
 		List<Tournee> liste1 = premierFetardAJouer.getMesTournees();
 		List<Tournee> liste2 = null;
 		if (premierFetardAJouer.equals(getFetardSoiree1()))
 			liste2 = getFetardSoiree2().getMesTournees();
 		else
 			liste2 = getFetardSoiree1().getMesTournees();
-		List<Tournee> listeARenvoyer = new ArrayList<Tournee>();
 
 		for (int i = 0; i < liste1.size(); i++) {
 			listeARenvoyer.add(liste1.get(i));
