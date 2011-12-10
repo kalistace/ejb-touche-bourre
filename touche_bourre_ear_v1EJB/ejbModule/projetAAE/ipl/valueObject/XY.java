@@ -2,9 +2,6 @@ package projetAAE.ipl.valueObject;
 
 import java.io.Serializable;
 
-import projetAAE.ipl.exceptions.ArgumentInvalideException;
-import projetAAE.ipl.util.Util;
-
 public class XY implements Serializable {
 	
 	private int x;
