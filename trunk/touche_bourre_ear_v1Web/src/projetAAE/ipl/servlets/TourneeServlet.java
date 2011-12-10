@@ -64,7 +64,8 @@ public class TourneeServlet extends javax.servlet.http.HttpServlet implements
 			e.printStackTrace();
 		}
 
-		List<Tournee> mesTournees = soiree.getFetard_Soiree(pseudo).getMesTournees();
+		Fetard_Soiree fs = soiree.getFetard_Soiree(pseudo);
+		List<Tournee> mesTournees = fs.getMesTournees();
 		
 		Tournee tournee = mesTournees.get(mesTournees.size()-1);
 		List<Biere> listeBiere = tournee.getBieres();
@@ -82,7 +83,8 @@ public class TourneeServlet extends javax.servlet.http.HttpServlet implements
 	private String toStringList(List<ETable> liste){
 		String s = "";
 		for(ETable table : liste){
-			s+=table.toString()+",";
+			if(table!=null)
+				s+=table.toString()+",";
 		}	
 		return s;
 	}
