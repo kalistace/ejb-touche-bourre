@@ -132,10 +132,11 @@
         				rep=req.xhr.responseText;
         				if(rep == 1) {
         				  afficherBieres();
-              			$(this).fadeOut();
+        				  $("#pret").fadeOut();
         				} else { /*2*/
-            				$("#msgTop").fadeIn().text("En attente de l'autre fétard!");
-            				var r = intervalPret();
+            				$("#msgTop").fadeOut().fadeIn().text("En attente de l'autre fétard!");
+            				intervalPret();
+            				$("#pret").fadeOut();
             			}
         			};
         			req.process();	
@@ -143,11 +144,7 @@
         		} 
         );
 
-       
-
-
-	    
-                                    
+                               
         $("#tabTirs td").click(function(){
         		
         			var col = $(this).index();	
@@ -203,23 +200,24 @@
 		} 
 	}
 
-	function pret(){
-		var params = "-1";
-		var req = new AjaxRequest("POST","pret.html",params, true);
-		req.handleResponse = function() {
-			rep=req.xhr.responseText;
-			if(rep == 1) {
-			clearInterval(refeshIntervalPretId);
-			afficherBieres();
-			} else { 
-				$("#msgTop").fadeIn().text("En attente de l'autre fétard!");
-				refeshIntervalPretId = intervalPret();
-			}
-		};
-		req.process();	
-	}
-	function intervalPret() {
-	    return(setInterval(pret, 3000));
+
+	function intervalPret(){
+		refeshIntervalPretId = setInterval(function (){
+			var params = "tables=-1";
+			var req = new AjaxRequest("POST","pret.html",params, true);
+			req.handleResponse = function() {
+				rep=req.xhr.responseText;
+				if(rep == 1) {
+				alert("fist");
+				clearInterval(refeshIntervalPretId);
+				afficherBieres();
+				} else { 
+					$("#msgTop").fadeOut().fadeIn().text("En attente de l'autre fétard!");
+					
+				}
+			};
+			req.process();	
+		}, 3000);
 	}
 
 		
