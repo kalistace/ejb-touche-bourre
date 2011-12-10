@@ -144,22 +144,23 @@
         		} 
         );
 
-                               
+		var coord = new Array();                  
         $("#tabTirs td").click(function(){
         		
         			var col = $(this).index();	
         			var row = $(this).parent().index();
-        			var coord = new Array();
+        			
         			if(pret && $(this).text()==""){
         				
         				$("#bieres").children().last().fadeOut(function(){ 
         				$(this).remove()});
         				$(this).text(tournee);
-        				coord.push(col+row);
+        				coord.push(col+""+row);
         				if($("#bieres").children().length <= 1)
         				{
         					pret=false;
         					gererTournee(coord.toString());
+        					coord = new Array();
         					//nr tournee -> size sur liste de tournees
         					//gere tournee
         					//envoyer resultats
@@ -243,19 +244,20 @@
 	}
 
 	function gererTournee(coord){
-		var params = "";
+		var params = "coord="+coord;
 		var req = new AjaxRequest("POST","tournee.html",params, true);
-		/*req.handleResponse = function() {
+		req.handleResponse = function() {
 			rep=req.xhr.responseText;
-			if(rep == 1) {
-				pret = true;
-				afficherBieres();
-				$("#msgTop").fadeOut().fadeIn().text("Cliquez sur le bar de droite");
-			} else { 
-				$("#msgTop").fadeOut().fadeIn().text("Ce n'est pas votre tour!");		
-			}
-		};*/
+			tableServies(rep);
+			//
+		};
 		req.process();	
+	}
+	function tableServies(rep){
+		for (table in rep)
+		{
+		alert(person[table]);
+		}
 	}
 
 		

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import projetAAE.ipl.domaine.Biere;
+import projetAAE.ipl.domaine.ETable;
 import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.domaine.Tournee;
@@ -20,7 +21,7 @@ import projetAAE.ipl.usecases.GestionSoiree;
 import projetAAE.ipl.valueObject.XY;
 
 
-@WebServlet("/encours.html")
+@WebServlet("/tournee.html")
 public class TourneeServlet extends javax.servlet.http.HttpServlet implements
 		javax.servlet.Servlet {
 	static final long serialVersionUID = 1L;
@@ -44,27 +45,43 @@ public class TourneeServlet extends javax.servlet.http.HttpServlet implements
 		String nomSoiree = (String)sess.getAttribute("nomSoiree");
 		String pseudo = (String)sess.getAttribute("pseudo");
 		Soiree soiree = null;
-		
+		System.out.println("COORD:"+coords);
 		List<XY> listeCoord = new ArrayList<XY>();
 		
 		String[] ncoords = coords.split(",");
+		System.out.println("COORD[]:"+ncoords.toString());
 		for(String xy : ncoords){
 			XY c = new XY(xy.charAt(0), xy.charAt(1));
 			listeCoord.add(c);
 		}
-		
+		System.out.println("lsiteCOOORD!!: "+listeCoord);
+		try{
 		soiree = gestionSoiree.lancerUneTournee(nomSoiree, pseudo, listeCoord);
-		
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		System.out.println("Soiree:"+soiree);
 		List<Tournee> mesTournees = soiree.getFetard_Soiree(new Fetard(pseudo)).getMesTournees();
 		
 		Tournee tournee = mesTournees.get(mesTournees.size());
 		List<Biere> listeBiere = tournee.getBieres();
-		for(Biere b : listeBiere){
-			//b.getTableTouchee()
-		}
+		List<ETable> tablesTouche = new ArrayList<ETable>();
 		
-		request.setAttribute("var","");
+		for(Biere b : listeBiere){
+			tablesTouche.add(b.getTableTouchee());
+		}
+		String rep = toStringList(tablesTouche);
+		request.setAttribute("var",rep);
 		RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
 		rd.forward(request, response);
+	}
+	
+	private String toStringList(List<ETable> liste){
+		String s = null;
+		for(ETable table : liste){
+			s+=table.toString()+",";
+		}	
+		return s;
 	}
 }

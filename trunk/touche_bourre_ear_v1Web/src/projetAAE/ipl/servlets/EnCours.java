@@ -20,7 +20,7 @@ import projetAAE.ipl.usecases.GestionSoiree;
 import projetAAE.ipl.valueObject.XY;
 
 
-@WebServlet("/tournee.html")
+@WebServlet("/encours.html")
 public class EnCours extends javax.servlet.http.HttpServlet implements
 		javax.servlet.Servlet {
 	static final long serialVersionUID = 1L;
