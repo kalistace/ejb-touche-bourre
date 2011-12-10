@@ -144,4 +144,17 @@ public class GestionSoireeImpl implements GestionSoiree {
 		}
 		return soiree;
 	}
+
+	@Override
+	public Soiree commencerSoiree(String nomSoiree) throws Exception {
+		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
+		
+		if(soiree==null){
+			throw new Exception("soiree null");
+		}
+		if(soiree.getEtat()!=Etat.EN_COURS){
+			throw new Exception("conditions non remplies pour commencer le placement");
+		}
+		return soiree;
+	}
 }

@@ -20,4 +20,5 @@ public interface GestionSoiree {
 	List<Soiree> listerSoireesFinies(String pseudoFetard);
 	Soiree fetardDeconnecte(String nomSoiree, String pseudoFetard);
 	Soiree commencerPlacement(String nomSoiree) throws Exception;
+	Soiree commencerSoiree(String nomSoiree) throws Exception;
 }
