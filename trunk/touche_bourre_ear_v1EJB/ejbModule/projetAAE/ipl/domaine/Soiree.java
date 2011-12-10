@@ -34,7 +34,7 @@ public class Soiree implements Serializable {
 	public enum Etat {
 		INITIAL_ATTENTE_FETARD {
 			boolean ajouterFetard(Fetard fetard, Soiree soiree) {
-				if (soiree.getFetard_Soiree(fetard) != null) {
+				if (soiree.getFetard_Soiree(fetard.getPseudo()) != null) {
 					return false;
 				}
 				if (soiree.getFetardSoiree1() == null) {
@@ -59,7 +59,7 @@ public class Soiree implements Serializable {
 					Map<ETable, List<XY>> tables) throws MemePositionException,
 					TableDejaPlaceeException, CaseDejaOccupeeException {
 				Fetard_Soiree monFetard_Soiree = soiree
-						.getFetard_Soiree(fetard);
+						.getFetard_Soiree(fetard.getPseudo());
 				if (monFetard_Soiree == null) {
 					return false;
 				}
@@ -87,7 +87,7 @@ public class Soiree implements Serializable {
 
 			boolean fetardDeconnecte(Fetard fetard, Soiree soiree) {
 				Fetard_Soiree monFetard_Soiree = soiree
-						.getFetard_Soiree(fetard);
+						.getFetard_Soiree(fetard.getPseudo());
 				soiree.nbrFetardConnecte--;
 				if (monFetard_Soiree.isPret()) {
 					monFetard_Soiree.setPret(false);
@@ -127,7 +127,7 @@ public class Soiree implements Serializable {
 					soiree.etat = FINIE;
 					// le joueur restant gagne par forfait
 					soiree.gagnant = soiree.getAdversaire(soiree
-							.getFetard_Soiree(fetard));
+							.getFetard_Soiree(fetard.getPseudo()));
 					soiree.dateFin = new GregorianCalendar();
 				}
 				return true;
@@ -200,9 +200,9 @@ public class Soiree implements Serializable {
 		this.dateFin = null;
 	}
 
-	public Fetard_Soiree getFetard_Soiree(Fetard fetard) {
+	public Fetard_Soiree getFetard_Soiree(String nomFetard) {
 		for (Fetard_Soiree fetardTmp : lesDeuxFetard_Soiree) {
-			if (fetardTmp.getFetard().equals(fetard)) {
+			if (fetardTmp.getFetard().getPseudo().equals(nomFetard)) {
 				return fetardTmp;
 			}
 		}
