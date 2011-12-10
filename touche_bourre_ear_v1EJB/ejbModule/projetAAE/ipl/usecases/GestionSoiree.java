@@ -18,7 +18,7 @@ public interface GestionSoiree {
 	Soiree rejoindreSoiree(String nomSoiree, String pseudoFetard2);
 	List<Soiree> listerPartiesEnAttenteDePartenaire();
 	Soiree fetardPret(String nomSoiree, String fetard, Map<ETable, List<XY>> tables) throws MemePositionException, TableDejaPlaceeException, CaseDejaOccupeeException;
-	Soiree lancerUneTournee(String nomSoiree, String pseudoFetard, List<XY> coord);
+	Soiree lancerUneTournee(String nomSoiree, String pseudoFetard, List<XY> coord) throws Exception;
 	List<Soiree> listerSoireesFinies(String pseudoFetard);
 	Soiree fetardDeconnecte(String nomSoiree, String pseudoFetard);
 	Soiree commencerPlacement(String nomSoiree) throws Exception;
