@@ -104,7 +104,7 @@ public class Soiree implements Serializable {
 
 			boolean lancerTournee(Soiree soiree, List<XY> coord)
 					throws ArgumentInvalideException, DejaToucheException {
-				Tournee tournee = soiree.fetard_Soiree_Courant
+				soiree.fetard_Soiree_Courant
 						.lancerTournee(coord);
 
 				soiree.fetard_Soiree_Courant = soiree
