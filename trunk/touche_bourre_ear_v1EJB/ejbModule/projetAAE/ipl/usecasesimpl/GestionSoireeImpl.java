@@ -71,6 +71,7 @@ public class GestionSoireeImpl implements GestionSoiree {
 	public Soiree fetardPret(String nomSoiree, String pseudoFetard, Map<ETable, List<XY>> tables) {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard);
 		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
+		System.out.println("SOIREEEUCC:"+soiree);
 		try {
 			soiree.setJoueurPret(fetard, soiree, tables);
 		} catch (MemePositionException e) {

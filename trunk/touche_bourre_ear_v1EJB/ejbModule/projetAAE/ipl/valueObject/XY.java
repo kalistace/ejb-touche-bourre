@@ -1,18 +1,18 @@
 package projetAAE.ipl.valueObject;
 
+import java.io.Serializable;
+
 import projetAAE.ipl.exceptions.ArgumentInvalideException;
 import projetAAE.ipl.util.Util;
 
-public class XY {
+public class XY implements Serializable {
 	
 	private int x;
 	
 	private int y;
 	
-	public XY(int x, int y) throws ArgumentInvalideException {
-		
-		Util.checkPositiveOrZero(x);
-		Util.checkPositiveOrZero(y);
+	public XY(int x, int y) {
+
 		this.x = x;
 		this.y = y;
 	}
