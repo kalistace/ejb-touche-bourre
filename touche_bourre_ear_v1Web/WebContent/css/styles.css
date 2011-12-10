@@ -166,3 +166,18 @@ h1 {
 	
 }
 input:focus { outline:none; }
+
+.jaune {
+	background-color: #F3E92D;
+}
+
+.rouge {
+	background-color: #FF0000;
+}
+
+.vert {
+	background-color: #058103;
+}
+
+
+

@@ -10,16 +10,41 @@
 </head>
 <body>
 	<h1>Selectionnez une soirée:</h1>
-	<table border=1>
-		<c:forEach var="soiree" items="${journaux}">
+	<c:forEach var="soiree" items="${journaux}">
+		<table border=1>
 			<tr><td colspan="2">${soiree.nom}</td></tr>
-			<tr><td>//todo afficher vainqueur avec fond vert</td>
-			<td><c:url var="urlJournal" value="journal.html"/>
-			<form action="${urlJournal}" method="post">
-			<c:set var="soiree" value="${soiree}" scope="request"/>
-			<input class = "btnSmall" type = "submit" value = "Journal"/>
-			</form></td></tr>
-		</c:forEach>
-	</table>
+			<tr>
+				<c:choose>
+					<c:when test="${empty soiree.gagnant}">
+						<td class="jaune">
+							Il n'y a pas de vainqueur pour cette soirée.
+						</td>
+					</c:when>
+					<c:when test="${not empty soiree.gagnant && soiree.gagnant.fetard.pseudo != myPseudo}">
+						<td class="rouge">
+							Vous avez perdu cette soirée contre <c:out value="${soiree.gagnant.fetard.pseudo}"/>
+						</td>
+					</c:when>
+					<c:when test="${empty soiree.gagnant && soiree.gagnant.fetard.pseudo == myPseudo}">
+						<td class="vert">
+							Vous avez gagné cette soirée contre <c:out value="${soiree.gagnant.fetard.pseudo}"/>
+						</td>
+					</c:when>
+				</c:choose>
+				<td>
+					<c:url var="urlJournal" value="journal.html"/>
+					<form action="${urlJournal}" method="post">
+					<c:set var="soiree" value="${soiree}" scope="request"/>
+					<input class = "btnSmall" type = "submit" value = "Journal"/>
+					</form>
+				</td>
+			</tr>
+		</table>
+		<div>
+			<c:forEach var="ligne" items="${mapTournees[soiree.id]}">
+				<c:out value="${ligne}"/>
+			</c:forEach>
+		</div>
+	</c:forEach>	
 </body>
 </html>
