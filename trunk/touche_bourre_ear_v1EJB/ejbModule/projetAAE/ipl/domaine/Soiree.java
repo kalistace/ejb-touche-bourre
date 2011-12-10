@@ -263,6 +263,11 @@ public class Soiree implements Serializable {
 	public int getId() {
 		return id;
 	}
+	
+
+	public void setEtat(Etat etat) {
+		this.etat = etat;
+	}
 
 	@Override
 	public int hashCode() {
