@@ -16,7 +16,7 @@ import projetAAE.ipl.usecases.GestionSoiree;
 
 public class SessionListener implements HttpSessionListener {
 
-	private static final int TIMEOUTGENERAL = 30;
+	private static final int TIMEOUTGENERAL = 120;
 	
 	private static final int TIMEOUTPARTIE = 5;
 	
@@ -35,7 +35,7 @@ public class SessionListener implements HttpSessionListener {
 		System.out.println("fin de session...");
 		HttpSession session = se.getSession();
 		if(session.getMaxInactiveInterval()==TIMEOUTPARTIE){
-			System.out.println("CED JE TE FISTE!");
+			
 			gestionSoiree.fetardDeconnecte((String)session.getAttribute("nomSoiree"), (String)session.getAttribute("pseudo"));
 		}
 	}
