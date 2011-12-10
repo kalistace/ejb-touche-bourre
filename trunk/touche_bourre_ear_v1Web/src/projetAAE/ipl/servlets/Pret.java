@@ -44,9 +44,7 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 		
 		Soiree soiree = null;
 
-		if(tables=="-1"){
-			//soiree=ethode de ce
-		}else{
+		
 		HashMap<ETable, List<XY>> mtables = new HashMap<ETable,List<XY>>();
 		mtables.put(ETable.TableDeCouple, new ArrayList<XY>());
 		mtables.put(ETable.TableDeFilles,  new ArrayList<XY>());
@@ -86,28 +84,40 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 		}
 		
 		
+		if(tables.equals("-1")){
+		try {
+			
+			soiree = gestionSoiree.commencerSoiree(nomSoiree);
+			}
+			catch(Exception e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+				request.setAttribute("var",2);//timer
+				RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
+				rd.forward(request, response);
+				return;
+			}
+			request.setAttribute("var",1);
+			RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
+			rd.forward(request, response);
+			return;
+		}
 		
 			try {
 			soiree = gestionSoiree.fetardPret(nomSoiree, (String)request.getSession().getAttribute("pseudo"), mtables);
 			}
 			catch(Exception e) {
-				
-				e.printStackTrace();
+
 				request.setAttribute("var",0);
 				RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
 				rd.forward(request, response);
 				return;
 			}
 			
-		}//du haut
-			
-			if(soiree.getEtat()==Etat.EN_PLACEMENT){
-				request.setAttribute("var",1); //placer les bieres
-			}else request.setAttribute("var",2); //timer
-
-			
+			request.setAttribute("var",0);
 			RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
 			rd.forward(request, response);
+			
 
 	}
 }

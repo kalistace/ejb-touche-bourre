@@ -71,6 +71,7 @@ public class GestionSoireeImpl implements GestionSoiree {
 	public Soiree fetardPret(String nomSoiree, String pseudoFetard, Map<ETable, List<XY>> tables) {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard);
 		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
+	
 		try {
 			soiree.setJoueurPret(fetard, soiree, tables);
 		} catch (MemePositionException e) {
@@ -147,6 +148,7 @@ public class GestionSoireeImpl implements GestionSoiree {
 	@Override
 	public Soiree commencerSoiree(String nomSoiree) throws Exception {
 		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
+		System.out.println("NBR FET: "+soiree.getNbrFetardPret());
 		
 		if(soiree==null){
 			throw new Exception("soiree null");
