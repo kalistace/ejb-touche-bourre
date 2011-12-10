@@ -198,7 +198,7 @@ public class Soiree implements Serializable {
 		this.dateFin = null;
 	}
 
-	private Fetard_Soiree getFetard_Soiree(Fetard fetard) {
+	public Fetard_Soiree getFetard_Soiree(Fetard fetard) {
 		for (Fetard_Soiree fetardTmp : lesDeuxFetard_Soiree) {
 			if (fetardTmp.getFetard().equals(fetard)) {
 				return fetardTmp;
