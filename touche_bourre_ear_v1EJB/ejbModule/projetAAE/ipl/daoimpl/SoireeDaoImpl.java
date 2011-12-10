@@ -28,7 +28,7 @@ public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao
 	@Override
 	public List<Soiree> listerSoireeFinie(String pseudoFetard) {
 		Etat etat = Etat.FINIE;
-		String queryString = "select s from Soiree s where s.etat = ?1 and  (s.fetardSoiree1.fetard.pseudo = ?2 or s.fetardSoiree2.fetard.pseudo = ?2)";
+		String queryString = "select s from Soiree s JOIN s.lesDeuxFetard_Soiree f where s.etat = ?1 and f.fetard.pseudo = ?2";
 		return liste(queryString, etat, pseudoFetard);
 	}
 
