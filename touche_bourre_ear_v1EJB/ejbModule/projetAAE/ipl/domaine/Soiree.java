@@ -230,9 +230,9 @@ public class Soiree implements Serializable {
 
 	public Fetard_Soiree getAdversaire(Fetard_Soiree soi_meme) {
 
-		if (soi_meme.getFetard().getPseudo().equals(getFetardSoiree1()))
+		if (soi_meme.getFetard().getPseudo().equals(getFetardSoiree1().getFetard().getPseudo()))
 			return getFetardSoiree2();
-		else if (soi_meme.getFetard().getPseudo().equals(getFetardSoiree2()))
+		else if (soi_meme.getFetard().getPseudo().equals(getFetardSoiree2().getFetard().getPseudo()))
 			return getFetardSoiree1();
 		return null;
 	}
