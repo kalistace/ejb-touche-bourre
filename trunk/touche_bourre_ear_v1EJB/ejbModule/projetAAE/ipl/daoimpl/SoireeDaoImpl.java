@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import projetAAE.ipl.dao.SoireeDao;
-import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.domaine.Soiree.Etat;
 
@@ -37,5 +36,11 @@ public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao
 		Etat etat = Etat.FINIE;
 		String queryString = "select s from Soiree s where s.nom = ?1 and s.etat!=?2";
 		return recherche(queryString, nomSoiree, etat);
+	}
+
+	@Override
+	public Soiree chargerTournee(String pseudoFetard, Soiree soiree) {
+		soiree.getFetard_Soiree(pseudoFetard).getMesTournees().size();
+		return soiree;
 	}
 }
