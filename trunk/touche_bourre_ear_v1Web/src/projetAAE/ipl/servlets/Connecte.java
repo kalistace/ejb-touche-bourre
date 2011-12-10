@@ -40,25 +40,28 @@ public class Connecte extends javax.servlet.http.HttpServlet implements
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		HttpSession sess = request.getSession();
-		String nomSoiree = (String)sess.getAttribute("nomSoiree");
+		HttpSession session = request.getSession(false);
+		if(session == null || (session!= null && session.getAttribute("pseudo") == null)) {
+			response.sendRedirect(response.encodeRedirectURL("index.jsp?timeout=1"));
+			return;
+		}
+		String nomSoiree = (String)session.getAttribute("nomSoiree");
 		
 		Soiree soiree = null;
 			
 			try {
 			   
-			   soiree = gestionSoiree.commencerPlacement(nomSoiree);
+			    soiree = gestionSoiree.commencerPlacement(nomSoiree);
 			   
 			}
 			catch(Exception e){
-				
 				request.setAttribute("var",0);
 				RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
 				rd.forward(request, response);
 				return;
 			}
 		
-			if(soiree.getFetardSoiree2().getFetard().getPseudo().equals(sess.getAttribute("pseudo"))){
+			if(soiree.getFetardSoiree2().getFetard().getPseudo().equals(session.getAttribute("pseudo"))){
 				request.setAttribute("var",soiree.getFetardSoiree1().getFetard().getPseudo());
 			}else {		
 				request.setAttribute("var",soiree.getFetardSoiree2().getFetard().getPseudo());
