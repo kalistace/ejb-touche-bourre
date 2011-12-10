@@ -101,7 +101,7 @@ public class Soiree implements Serializable {
 		},
 		EN_COURS {
 
-			Tournee lancerTournee(Soiree soiree, List<XY> coord)
+			boolean lancerTournee(Soiree soiree, List<XY> coord)
 					throws ArgumentInvalideException, DejaToucheException {
 				Tournee tournee = soiree.fetard_Soiree_Courant
 						.lancerTournee(coord);
@@ -117,7 +117,7 @@ public class Soiree implements Serializable {
 					soiree.etat = FINIE;
 					soiree.dateFin = new GregorianCalendar();
 				}
-				return tournee;
+				return true;
 			}
 
 			boolean fetardDeconnecte(Fetard fetard, Soiree soiree) {
@@ -149,9 +149,9 @@ public class Soiree implements Serializable {
 			return false;
 		}
 
-		Tournee lancerTournee(Soiree soiree, List<XY> coord)
+		boolean lancerTournee(Soiree soiree, List<XY> coord)
 				throws ArgumentInvalideException, DejaToucheException {
-			return null;
+			return false;
 		}
 	}
 
@@ -217,7 +217,7 @@ public class Soiree implements Serializable {
 		return etat.setJoueurPret(fetard, soiree, tables);
 	}
 
-	public Tournee lancerTournee(Soiree soiree, List<XY> coord)
+	public boolean lancerTournee(Soiree soiree, List<XY> coord)
 			throws ArgumentInvalideException, DejaToucheException {
 		return etat.lancerTournee(soiree, coord);
 	}

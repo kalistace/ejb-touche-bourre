@@ -22,7 +22,6 @@ import projetAAE.ipl.exceptions.TableDejaPlaceeException;
 import projetAAE.ipl.usecases.GestionSoiree;
 import projetAAE.ipl.valueObject.XY;
 
-
 @Singleton
 public class GestionSoireeImpl implements GestionSoiree {
 
@@ -36,11 +35,13 @@ public class GestionSoireeImpl implements GestionSoiree {
 	@Override
 	public Soiree creerSoiree(String nomSoiree, String pseudoFetard1) {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard1);
-		if(fetard == null) return null;
-		
+		if (fetard == null)
+			return null;
+
 		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
-		if(soiree != null){
-			return null;// throw exception, peut pas avoir 2 soirée 'en cours' avec le meme nom
+		if (soiree != null) {
+			return null;// throw exception, peut pas avoir 2 soirée 'en cours'
+						// avec le meme nom
 		}
 		soiree = new Soiree(nomSoiree, fetard);
 		soireeDao.enregistrer(soiree);
@@ -68,7 +69,8 @@ public class GestionSoireeImpl implements GestionSoiree {
 	}
 
 	@Override
-	public Soiree fetardPret(String nomSoiree, String pseudoFetard, Map<ETable, List<XY>> tables) {
+	public Soiree fetardPret(String nomSoiree, String pseudoFetard,
+			Map<ETable, List<XY>> tables) {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard);
 		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
 	
@@ -84,34 +86,34 @@ public class GestionSoireeImpl implements GestionSoiree {
 		soireeDao.mettreAJour(soiree);
 		return soiree;
 	}
-	
+
 	@Override
-	public Tournee lancerUneTournee(String nomSoiree, String pseudoFetard, List<XY> coord) {
+	public Soiree lancerUneTournee(String nomSoiree, String pseudoFetard,
+			List<XY> coord) {
 		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
-		Tournee tournee = null;
-		if(soiree == null){
+		if (soiree == null) {
 			return null;
 		}
-		if(soiree.getFetard_Soiree_Courant().getFetard().getPseudo() != pseudoFetard){
+		if (soiree.getFetard_Soiree_Courant().getFetard().getPseudo() != pseudoFetard) {
 			return null;// throw exception
 		}
 		try {
 			try {
-				tournee = soiree.lancerTournee(soiree, coord);
+				soiree.lancerTournee(soiree, coord);
 			} catch (DejaToucheException e) {
 				return null;
 			}
 		} catch (ArgumentInvalideException e) {
-			return null;//throw exception
+			return null;// throw exception
 		}
 		soireeDao.mettreAJour(soiree);
-		return tournee;
+		return soiree;
 	}
 
 	@Override
 	public List<Soiree> listerSoireesFinies(String pseudoFetard) {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard);
-		if(fetard==null){
+		if (fetard == null) {
 			return null;
 		}
 		return soireeDao.listerSoireeFinie(pseudoFetard);
@@ -121,10 +123,10 @@ public class GestionSoireeImpl implements GestionSoiree {
 	public Soiree fetardDeconnecte(String nomSoiree, String pseudoFetard) {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard);
 		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
-		if(fetard == null){
+		if (fetard == null) {
 			return null;
 		}
-		if(soiree == null){
+		if (soiree == null) {
 			return null;
 		}
 		soiree.fetardDeconnecte(fetard, soiree);
@@ -135,12 +137,13 @@ public class GestionSoireeImpl implements GestionSoiree {
 	@Override
 	public Soiree commencerPlacement(String nomSoiree) throws Exception {
 		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
-		
-		if(soiree==null){
+
+		if (soiree == null) {
 			throw new Exception("soiree null");
 		}
-		if(soiree.getEtat()!=Etat.EN_PLACEMENT){
-			throw new Exception("conditions non remplies pour commencer le placement");
+		if (soiree.getEtat() != Etat.EN_PLACEMENT) {
+			throw new Exception(
+					"conditions non remplies pour commencer le placement");
 		}
 		return soiree;
 	}
@@ -148,13 +151,12 @@ public class GestionSoireeImpl implements GestionSoiree {
 	@Override
 	public Soiree commencerSoiree(String nomSoiree) throws Exception {
 		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
-		System.out.println("NBR FET: "+soiree.getNbrFetardPret());
-		
-		if(soiree==null){
+		if (soiree == null) {
 			throw new Exception("soiree null");
 		}
-		if(soiree.getEtat()!=Etat.EN_COURS){
-			throw new Exception("conditions non remplies pour commencer la soirée");
+		if (soiree.getEtat() != Etat.EN_COURS) {
+			throw new Exception(
+					"conditions non remplies pour commencer la soirée");
 		}
 		return soiree;
 	}
