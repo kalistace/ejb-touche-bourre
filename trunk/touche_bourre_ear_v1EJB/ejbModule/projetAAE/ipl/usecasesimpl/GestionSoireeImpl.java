@@ -100,7 +100,7 @@ public class GestionSoireeImpl implements GestionSoiree {
 		if (soiree == null) {
 			throw new Exception("soiree null !");
 		}
-		if (soiree.getFetard_Soiree_Courant().getFetard().getPseudo().equalsIgnoreCase(pseudoFetard)) {
+		if (!soiree.getFetard_Soiree_Courant().getFetard().getPseudo().equalsIgnoreCase(pseudoFetard)) {
 			throw new Exception("C'est n'est pas le tour de ce joueur !");
 		}
 		try {

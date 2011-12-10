@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import projetAAE.ipl.domaine.Biere;
 import projetAAE.ipl.domaine.ETable;
 import projetAAE.ipl.domaine.Fetard;
+import projetAAE.ipl.domaine.Fetard_Soiree;
 import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.domaine.Tournee;
 import projetAAE.ipl.usecases.GestionSoiree;
@@ -51,7 +52,7 @@ public class TourneeServlet extends javax.servlet.http.HttpServlet implements
 		String[] ncoords = coords.split(",");
 		System.out.println("COORD[]:"+ncoords.toString());
 		for(String xy : ncoords){
-			XY c = new XY(xy.charAt(0), xy.charAt(1));
+			XY c = new XY(Integer.parseInt(String.valueOf(xy.charAt(0))), Integer.parseInt(String.valueOf(xy.charAt(1))));
 			listeCoord.add(c);
 		}
 		System.out.println("lsiteCOOORD!!: "+listeCoord);
@@ -62,10 +63,10 @@ public class TourneeServlet extends javax.servlet.http.HttpServlet implements
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-		System.out.println("Soiree:"+soiree);
-		List<Tournee> mesTournees = soiree.getFetard_Soiree(new Fetard(pseudo)).getMesTournees();
+
+		List<Tournee> mesTournees = soiree.getFetard_Soiree(pseudo).getMesTournees();
 		
-		Tournee tournee = mesTournees.get(mesTournees.size());
+		Tournee tournee = mesTournees.get(mesTournees.size()-1);
 		List<Biere> listeBiere = tournee.getBieres();
 		List<ETable> tablesTouche = new ArrayList<ETable>();
 		
@@ -79,7 +80,7 @@ public class TourneeServlet extends javax.servlet.http.HttpServlet implements
 	}
 	
 	private String toStringList(List<ETable> liste){
-		String s = null;
+		String s = "";
 		for(ETable table : liste){
 			s+=table.toString()+",";
 		}	
