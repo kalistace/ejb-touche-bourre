@@ -230,12 +230,10 @@ public class GestionSoireeTest {
 	public void testFetardPret1() throws MemePositionException, TableDejaPlaceeException, CaseDejaOccupeeException {
 		Map<ETable, List<XY>> map = new HashMap<ETable, List<XY>>();
 		List<XY> liste1 = new ArrayList<XY>();
-		try {
+		
 		liste1.add(new XY(1,1));
 		liste1.add(new XY(1,1));
-		} catch (ArgumentInvalideException e) {
-			throw new InternalError();
-		}
+		
 		map.put(ETable.Comptoir, liste1);
 		gs.fetardPret(nomSoiree, pseudoFetard1, map);
 	}
@@ -249,12 +247,10 @@ public class GestionSoireeTest {
 		Map<ETable, List<XY>> map = new HashMap<ETable, List<XY>>();
 		List<XY> liste1 = new ArrayList<XY>();
 		List<XY> liste2 = new ArrayList<XY>();
-		try {
+		
 		liste1.add(new XY(1,1));
 		liste2.add(new XY(1,1));
-		} catch (ArgumentInvalideException e) {
-			throw new InternalError();
-		}
+		
 		map.put(ETable.Comptoir, liste1);
 		map.put(ETable.TableDeCouple, liste2);
 		gs.fetardPret(nomSoiree, pseudoFetard1, map);
@@ -269,12 +265,10 @@ public class GestionSoireeTest {
 		Map<ETable, List<XY>> map = new HashMap<ETable, List<XY>>();
 		List<XY> liste1 = new ArrayList<XY>();
 		List<XY> liste2 = new ArrayList<XY>();
-		try {
+		
 		liste1.add(new XY(1,1));
 		liste2.add(new XY(2,2));
-		} catch (ArgumentInvalideException e) {
-			throw new InternalError();
-		}
+		
 		map.put(ETable.Comptoir, liste1);
 		map.put(ETable.TableDeCouple, liste2);
 		Soiree s = gs.fetardPret(nomSoiree, pseudoFetard1, map);
@@ -290,12 +284,10 @@ public class GestionSoireeTest {
 		Map<ETable, List<XY>> map = new HashMap<ETable, List<XY>>();
 		List<XY> liste1 = new ArrayList<XY>();
 		List<XY> liste2 = new ArrayList<XY>();
-		try {
+		
 		liste1.add(new XY(7,7));
 		liste2.add(new XY(8,8));
-		} catch (ArgumentInvalideException e) {
-			throw new InternalError();
-		}
+		
 		map.put(ETable.Comptoir, liste1);
 		map.put(ETable.TableDeCouple, liste2);
 		soiree_en_cours = gs.fetardPret(nomSoiree, pseudoFetard2, map);
