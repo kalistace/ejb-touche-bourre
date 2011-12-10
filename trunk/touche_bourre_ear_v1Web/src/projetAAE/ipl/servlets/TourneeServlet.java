@@ -55,6 +55,7 @@ public class TourneeServlet extends javax.servlet.http.HttpServlet implements
 			listeCoord.add(c);
 		}
 		System.out.println("lsiteCOOORD!!: "+listeCoord);
+		System.out.println("NOM SOIREE"+nomSoiree);
 		try{
 		soiree = gestionSoiree.lancerUneTournee(nomSoiree, pseudo, listeCoord);
 		}catch(Exception e){
