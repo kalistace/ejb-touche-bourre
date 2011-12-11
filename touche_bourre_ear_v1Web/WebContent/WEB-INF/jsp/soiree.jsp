@@ -22,6 +22,7 @@
 	var myTables=new Array();
 	var deuxiemeConnecte = 0;
 	var refeshIntervalPretId;
+	var refeshIntervalTour;
 
 	var refreshIntervalId = setInterval( "deuxJoueursConnectes()", 3000 );
 
@@ -232,11 +233,15 @@
 		req.handleResponse = function() {
 			rep=req.xhr.responseText;
 			if(rep == 1) {
+				clearInterval(refeshIntervalTour);
 				pret = true;
 				afficherBieres();
 				$("#msgTop").fadeOut().fadeIn().text("Cliquez sur le bar de droite");
 			} else { 
-				$("#msgTop").fadeOut().fadeIn().text("Ce n'est pas votre tour!");		
+				$("#msgTop").fadeOut().fadeIn().text("Ce n'est pas votre tour!");
+				clearInterval(refeshIntervalTour);
+				refeshIntervalTour=setInterval("courant()",3000);
+						
 			}
 		};
 		req.process();	
@@ -249,16 +254,26 @@
 		req.handleResponse = function() {
 			rep=req.xhr.responseText;
 			tableServies(rep);
-			//
+			courant();
 		};
 		req.process();	
 	}
 	
 	function tableServies(rep){
-		table = rep.split(",");
+		var table = rep.split(",");		
+		if(table.length==0)return;
 		for ( t in table)
 		{
-		 $("."+t).append("<img alt='servie' src='img/servie.png' class='servie'/>")
+			var img = $(document.createElement("img")).attr({ src: 'img/servie.png'}).addClass("servie");
+			var tab =  $.trim(table[t]);
+			var x = $("."+tab).children().length;
+			for(var i=0;i<x;i++){
+				if($("."+tab).children().eq(i).children().length == 1 ){
+					alert(tab);
+					$("."+tab).children().eq(i).append(img);
+					break;
+				}
+			}
 		}
 		$("#msgTopRes").fadeIn();
 		$("#tablesTouchees").fadeIn();

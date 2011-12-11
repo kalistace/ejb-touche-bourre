@@ -122,3 +122,15 @@
 .btnSmall:active {
 	background-position: 0px -58px;
 }
+
+#msgTopRes, #tablesTouchees {
+
+	margin-top : 100px;
+}
+#tablesTouchees .caseH {
+	margin-top : 100px;
+}
+.servie {
+	position:relative;
+    z-index:1;
+}

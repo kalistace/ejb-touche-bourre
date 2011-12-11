@@ -50,13 +50,12 @@ public class TourneeServlet extends javax.servlet.http.HttpServlet implements
 		List<XY> listeCoord = new ArrayList<XY>();
 		
 		String[] ncoords = coords.split(",");
-		System.out.println("COORD[]:"+ncoords.toString());
+
 		for(String xy : ncoords){
 			XY c = new XY(Integer.parseInt(String.valueOf(xy.charAt(0))), Integer.parseInt(String.valueOf(xy.charAt(1))));
 			listeCoord.add(c);
 		}
-		System.out.println("lsiteCOOORD!!: "+listeCoord);
-		System.out.println("NOM SOIREE"+nomSoiree);
+
 		try{
 		soiree = gestionSoiree.lancerUneTournee(nomSoiree, pseudo, listeCoord);
 		}catch(Exception e){
@@ -83,9 +82,12 @@ public class TourneeServlet extends javax.servlet.http.HttpServlet implements
 	private String toStringList(List<ETable> liste){
 		String s = "";
 		for(ETable table : liste){
-			if(table!=null)
+			if(table!=null) {
 				s+=table.toString()+",";
-		}	
-		return s;
+			}
+		}
+		if(s.length()==0)
+			return s;
+		return s.substring(0,s.length()-1);
 	}
 }
