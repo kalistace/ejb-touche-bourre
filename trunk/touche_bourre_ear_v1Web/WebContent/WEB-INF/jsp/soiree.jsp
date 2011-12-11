@@ -269,7 +269,6 @@
 			var x = $("."+tab).children().length;
 			for(var i=0;i<x;i++){
 				if($("."+tab).children().eq(i).children().length == 1 ){
-					alert(tab);
 					$("."+tab).children().eq(i).append(img);
 					break;
 				}
