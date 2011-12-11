@@ -7,16 +7,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Bons souvenirs de copains</title>
 <link rel="stylesheet" type="text/css"  href="./css/styles.css"/>
+<link rel="stylesheet" type="text/css"  href="./css/soiree.css"/>
 <script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
 <script src="js/afficheJournal.js" type="text/javascript"></script>
 </head>
 <body>
-	<h1>Selectionnez une soirée:</h1>
+<div id="container">
+
+<div id="head"></div>
+<div class = "rejoindre">
+	<p class="lbRejoindre">Selectionnez une soirée:</p>
+	
 	<c:if test="${empty journaux}">
 		<p class="warningmsg"> Il n'y a aucun journal pour le moment </p>
 	</c:if>
 	<c:forEach var="soiree" items="${journaux}">
-		<table class="journaux">
+		<table class="journaux" style="text-align: left;">
 			<tr><th colspan="2">${soiree.nom}</th></tr>
 			<tr>
 				<c:choose>
@@ -46,6 +52,8 @@
 				<c:out value="${ligne}"/> <br/>
 			</c:forEach>
 		</div>
-	</c:forEach>	
+	</c:forEach>
+	</div>
+</div>
 </body>
 </html>
