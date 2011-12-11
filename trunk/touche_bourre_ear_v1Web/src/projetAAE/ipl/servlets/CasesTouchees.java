@@ -52,9 +52,17 @@ public class CasesTouchees extends javax.servlet.http.HttpServlet implements
 		
 		
 		
-		Fetard_Soiree fs = soiree.getAdversaire(soiree.getFetard_Soiree_Courant());
+		Fetard_Soiree fs = soiree.getAdversaire(soiree.getFetard_Soiree(pseudo));
+		System.out.println("CASATOUCHE: ADVERSAIRE: "+fs.getFetard().getPseudo());
+		System.out.println("CASATOUCHE: ME: "+(String)sess.getAttribute("pseudo"));
 		List<Tournee> mesTournees = fs.getMesTournees();
-		
+		if(mesTournees.size()==0){
+			
+			request.setAttribute("var",0);
+			RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
+			rd.forward(request, response);
+			return;
+		}
 		Tournee tournee = mesTournees.get(mesTournees.size()-1);
 		List<Biere> listeBiere = tournee.getBieres();
 

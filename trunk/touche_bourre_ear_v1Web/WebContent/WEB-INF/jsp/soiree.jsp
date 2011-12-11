@@ -176,19 +176,23 @@
 	
 	function afficherBieres(nrBiere){
 
-		var params = "";
+		/*	var params = "";
 		var req = new AjaxRequest("POST","casesTouchees.html",params, true);
 		req.handleResponse = function() {
 			rep=req.xhr.responseText;
+			if(rep!=0){
+				alert(rep);
 			if($.trim(rep)=="")return;
 			var bieres = rep.split(",");		
 			for ( b in bieres)
 			{
-				$("#tabTirs").eq(biere[b].charAt(1)).children().eq(biere[b].charAt(0)).addClass(".toucheBar");
+				$("#tabTirs").eq(bieres[b].charAt(1)).children().eq(bieres[b].charAt(0)).addClass(".toucheBar");
 
 			}
+			}
 		};
-		req.process();	
+		req.process();
+			*/
 		$("#tablesAPlacer").append("<div id='bieres'></div>").hide().fadeIn("slow");
 		$("#msgTop").text("Cliquez sur le bar de droite");
 				
