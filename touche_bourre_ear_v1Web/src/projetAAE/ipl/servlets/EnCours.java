@@ -43,7 +43,7 @@ public class EnCours extends javax.servlet.http.HttpServlet implements
 			 soiree = gestionSoiree.commencerSoiree(nomSoiree);
 		} catch (Exception e) {
 			try {
-				soiree = gestionSoiree.finirSoiree(nomSoiree,(Calendar)sess.getAttribute("dateDebut"));
+				soiree = gestionSoiree.finirSoiree(nomSoiree);
 			} catch (Exception e1) {}
 			
 				request.setAttribute("var",soiree.getGagnant());
