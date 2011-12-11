@@ -101,15 +101,15 @@ public class GestionSoireeImpl implements GestionSoiree {
 		if (!soiree.getFetard_Soiree_Courant().getFetard().getPseudo().equalsIgnoreCase(pseudoFetard)) {
 			throw new Exception("C'est n'est pas le tour de ce joueur !");
 		}
+		
 		try {
-			try {
-				soiree.lancerTournee(soiree, coord);
-			} catch (DejaToucheException e) {
-				throw new Exception("coordonnées sur bateau déjà touché !");
-			}
+			soiree.lancerTournee(soiree, coord);
 		} catch (ArgumentInvalideException e) {
 			throw new Exception("mauvaises coordonnées");
+		} catch (DejaToucheException e) {
+			throw new Exception("coordonnées sur bateau déjà touché !");
 		}
+
 		soiree = soireeDao.chargerTournee(pseudoFetard, soiree);
 		soireeDao.mettreAJour(soiree);
 		return soiree;
@@ -118,10 +118,12 @@ public class GestionSoireeImpl implements GestionSoiree {
 	@Override
 	public List<Soiree> listerSoireesFinies(String pseudoFetard) {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard);
+		List<Soiree> soirees = soireeDao.listerSoireeFinie(pseudoFetard);
 		if (fetard == null) {
 			return null;
 		}
-		return soireeDao.listerSoireeFinie(pseudoFetard);
+		soirees = soireeDao.chargerTournee(pseudoFetard, soirees);
+		return soirees;
 	}
 
 	@Override
@@ -160,6 +162,19 @@ public class GestionSoireeImpl implements GestionSoiree {
 			throw new Exception("soiree null");
 		}
 		if (soiree.getEtat() != Etat.EN_COURS) {
+			throw new Exception(
+					"conditions non remplies pour commencer la soirée");
+		}
+		return soiree;
+	}
+	
+	@Override
+	public Soiree finirSoiree(String nomSoiree) throws Exception {
+		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
+		if (soiree == null) {
+			throw new Exception("soiree null");
+		}
+		if (soiree.getEtat() != Etat.FINIE) {
 			throw new Exception(
 					"conditions non remplies pour commencer la soirée");
 		}
