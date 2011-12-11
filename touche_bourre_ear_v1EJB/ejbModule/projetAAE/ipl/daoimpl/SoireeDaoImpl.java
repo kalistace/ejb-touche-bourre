@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import projetAAE.ipl.dao.SoireeDao;
 import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.domaine.Soiree.Etat;
+import projetAAE.ipl.domaine.Tournee;
 
 @Stateless
 public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao {
@@ -40,7 +41,10 @@ public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao
 
 	@Override
 	public Soiree chargerTournee(String pseudoFetard, Soiree soiree) {
-		soiree.getFetard_Soiree(pseudoFetard).getMesTournees().size();
+		List<Tournee> tournees = soiree.getFetard_Soiree(pseudoFetard).getMesTournees();
+		for(Tournee t : tournees){
+			t.getBieres().size();
+		}
 		return soiree;
 	}
 }
