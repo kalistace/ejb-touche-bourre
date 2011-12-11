@@ -162,7 +162,7 @@
         					pret=false;
         					gererTournee(coord.toString());
         					coord = new Array();
-        					//nr tournee -> size sur liste de tournees
+        					tournee++;
         					//gere tournee
         					//envoyer resultats
         					//recupérer resulats
@@ -178,12 +178,12 @@
         );
 	});
 	
-	function afficherBieres(){
+	function afficherBieres(nrBiere){
 		
 		$("#tablesAPlacer").append("<div id='bieres'></div>").hide().fadeIn("slow");
 		$("#msgTop").text("Cliquez sur le bar de droite");
 				
-		for(i=0;i<5;i++){
+		for(i=0;i<nrBiere;i++){
 			$("#bieres").append("<img alt='beer' src='img/beer.png'/>").hide().fadeIn("slow");
 		}
 	
@@ -232,16 +232,18 @@
 		var req = new AjaxRequest("POST","encours.html",params, true);
 		req.handleResponse = function() {
 			rep=req.xhr.responseText;
-			if(rep == 1) {
+			if(rep > 0) {
 				clearInterval(refeshIntervalTour);
 				pret = true;
-				afficherBieres();
+				afficherBieres(rep);
 				$("#msgTop").fadeOut().fadeIn().text("Cliquez sur le bar de droite");
-			} else { 
+			} else if (rep == 0){ 
 				$("#msgTop").fadeOut().fadeIn().text("Ce n'est pas votre tour!");
 				clearInterval(refeshIntervalTour);
-				refeshIntervalTour=setInterval("courant()",3000);
-						
+				refeshIntervalTour=setInterval("courant()",3000);		
+			}else {
+				alert("Partie Finie!"+$.trim(rep)+" a gagné!");
+				//afficher btn
 			}
 		};
 		req.process();	
@@ -496,11 +498,10 @@
 
 </div>
 
-<p id="msgTopRes" style ="display:none;" class="msg">Tables servies:</p>
-<div id="tablesTouchees" style ="display:none;" >
-
+<p id="msgTopRes" style ="display:;" class="msg">Tables servies:</p>
+<div id="tablesTouchees" style ="display:;" >
 <!--  -->
-<div style="width: 210px">
+
 <div class="TableDeCouple" style="width: 90px">
 	<div class="caseH"><img alt="case" src="img/couple1.png"/></div>
 	<div class="caseH"><img alt="case" src="img/couple2.png"/></div>
@@ -532,10 +533,6 @@
 	<div class="caseH"><img alt="case" src="img/comptoire5.png"/></div>
 </div>
 </div>
-
-</div>
-
-
 
 </div><!-- millieu -->
 

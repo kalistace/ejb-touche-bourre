@@ -46,12 +46,21 @@ public class EnCours extends javax.servlet.http.HttpServlet implements
 		
 		try {
 			 soiree = gestionSoiree.commencerSoiree(nomSoiree);
-		} catch (Exception e) {}
+		} catch (Exception e) {
+			//soireeFiniei
+			if(soiree.getEtat()==Etat.FINIE){
+				request.setAttribute("var",soiree.getGagnant());
+				RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
+				rd.forward(request, response);
+				return;
+			}
+		}
 
+		
 		int rp = 0;
 		String joueur = soiree.getFetard_Soiree_Courant().getFetard().getPseudo();
 		if(joueur.equals(pseudo))
-			rp = 1;
+			rp = soiree.getFetard_Soiree_Courant().getNbBieresParTournee();
 		
 		request.setAttribute("var",rp);
 		RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
