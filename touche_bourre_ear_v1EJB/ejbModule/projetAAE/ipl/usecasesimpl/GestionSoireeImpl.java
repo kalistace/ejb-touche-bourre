@@ -7,7 +7,6 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 
 import projetAAE.ipl.dao.FetardDao;
-import projetAAE.ipl.dao.Fetard_SoireeDao;
 import projetAAE.ipl.dao.SoireeDao;
 import projetAAE.ipl.domaine.ETable;
 import projetAAE.ipl.domaine.Fetard;
@@ -24,8 +23,6 @@ import projetAAE.ipl.valueObject.XY;
 public class GestionSoireeImpl implements GestionSoiree {
 
 	@EJB
-	private Fetard_SoireeDao fetard_SoireeDao;
-	@EJB
 	private FetardDao fetardDao;
 	@EJB
 	private SoireeDao soireeDao;
@@ -38,7 +35,7 @@ public class GestionSoireeImpl implements GestionSoiree {
 
 		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
 		if (soiree != null) {
-			return null;// throw exception, peut pas avoir 2 soirée 'en cours'
+			return null;// throw exception, peut pas avoir 2 soirï¿½e 'en cours'
 						// avec le meme nom
 		}
 		soiree = new Soiree(nomSoiree, fetard);
@@ -103,9 +100,9 @@ public class GestionSoireeImpl implements GestionSoiree {
 		try {
 			soiree.lancerTournee(soiree, coord);
 		} catch (NombreDeBieresIncorrectParTourneeException d) {
-			throw new Exception("Nombre de bières incorrect pour cette tournée");
+			throw new Exception("Nombre de biï¿½res incorrect pour cette tournï¿½e");
 		} catch (DejaToucheException e) {
-			throw new Exception("Case déjà touchée par une salve antérieure");
+			throw new Exception("Case dï¿½jï¿½ touchï¿½e par une salve antï¿½rieure");
 		}
 
 		soiree = soireeDao.chargerTournee(soiree);
@@ -161,7 +158,7 @@ public class GestionSoireeImpl implements GestionSoiree {
 		}
 		if (soiree.getEtat() != Etat.EN_COURS) {
 			throw new Exception(
-					"conditions non remplies pour commencer la soirée");
+					"conditions non remplies pour commencer la soirï¿½e");
 		}
 		soiree = soireeDao.chargerTournee(soiree);
 		return soiree;
