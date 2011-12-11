@@ -54,10 +54,10 @@ public class GestionSoireeTest {
 		pseudoFetard3 = "Michael";
 
 		Context jndi1 = new InitialContext();
-		gf = (GestionFetard) jndi1.lookup("TB/GestionFetardImpl/remote");
+		gf = (GestionFetard) jndi1.lookup("toucheBourre/GestionFetardImpl/remote");
 
 		Context jndi2 = new InitialContext();
-		gs = (GestionSoiree) jndi2.lookup("TB/GestionSoireeImpl/remote");
+		gs = (GestionSoiree) jndi2.lookup("toucheBourre/GestionSoireeImpl/remote");
 
 		gf.enregistrer(pseudoFetard1);
 		gf.enregistrer(pseudoFetard2);

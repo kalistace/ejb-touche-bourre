@@ -25,7 +25,7 @@ public class GestionFetardTest {
 	public static void init() throws Exception {
 		Context jndi = new InitialContext();
 		gf = (GestionFetard) jndi
-				.lookup("TB/GestionFetardImpl/remote");
+				.lookup("toucheBourre/GestionFetardImpl/remote");
 
 	}
 
