@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import projetAAE.ipl.dao.SoireeDao;
+import projetAAE.ipl.domaine.Fetard_Soiree;
 import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.domaine.Soiree.Etat;
 import projetAAE.ipl.domaine.Tournee;
@@ -43,13 +44,19 @@ public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao
 	@Override
 	public Soiree chargerTournee(Soiree soiree) {
 		List<Tournee> tournees = soiree.getFetardSoiree1().getMesTournees();
-		List<Tournee> tournees2 = soiree.getFetardSoiree2().getMesTournees();
 		for(Tournee t : tournees){
 			t.getBieres().size();
 		}
-		for(Tournee t : tournees2){
-			t.getBieres().size();
+		
+		Fetard_Soiree fs2 = soiree.getFetardSoiree2();
+		List<Tournee> tournees2;
+		if (fs2 != null) {
+			tournees2 = soiree.getFetardSoiree2().getMesTournees();
+			for(Tournee t : tournees2){
+				t.getBieres().size();
+			}
 		}
+		
 		return soiree;
 	}
 
