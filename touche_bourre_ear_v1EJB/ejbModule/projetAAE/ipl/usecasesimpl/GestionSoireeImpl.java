@@ -77,8 +77,6 @@ public class GestionSoireeImpl implements GestionSoiree {
 		Fetard fetard = fetardDao.rechercher(pseudoFetard);
 		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
 
-		soiree.setJoueurPret(fetard, soiree, tables);
-
 		try {
 			soiree.setJoueurPret(fetard, soiree, tables);
 		} catch (MemePositionException e) {
