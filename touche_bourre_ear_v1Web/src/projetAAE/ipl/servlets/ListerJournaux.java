@@ -179,7 +179,7 @@ public class ListerJournaux extends HttpServlet {
 				if (time.getHours()-1 != 0)
 					duree += time.getHours()-1 + " heures ";
 				duree += time.getMinutes() + " minutes et ";
-				duree += time.getSeconds() + ".";
+				duree += time.getSeconds() + " secondes.";
 				resultats.add(duree);
 			}
 			if (resultats.size()==0) {
