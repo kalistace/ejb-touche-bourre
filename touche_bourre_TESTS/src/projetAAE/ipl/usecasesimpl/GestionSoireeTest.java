@@ -122,7 +122,7 @@ public class GestionSoireeTest {
 	}
 
 	/*
-	 * Vérifier que, si on crée une soirée pour un client qui n'existe pas, on
+	 * Vérifier que, si on crée une soirée pour un joueur qui n'existe pas, on
 	 * retourne null
 	 */
 	@Test
@@ -280,7 +280,7 @@ public class GestionSoireeTest {
 
 	/*
 	 * Tester qu'une exception est bien lancée quand on place une table sur une
-	 * case où se trouve déjà une table
+	 * case où se trouve déjà une autre table
 	 */
 	@Test
 	// (expected = CaseDejaOccupeeException.class)
@@ -426,8 +426,8 @@ public class GestionSoireeTest {
 	}
 
 	/*
-	 * Vérifier que, quand une salve est correctement envoyée, le joueur
-	 * contient bien la salve
+	 * Vérifier que, quand une tournée est correctement envoyée, le joueur
+	 * contient bien la tournée
 	 */
 	@Test
 	public void testLancerUneTournee4() throws Exception {
@@ -454,7 +454,7 @@ public class GestionSoireeTest {
 	}
 
 	/*
-	 * Vérifier que, quand une salve est correctement envoyée, l'adversaire
+	 * Vérifier que, quand une tournée est correctement envoyée, l'adversaire
 	 * devient le joueur courant
 	 */
 	@Test
@@ -499,7 +499,7 @@ public class GestionSoireeTest {
 	}
 
 	/*
-	 * Vérifier que, quand une bière a coulé une table adverse, le nombre de
+	 * Vérifier que, quand une tournée a coulé une table adverse, le nombre de
 	 * "tirs" (bières) autorisé pour la prochaine tournée est correctement
 	 * décrémenté
 	 */
