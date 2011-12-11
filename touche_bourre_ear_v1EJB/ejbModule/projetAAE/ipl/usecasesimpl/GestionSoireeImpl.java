@@ -170,9 +170,9 @@ public class GestionSoireeImpl implements GestionSoiree {
 	}
 
 	@Override
-	public Soiree finirSoiree(String nomSoiree, Calendar dateDebut)
+	public Soiree finirSoiree(String nomSoiree)
 			throws Exception {
-		Soiree soiree = soireeDao.rechercheSoireeFinie(nomSoiree, dateDebut);
+		Soiree soiree = soireeDao.rechercheDerniereSoireeFinie(nomSoiree);
 		if (soiree == null) {
 			throw new Exception("soiree null");
 		}

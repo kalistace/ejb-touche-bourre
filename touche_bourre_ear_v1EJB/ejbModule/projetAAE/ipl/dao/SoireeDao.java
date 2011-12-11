@@ -13,7 +13,7 @@ public interface SoireeDao extends Dao<Integer, Soiree> {
 	
 	public Soiree rechercher(String nomSoiree);
 	public Soiree rechercheSoireeNonFinie(String nomSoiree);
-	public Soiree rechercheSoireeFinie(String nomSoiree, Calendar dateBegin);
+	public Soiree rechercheDerniereSoireeFinie(String nomSoiree);
 	public List<Soiree> listerSoireeEnAttenteDeJoueur();
 	public List<Soiree> listerSoireeFinie(String pseudoFetard);
 	public Soiree chargerTournee(String pseudoFetard, Soiree soiree);
