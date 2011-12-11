@@ -69,10 +69,9 @@ public class Soiree implements Serializable {
 				if(monFetard_Soiree.isPret()){
 					return false;
 				}
-				for (ETable key : tables.keySet()) {
-					List<XY> coordTable = tables.get(key);
-					monFetard_Soiree.placerTable(coordTable, key);
-				}
+				
+					monFetard_Soiree.placerTable(tables);
+				
 				monFetard_Soiree.setPret(true);
 				soiree.nbrFetardPret++;
 				if (soiree.nbrFetardPret == 1) {
