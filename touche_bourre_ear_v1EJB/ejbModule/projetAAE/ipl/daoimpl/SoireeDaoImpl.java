@@ -41,18 +41,21 @@ public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao
 	}
 
 	@Override
-	public Soiree chargerTournee(String pseudoFetard, Soiree soiree) {
-		List<Tournee> tournees = soiree.getFetard_Soiree(pseudoFetard).getMesTournees();
+	public Soiree chargerTournee(Soiree soiree) {
+		List<Tournee> tournees = soiree.getFetardSoiree1().getMesTournees();
+		List<Tournee> tournees2 = soiree.getFetardSoiree2().getMesTournees();
+		tournees.addAll(tournees2);
 		for(Tournee t : tournees){
 			t.getBieres().size();
 		}
+		
 		return soiree;
 	}
 
 	@Override
-	public List<Soiree> chargerTournee(String pseudoFetard, List<Soiree> soirees) {
+	public List<Soiree> chargerTournee(List<Soiree> soirees) {
 		for(Soiree s : soirees){
-			s = this.chargerTournee(pseudoFetard, s);
+			s = this.chargerTournee(s);
 		}
 		return soirees;
 	}
