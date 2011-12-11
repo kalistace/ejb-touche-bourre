@@ -25,14 +25,14 @@
 							Il n'y a pas de vainqueur pour cette soirée.
 						</td>
 					</c:when>
-					<c:when test="${not empty soiree.gagnant && soiree.gagnant.fetard.pseudo != myPseudo}">
+					<c:when test="${not empty soiree.gagnant && soiree.gagnant.fetard.pseudo != monPseudo}">
 						<td class="rouge">
 							Vous avez perdu cette soirée contre <c:out value="${soiree.gagnant.fetard.pseudo}"/>
 						</td>
 					</c:when>
-					<c:when test="${empty soiree.gagnant && soiree.gagnant.fetard.pseudo == myPseudo}">
+					<c:when test="${not empty soiree.gagnant && soiree.gagnant.fetard.pseudo == monPseudo}">
 						<td class="vert">
-							Vous avez gagné cette soirée contre <c:out value="${soiree.gagnant.fetard.pseudo}"/>
+							Vous avez gagné cette soirée
 						</td>
 					</c:when>
 				</c:choose>
@@ -43,7 +43,7 @@
 		</table>
 		<div class="journal" id="div${soiree.id}">
 			<c:forEach var="ligne" items="${mapTournees[soiree.id]}">
-				<c:out value="${ligne}"/>
+				<c:out value="${ligne}"/> <br/>
 			</c:forEach>
 		</div>
 	</c:forEach>	

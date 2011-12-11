@@ -111,6 +111,7 @@ public class Soiree implements Serializable {
 				if (soiree.getFetardSoiree1().getNbBieresParTournee() == 0) {
 					soiree.gagnant = soiree.getFetardSoiree1();
 					soiree.etat = FINIE;
+					soiree.dateFin = new GregorianCalendar();
 				} else if (soiree.getFetardSoiree2().getNbBieresParTournee() == 0) {
 					soiree.gagnant = soiree.getFetardSoiree2();
 					soiree.etat = FINIE;

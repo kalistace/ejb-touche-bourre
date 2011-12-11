@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.usecases.GestionSoiree;
-import projetAAE.ipl.usecasesimpl.GestionSoireeImpl;
 
 /**
  * Servlet implementation class ListerSoireesEnCours
@@ -30,8 +29,8 @@ public class ListerSoireesEnCours extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect(response.encodeRedirectURL("accueil.jsp"));
-		return;
+		request.setAttribute("fail", true);
+		doPost(request, response);
 	}
 
 	/**

@@ -9,8 +9,10 @@
 <link rel="stylesheet" type="text/css" href="./css/styles.css" />
 </head>
 <body>
+	<c:if test="${not empty fail}">
+		<p class="warningmsg">La partie n'est plus disponible car celle-ci est complète.</p>
+	</c:if>	
 	<div class="login">
-
 		<p class="edtUser">Selectionnez une soirée à rejoindre:</p>
 		<table border=1>
 		<c:if test="${empty soireesEnCours}">
