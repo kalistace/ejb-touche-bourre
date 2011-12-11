@@ -1,5 +1,6 @@
 package projetAAE.ipl.daoimpl;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -54,5 +55,12 @@ public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao
 			s = this.chargerTournee(pseudoFetard, s);
 		}
 		return soirees;
+	}
+
+	@Override
+	public Soiree rechercheSoireeFinie(String nomSoiree, Calendar dateBegin) {
+		Etat etat = Etat.FINIE;
+		String queryString = "select s from Soiree s where s.nom = ?1 and s.etat = ?2 and s.dateDebut = ?3";
+		return recherche(queryString, nomSoiree, etat, dateBegin);
 	}
 }
