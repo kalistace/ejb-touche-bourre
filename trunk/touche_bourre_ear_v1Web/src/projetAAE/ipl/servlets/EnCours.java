@@ -46,7 +46,7 @@ public class EnCours extends javax.servlet.http.HttpServlet implements
 				soiree = gestionSoiree.finirSoiree(nomSoiree);
 			} catch (Exception e1) {}
 			
-				request.setAttribute("var",soiree.getGagnant());
+				request.setAttribute("var",soiree.getGagnant().getFetard().getPseudo());
 				RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
 				rd.forward(request, response);
 				return;
