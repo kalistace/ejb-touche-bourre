@@ -17,7 +17,7 @@
 	</c:if>
 	<c:forEach var="soiree" items="${journaux}">
 		<table class="journaux">
-			<tr><td colspan="2">${soiree.nom}</td></tr>
+			<tr><th colspan="2">${soiree.nom}</th></tr>
 			<tr>
 				<c:choose>
 					<c:when test="${empty soiree.gagnant}">
@@ -37,7 +37,7 @@
 					</c:when>
 				</c:choose>
 				<td>
-					<input class = "btnSmall" type = "button" value = "Journal" id="${soiree.id}"/>
+					<input class = "btnSmall" type = "button" value = "Souvenirs" id="${soiree.id}"/>
 				</td>
 			</tr>
 		</table>
