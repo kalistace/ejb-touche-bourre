@@ -7,7 +7,7 @@
   <module>
     <web>
       <web-uri>touche_bourre_ear_v1Web.war</web-uri>
-      <context-root>touche_bourre_ear_v1Web</context-root>
+      <context-root>toucheBourre</context-root>
     </web>
   </module>
 </application>
