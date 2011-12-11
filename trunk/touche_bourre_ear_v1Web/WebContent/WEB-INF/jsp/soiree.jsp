@@ -315,18 +315,17 @@
 		req.handleResponse = function() {
 			rep=req.xhr.responseText;
 			if(rep==1){
+				stopAllIntervals();
 				window.onbeforeunload = function() {};
 				alert("Adversaire déconnecté, partie terminé");
 				$("#msgTop").fadeOut();
 				$("#btnAcc").fadeIn();
-				stopAllIntervals();
 			}else if(rep!=2){
+				stopAllIntervals();
 				window.onbeforeunload = function() {};
 				alert("Adversaire déconnecté, vous avez gagné!");
 				$("#msgTop").fadeOut();
 				$("#btnAcc").fadeIn();
-				
-				stopAllIntervals();
 				}
 		};
 		req.process();	
@@ -487,7 +486,7 @@
 
 <div class="milieu" style ="" >
 <form action="accueil.html">
-<p id="btnAcc" style="display:none;" ><input class = "btnSmall" type = "submit" value = "Accueil" /></p>
+<p id="btnAcc" style="display:none;text-align:center;" ><input class = "btnSmall" type = "submit" value = "Accueil" /></p>
 </form>
 <p id="msgTop" class="msg">Attendez l'autre joueur...</p>
 <div id="tablesAPlacer" style ="display:none;" >
