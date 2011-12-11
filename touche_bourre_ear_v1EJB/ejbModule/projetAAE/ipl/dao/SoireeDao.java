@@ -1,5 +1,6 @@
 package projetAAE.ipl.dao;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -10,8 +11,9 @@ import projetAAE.ipl.domaine.Soiree;
 @Local
 public interface SoireeDao extends Dao<Integer, Soiree> {
 	
-	public Soiree rechercher(String pseudo);
-	public Soiree rechercheSoireeNonFinie(String pseudo);
+	public Soiree rechercher(String nomSoiree);
+	public Soiree rechercheSoireeNonFinie(String nomSoiree);
+	public Soiree rechercheSoireeFinie(String nomSoiree, Calendar dateBegin);
 	public List<Soiree> listerSoireeEnAttenteDeJoueur();
 	public List<Soiree> listerSoireeFinie(String pseudoFetard);
 	public Soiree chargerTournee(String pseudoFetard, Soiree soiree);

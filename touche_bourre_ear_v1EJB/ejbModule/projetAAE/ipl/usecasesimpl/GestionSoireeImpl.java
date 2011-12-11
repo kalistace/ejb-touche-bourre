@@ -1,5 +1,6 @@
 package projetAAE.ipl.usecasesimpl;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -98,10 +99,11 @@ public class GestionSoireeImpl implements GestionSoiree {
 		if (soiree == null) {
 			throw new Exception("soiree null !");
 		}
-		if (!soiree.getFetard_Soiree_Courant().getFetard().getPseudo().equalsIgnoreCase(pseudoFetard)) {
+		if (!soiree.getFetard_Soiree_Courant().getFetard().getPseudo()
+				.equalsIgnoreCase(pseudoFetard)) {
 			throw new Exception("C'est n'est pas le tour de ce joueur !");
 		}
-		
+
 		try {
 			soiree.lancerTournee(soiree, coord);
 		} catch (ArgumentInvalideException e) {
@@ -167,16 +169,13 @@ public class GestionSoireeImpl implements GestionSoiree {
 		}
 		return soiree;
 	}
-	
+
 	@Override
-	public Soiree finirSoiree(String nomSoiree) throws Exception {
-		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
+	public Soiree finirSoiree(String nomSoiree, Calendar dateDebut)
+			throws Exception {
+		Soiree soiree = soireeDao.rechercheSoireeFinie(nomSoiree, dateDebut);
 		if (soiree == null) {
 			throw new Exception("soiree null");
-		}
-		if (soiree.getEtat() != Etat.FINIE) {
-			throw new Exception(
-					"conditions non remplies pour commencer la soirée");
 		}
 		return soiree;
 	}

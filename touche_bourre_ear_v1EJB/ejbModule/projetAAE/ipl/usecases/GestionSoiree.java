@@ -1,5 +1,6 @@
 package projetAAE.ipl.usecases;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -23,5 +24,5 @@ public interface GestionSoiree {
 	Soiree fetardDeconnecte(String nomSoiree, String pseudoFetard);
 	Soiree commencerPlacement(String nomSoiree) throws Exception;
 	Soiree commencerSoiree(String nomSoiree) throws Exception;
-	Soiree finirSoiree(String nomSoiree) throws Exception;
+	Soiree finirSoiree(String nomSoiree, Calendar dateDebut) throws Exception;
 }
