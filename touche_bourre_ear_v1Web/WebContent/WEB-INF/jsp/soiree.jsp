@@ -269,6 +269,7 @@
 			}else {
 				window.onbeforeunload = function() {};
 				alert("Partie Finie! "+$.trim(rep)+" a gagné!");
+				$("#msgTop").fadeOut();
 				$("#btnAcc").fadeIn();
 				clearInterval(refeshIntervalTour);
 				clearInterval(refeshIntervalTour);
@@ -316,12 +317,15 @@
 			if(rep==1){
 				window.onbeforeunload = function() {};
 				alert("Adversaire déconnecté, partie terminé");
+				$("#msgTop").fadeOut();
 				$("#btnAcc").fadeIn();
 				stopAllIntervals();
 			}else if(rep!=2){
 				window.onbeforeunload = function() {};
 				alert("Adversaire déconnecté, vous avez gagné!");
+				$("#msgTop").fadeOut();
 				$("#btnAcc").fadeIn();
+				
 				stopAllIntervals();
 				}
 		};
@@ -482,7 +486,9 @@
 </div>
 
 <div class="milieu" style ="" >
-<p id="btnAcc" style="display:none;" ><form action=""><input class = "btnSmall" type = "submit" value = "Accueil" /></form></p>
+<form action="accueil.html">
+<p id="btnAcc" style="display:none;" ><input class = "btnSmall" type = "submit" value = "Accueil" /></p>
+</form>
 <p id="msgTop" class="msg">Attendez l'autre joueur...</p>
 <div id="tablesAPlacer" style ="display:none;" >
 <div class="draggable 1">
