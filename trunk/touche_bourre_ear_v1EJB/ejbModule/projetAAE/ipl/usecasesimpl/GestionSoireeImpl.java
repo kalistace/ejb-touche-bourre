@@ -1,6 +1,5 @@
 package projetAAE.ipl.usecasesimpl;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -14,12 +13,10 @@ import projetAAE.ipl.domaine.ETable;
 import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.domaine.Soiree.Etat;
-import projetAAE.ipl.exceptions.ArgumentInvalideException;
 import projetAAE.ipl.exceptions.CaseDejaOccupeeException;
 import projetAAE.ipl.exceptions.DejaToucheException;
 import projetAAE.ipl.exceptions.MemePositionException;
 import projetAAE.ipl.exceptions.NombreDeBieresIncorrectParTourneeException;
-import projetAAE.ipl.exceptions.TableDejaPlaceeException;
 import projetAAE.ipl.usecases.GestionSoiree;
 import projetAAE.ipl.valueObject.XY;
 
