@@ -7,14 +7,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Rejoindre une partie</title>
 <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+<link rel="stylesheet" type="text/css" href="./css/soiree.css" />
 </head>
 <body>
+<div id="container">
+
+<div id="head"></div>
+<div class = "rejoindre">
 	<c:if test="${not empty fail}">
 		<p class="warningmsg">La partie n'est plus disponible car celle-ci est complète.</p>
 	</c:if>	
-	<div class="login">
-		<p class="edtUser">Selectionnez une soirée à rejoindre:</p>
-		<table border=1>
+	
+		<p class="lbRejoindre">Selectionnez une soirée à rejoindre:</p>
+		<br>
+		<center><table>
 		<c:if test="${empty soireesEnCours}">
 			<p class="warningmsg"> Il n'y a aucune soirée disponible pour le moment </p>
 		</c:if>
@@ -26,14 +32,14 @@
 					<td class="biggerTD"><c:url var="urlSoiree"
 							value="rejoindre.html" />
 						<form action="${urlSoiree}" method="post">
-							<input type="text" name="nomSoiree" value="${soiree.nom}" /> <input
+							<input type="hidden" name="nomSoiree" value="${soiree.nom}" /> <input
 								class="btnSmall" type="submit" value="Rejoindre" />
 						</form></td>
 					<td class="joinable">${soiree.nbrFetardConnecte}/2</td>
 				</tr>
 			</c:forEach>
-		</table>
-	</div>
-
+		</table></center>
+</div>
+</div>
 </body>
 </html>
