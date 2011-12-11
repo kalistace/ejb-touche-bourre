@@ -22,7 +22,7 @@ public class TablePlacee {
 	@GeneratedValue
 	private int id;
 	
-	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.ALL })
     @JoinColumn(nullable = false, name = "TABLEPLACEE_ID")
 	private List<Coordonnee> coordonnees;
 	@Enumerated(EnumType.STRING)
