@@ -201,6 +201,11 @@ z-index:1;
 	padding-left: 10px;
 }
 
+.journaux th {
+	padding-left: 10px;
+	color: #FFFFFF;
+}
+
 .journal {
 	padding: 10px;
 	margin: auto;
