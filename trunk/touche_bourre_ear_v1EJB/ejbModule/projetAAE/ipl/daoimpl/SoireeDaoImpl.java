@@ -44,11 +44,12 @@ public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao
 	public Soiree chargerTournee(Soiree soiree) {
 		List<Tournee> tournees = soiree.getFetardSoiree1().getMesTournees();
 		List<Tournee> tournees2 = soiree.getFetardSoiree2().getMesTournees();
-		tournees.addAll(tournees2);
 		for(Tournee t : tournees){
 			t.getBieres().size();
 		}
-		
+		for(Tournee t : tournees2){
+			t.getBieres().size();
+		}
 		return soiree;
 	}
 
