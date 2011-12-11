@@ -1,12 +1,6 @@
 package projetAAE.ipl.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -17,12 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import projetAAE.ipl.domaine.Biere;
-import projetAAE.ipl.domaine.ETable;
-import projetAAE.ipl.domaine.Fetard;
-import projetAAE.ipl.domaine.Fetard_Soiree;
-import projetAAE.ipl.domaine.Soiree;
-import projetAAE.ipl.domaine.Tournee;
 import projetAAE.ipl.usecases.GestionSoiree;
 
 /**
@@ -52,7 +40,10 @@ public class Rejoindre extends HttpServlet {
 			return;
 		}
 		
-		gestionSoiree.rejoindreSoiree(soiree, (String)session.getAttribute("pseudo"));
+		if (gestionSoiree.rejoindreSoiree(soiree, (String)session.getAttribute("pseudo")) == null) {
+			response.sendRedirect(response.encodeRedirectURL("listerSoirees.html?fail"));
+			return;
+		}
 		
 		
 		session.setAttribute("nomSoiree", soiree);

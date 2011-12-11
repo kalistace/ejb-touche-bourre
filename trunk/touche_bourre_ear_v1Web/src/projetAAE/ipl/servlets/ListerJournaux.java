@@ -1,11 +1,9 @@
 package projetAAE.ipl.servlets;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +43,7 @@ public class ListerJournaux extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("deprecation")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		if(session == null || (session!= null && session.getAttribute("pseudo") == null)) {
@@ -57,6 +56,7 @@ public class ListerJournaux extends HttpServlet {
 		Map<Integer, List<String>> mapTournees = new HashMap<Integer, List<String>>();
 		for (Soiree soiree : journaux) {
 			List<Tournee> tournees = soiree.listePermuteeEtOrdonneeDeTournees();
+			System.out.println(tournees);
 			List<String> resultats = new ArrayList<String>();
 			Fetard_Soiree fetardCourant = soiree.getPremierFetardAJouer();
 			Fetard_Soiree nextFetard;
@@ -95,8 +95,8 @@ public class ListerJournaux extends HttpServlet {
 				// CR�ATION DES STRINGS RESULTATS
 				resultats.add("Nom de la soirée: "+soiree.getNom());
 				String date = "Début de la soirée: ";
-				date += soiree.getDateDebut().get(Calendar.DAY_OF_MONTH) + " ";
-				date += soiree.getDateDebut().get(Calendar.MONTH) + " ";
+				date += soiree.getDateDebut().get(Calendar.DAY_OF_MONTH) + "/";
+				date += soiree.getDateDebut().get(Calendar.MONTH) + "/";
 				date += soiree.getDateDebut().get(Calendar.YEAR) + " à ";
 				date += soiree.getDateDebut().get(Calendar.HOUR_OF_DAY) + "h";
 				if (soiree.getDateDebut().get(Calendar.MINUTE) < 10) date += "0";
@@ -155,7 +155,7 @@ public class ListerJournaux extends HttpServlet {
 					res += " -> ";
 					for (Map.Entry<ETable, Integer> entry : nbrHits.entrySet()) {
 					    if (entry.getValue() > 0) {
-					    	res += tableNames.get(entry.getKey()) + "servi(e) " + entry.getValue() + " fois";
+					    	res += tableNames.get(entry.getKey()) + " servi(e) " + entry.getValue() + " fois";
 						    if (isCoule.get(entry.getKey()))
 						    	res += " et bourré(e)";
 						    res += ". ";
@@ -170,11 +170,14 @@ public class ListerJournaux extends HttpServlet {
 						nbrHits.put(etable, 0);
 						isCoule.put(etable, false);
 					}
+					Fetard_Soiree tmp = fetardCourant;
+					fetardCourant = nextFetard;
+					nextFetard = tmp;
 				}
 				Date time = new Date(soiree.getDateFin().getTimeInMillis()-soiree.getDateDebut().getTimeInMillis());
 				String duree = soiree.getGagnant().getFetard().getPseudo()+ " est le dernier debout après ";
-				if (time.getHours() != 0)
-					duree += time.getHours() + " heures ";
+				if (time.getHours()-1 != 0)
+					duree += time.getHours()-1 + " heures ";
 				duree += time.getMinutes() + " minutes et ";
 				duree += time.getSeconds() + ".";
 				resultats.add(duree);
