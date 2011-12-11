@@ -3,17 +3,16 @@ package projetAAE.ipl.domaine;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -89,37 +88,52 @@ public class Fetard_Soiree implements Serializable {
 		return id;
 	}
 
-	public TablePlacee placerTable(List<XY> coord, ETable etable) throws MemePositionException, TableDejaPlaceeException, CaseDejaOccupeeException {
+	public boolean placerTable(Map<ETable, List<XY>> tables)
+			throws MemePositionException, CaseDejaOccupeeException {
 
 		// vérifier si la liste ne contient pas 2 coordonnées identiques
-		for(XY a : coord) {
-			for(XY b : coord) {
-				if(coord.indexOf(a) == coord.indexOf(b)) continue;
-				if(a.getX() == b.getX() && a.getY() == b.getY())
-					throw new MemePositionException("La table est renseignée plusieurs fois par la même coordonnée");
+		for (ETable key : tables.keySet()) {
+
+			List<XY> liste = tables.get(key);
+			for (XY a : liste) {
+				for (XY b : liste) {
+					if (a.getX() == b.getX() && a.getY() == b.getY())
+						throw new MemePositionException(
+								"La table est renseignée plusieurs fois par la même coordonnée");
+				}
 			}
 		}
-		
-		// vérifier qu'on ne place pas une table qui a déjà été placée
-		// vérifier qu'on ne place pas une table à un endroit qui contient déjà une autre table
-		for(TablePlacee tp : mesTablesPlacees) {
-			if(tp.getTable().equals(etable)) throw new TableDejaPlaceeException("Cette table a déjà été placée");
-			for(Coordonnee c : tp.getCoordonnees()) {
-				for(XY p : coord) {
-					if(c.getX() == p.getX() && c.getY() == p.getY()) throw new CaseDejaOccupeeException("Une table se trouve déjà à cet endroit");
+
+		// vérifier qu'on ne place pas une table à un endroit qui contient déjà
+		// une autre table
+		for (ETable key : tables.keySet()) {
+			List<XY> liste1 = tables.get(key);
+
+			for (ETable key2 : tables.keySet()) {
+				if (key.equals(key2))
+					continue;
+				List<XY> liste2 = tables.get(key2);
+				for (XY a : liste1) {
+					for (XY b : liste2) {
+						if (a.getX() == b.getX() && a.getY() == b.getY())
+							throw new MemePositionException(
+									"La table est renseignée plusieurs fois par la même coordonnée");
+					}
 				}
 			}
 		}
 		
-		
-		List<Coordonnee> listeCoord = new ArrayList<Coordonnee>();
-		for (XY c : coord) {
-			listeCoord.add(new Coordonnee(c.getX(), c.getY()));
+		for (ETable key : tables.keySet()) {
+			List<XY> listeXY = tables.get(key);
+			List<Coordonnee> listeCoord = new ArrayList<Coordonnee>();
+			for(XY a : listeXY) {
+				listeCoord.add(new Coordonnee(a.getX(), a.getY()));
+			}
+			TablePlacee tp = new TablePlacee(listeCoord, key);
+			mesTablesPlacees.add(tp);
 		}
-
-		TablePlacee tp = new TablePlacee(listeCoord, etable);
-		mesTablesPlacees.add(tp);
-		return tp;
+		
+		return true;
 	}
 
 	// prends un tableau de "coups" en paramètre pour créer une "salve" et
@@ -128,13 +142,14 @@ public class Fetard_Soiree implements Serializable {
 			throws ArgumentInvalideException, DejaToucheException {
 		if (coord.size() != nbBieresParTournee)
 			return null;
-		
+
 		// vérifier si on ne lance pas une Tournee sur des cases déjà atteintes
-		for(Tournee t : mesTournees) {
-			for(Biere b : t.getBieres()) {
-				for(XY c : coord) {
-					if(memePosition(b, c)) 
-						throw new DejaToucheException("Case déjà touchée par une salve antérieure");
+		for (Tournee t : mesTournees) {
+			for (Biere b : t.getBieres()) {
+				for (XY c : coord) {
+					if (memePosition(b, c))
+						throw new DejaToucheException(
+								"Case déjà touchée par une salve antérieure");
 				}
 			}
 		}
@@ -158,7 +173,7 @@ public class Fetard_Soiree implements Serializable {
 		mesTournees.add(t);
 		return t;
 	}
-	
+
 	private boolean memePosition(Biere b, XY c) {
 		return b.getX() == c.getX() && b.getY() == c.getY();
 	}

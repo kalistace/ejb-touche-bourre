@@ -82,8 +82,6 @@ public class GestionSoireeImpl implements GestionSoiree {
 			soiree.setJoueurPret(fetard, soiree, tables);
 		} catch (MemePositionException e) {
 			return null;
-		} catch (TableDejaPlaceeException e) {
-			return null;
 		} catch (CaseDejaOccupeeException e) {
 			return null;
 		}
