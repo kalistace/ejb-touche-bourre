@@ -108,7 +108,7 @@ public class GestionSoireeImpl implements GestionSoiree {
 			throw new Exception("Case déjà touchée par une salve antérieure");
 		}
 
-		soiree = soireeDao.chargerTournee(pseudoFetard, soiree);
+		soiree = soireeDao.chargerTournee(soiree);
 		soireeDao.mettreAJour(soiree);
 		return soiree;
 	}
@@ -120,7 +120,7 @@ public class GestionSoireeImpl implements GestionSoiree {
 		if (fetard == null) {
 			return null;
 		}
-		soirees = soireeDao.chargerTournee(pseudoFetard, soirees);
+		soirees = soireeDao.chargerTournee(soirees);
 		return soirees;
 	}
 
