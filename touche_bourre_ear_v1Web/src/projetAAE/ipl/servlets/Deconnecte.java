@@ -54,8 +54,12 @@ public class Deconnecte extends javax.servlet.http.HttpServlet implements
 		} catch (Exception e) {
 			try {
 				soiree = gestionSoiree.commencerSoiree(nomSoiree);
-			} catch (Exception e1) {}
-			System.out.println(soiree.getNbrFetardConnecte());
+			} catch (Exception e1) {
+				request.setAttribute("var",2);//ok
+				RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
+				rd.forward(request, response);
+				return;
+			}
 			if(soiree.getNbrFetardConnecte()<2){	
 				request.setAttribute("var",soiree.getGagnant());//encours
 				RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
