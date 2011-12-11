@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -19,6 +19,7 @@
 	var nbrTables = 5;
 	var pret = false;
 	var tournee = 1;
+	var bie = 5;           
 	var myTables=new Array();
 	var deuxiemeConnecte = 0;
 	var refeshIntervalPretId;
@@ -154,24 +155,28 @@
 		});
 		        
 
-		var coord = new Array();                  
+		var coord = new Array(); 
+		    
         $("#tabTirs td").click(function(){
         		
         			var col = $(this).index();	
         			var row = $(this).parent().index();
         			
         			if(pret && $(this).text()==""){
-        				
+
+        				bie--;
         				$("#bieres").children().last().fadeOut(function(){ 
         				$(this).remove()});
+        				
         				$(this).text(tournee);
         				coord.push(col+""+row);
-        				if($("#bieres").children().length <= 1)
+        				if(bie == 0)
         				{
         					pret=false;
         					gererTournee(coord.toString());
         					coord = new Array();
         					tournee++;
+        					$("#bieres").hide();
  
         					
         				}
@@ -260,6 +265,7 @@
 			if(rep > 0) {
 				clearInterval(refeshIntervalTour);
 				pret = true;
+				bie = rep;
 				afficherBieres(rep);
 				$("#msgTop").fadeOut().fadeIn().text("Cliquez sur le bar de droite");
 			} else if (rep == 0){ 
