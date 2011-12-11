@@ -81,14 +81,15 @@ public class GestionSoireeImpl implements GestionSoiree {
 		try {
 			soiree.setJoueurPret(fetard, soiree, tables);
 		} catch (MemePositionException e) {
-			e.printStackTrace();
+			return null;
 		} catch (TableDejaPlaceeException e) {
-			e.printStackTrace();
+			return null;
 		} catch (CaseDejaOccupeeException e) {
-			e.printStackTrace();
+			return null;
 		}
 
 		soireeDao.mettreAJour(soiree);
+		
 		return soiree;
 	}
 
