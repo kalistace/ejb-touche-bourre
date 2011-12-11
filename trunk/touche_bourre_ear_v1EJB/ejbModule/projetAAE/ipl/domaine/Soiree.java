@@ -122,7 +122,7 @@ public class Soiree implements Serializable {
 
 			boolean fetardDeconnecte(Fetard fetard, Soiree soiree) {
 				soiree.nbrFetardConnecte--;
-				if (soiree.nbrFetardConnecte == 0) {
+				if (soiree.nbrFetardConnecte == 1) {
 					soiree.etat = FINIE;
 					// le joueur restant gagne par forfait
 					soiree.gagnant = soiree.getAdversaire(soiree
