@@ -163,6 +163,7 @@ public class GestionSoireeImpl implements GestionSoiree {
 			throw new Exception(
 					"conditions non remplies pour commencer la soirée");
 		}
+		soiree = soireeDao.chargerTournee(soiree);
 		return soiree;
 	}
 
