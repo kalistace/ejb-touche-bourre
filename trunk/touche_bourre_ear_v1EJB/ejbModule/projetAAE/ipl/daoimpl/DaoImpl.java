@@ -98,7 +98,7 @@ public abstract class DaoImpl<K, E> implements Dao<K, E> {
 					i += 2;
 				} else if (params[i] instanceof Calendar) {
 					query.setParameter(j, (Calendar) params[i],
-							(TemporalType) params[i + 1]);
+							(TemporalType) params[i+1]);
 					i += 2;
 				} else {
 					query.setParameter(j, params[i]);
