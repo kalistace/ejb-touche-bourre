@@ -50,8 +50,8 @@ javax.servlet.Servlet  {
 			session2.setAttribute("nomSoiree", request.getParameter("nomSoiree"));
 		}
 		//session.setMaxInactiveInterval(5);
-		Soiree soiree = ucc.creerSoiree(request.getParameter("nomSoiree"), (String) session.getAttribute("pseudo"));
-		session.setAttribute("dateDebut", soiree.getDateDebut());
+		ucc.creerSoiree(request.getParameter("nomSoiree"), (String) session.getAttribute("pseudo"));
+		
 		
 		RequestDispatcher rd = getServletContext().getNamedDispatcher("Soiree");
 		rd.forward(request, response);
