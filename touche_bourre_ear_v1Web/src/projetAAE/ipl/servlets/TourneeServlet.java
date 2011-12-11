@@ -14,9 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import projetAAE.ipl.domaine.Biere;
 import projetAAE.ipl.domaine.ETable;
-import projetAAE.ipl.domaine.Fetard;
 import projetAAE.ipl.domaine.Fetard_Soiree;
 import projetAAE.ipl.domaine.Soiree;
+import projetAAE.ipl.domaine.Soiree.Etat;
 import projetAAE.ipl.domaine.Tournee;
 import projetAAE.ipl.usecases.GestionSoiree;
 import projetAAE.ipl.valueObject.XY;
@@ -63,6 +63,8 @@ public class TourneeServlet extends javax.servlet.http.HttpServlet implements
 			e.printStackTrace();
 		}
 
+		
+		
 		Fetard_Soiree fs = soiree.getFetard_Soiree(pseudo);
 		List<Tournee> mesTournees = fs.getMesTournees();
 		
