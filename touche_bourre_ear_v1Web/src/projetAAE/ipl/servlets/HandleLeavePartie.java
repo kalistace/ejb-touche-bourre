@@ -34,6 +34,7 @@ public class HandleLeavePartie extends HttpServlet {
 		HttpSession session = request.getSession();
 		String nomSoiree = (String) session.getAttribute("nomSoiree");
 		String pseudo = (String) session.getAttribute("pseudo");
+		System.out.println("handelefok "+pseudo);
 		if (nomSoiree != null || pseudo != null) {
 			uccGestionSoiree.fetardDeconnecte(nomSoiree, pseudo);
 			session.removeAttribute("nomSoiree");
