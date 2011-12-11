@@ -39,6 +39,7 @@ public class TablePlacee {
 	}
 	
 	public void decrementerVies() {
+		if(vies == 0) return;
 		vies--;
 	}
 	
