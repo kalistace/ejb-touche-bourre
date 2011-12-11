@@ -165,8 +165,9 @@
         			if(pret && $(this).text()==""){
 
         				bie--;
-        				$("#bieres").children().last().fadeOut(function(){ 
-        				$(this).remove()});
+        				/*$("#bieres").children().last().fadeOut(function(){ 
+        				$(this).remove()});*/
+        				$("#bieres").children().last().remove();
         				
         				$(this).text(tournee);
         				coord.push(col+""+row);
@@ -176,7 +177,7 @@
         					gererTournee(coord.toString());
         					coord = new Array();
         					tournee++;
-        					$("#bieres").hide();
+        					
  
         					
         				}
@@ -211,7 +212,7 @@
 		$("#msgTop").text("Cliquez sur le bar de droite");
 				
 		for(i=0;i<nrBiere;i++){
-			$("#bieres").append("<img alt='beer' src='img/beer.png'/>").hide().fadeIn("slow");
+			$("#bieres").append("<img alt='beer' src='img/beer.png'/>").fadeIn("slow");
 		}
 		$("#msgTopRes").fadeIn();
 		$("#tablesTouchees").fadeIn();
