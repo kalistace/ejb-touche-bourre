@@ -146,7 +146,14 @@
        top:-80px; 
     
 }
+.bleu{
+		background-image: url('../img/backHover.png');
+		background-color: blue;
+	
+}
 .toucheBar {
-		background-image: url('../img/backHover.png') ;
-		background-color: red;
+	/*position: relative;
+    z-index: 0;*/
+	background-image: url('../img/backHover.png') ;
+
 	}
