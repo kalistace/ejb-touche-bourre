@@ -12,6 +12,7 @@
 </head>
 <body>
 	<h1>Selectionnez une soirée:</h1>
+	
 	<c:forEach var="soiree" items="${journaux}">
 		<table class="journaux">
 			<tr><td colspan="2">${soiree.nom}</td></tr>
