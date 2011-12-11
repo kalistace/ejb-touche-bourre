@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -57,11 +58,11 @@ public class Fetard_Soiree implements Serializable {
 	// private Map<Integer, Tournee> mesTournees = new HashMap<Integer,
 	// Tournee>();
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false, name = "FETARD_SOIREE_ID")
 	private List<TablePlacee> mesTablesPlacees = new ArrayList<TablePlacee>();
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false, name = "FETARD_SOIREE_ID")
 	private List<Tournee> mesTournees = new ArrayList<Tournee>();
 
