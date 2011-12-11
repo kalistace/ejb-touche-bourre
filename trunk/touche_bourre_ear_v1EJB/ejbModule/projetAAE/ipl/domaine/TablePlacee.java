@@ -1,5 +1,6 @@
 package projetAAE.ipl.domaine;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="TABLEPLACEES", schema="TOUCHEBOURRE")
-public class TablePlacee {
+public class TablePlacee implements Serializable {
 	
 	@Id
 	@GeneratedValue

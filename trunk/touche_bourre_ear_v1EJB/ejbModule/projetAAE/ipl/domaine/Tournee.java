@@ -1,6 +1,7 @@
 package projetAAE.ipl.domaine;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="TOURNEES", schema="TOUCHEBOURRE")
-public class Tournee {
+public class Tournee implements Serializable {
 
 	
 	@Id

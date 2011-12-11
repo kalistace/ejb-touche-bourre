@@ -38,10 +38,8 @@ public class Biere implements Serializable {
 		
 	}
 	
-	public Biere(int x, int y, ETable tableTouchee) throws ArgumentInvalideException {
+	public Biere(int x, int y, ETable tableTouchee) {
 		
-		Util.checkPositiveOrZero(x);
-		Util.checkPositiveOrZero(y);
 		this.x = x;
 		this.y = y;
 		this.tableTouchee = tableTouchee;
