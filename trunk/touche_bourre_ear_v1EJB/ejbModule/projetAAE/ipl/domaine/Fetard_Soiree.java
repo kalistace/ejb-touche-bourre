@@ -97,6 +97,7 @@ public class Fetard_Soiree implements Serializable {
 			List<XY> liste = tables.get(key);
 			for (XY a : liste) {
 				for (XY b : liste) {
+					if(liste.indexOf(a) == liste.indexOf(b)) continue;
 					if (a.getX() == b.getX() && a.getY() == b.getY())
 						throw new MemePositionException(
 								"La table est renseignée plusieurs fois par la même coordonnée");
@@ -139,7 +140,7 @@ public class Fetard_Soiree implements Serializable {
 	// prends un tableau de "coups" en paramètre pour créer une "salve" et
 	// l'ajouter au fetard_soirée
 	public Tournee lancerTournee(List<XY> coord)
-			throws ArgumentInvalideException, DejaToucheException {
+			throws DejaToucheException {
 		if (coord.size() != nbBieresParTournee)
 			return null;
 
