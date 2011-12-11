@@ -176,7 +176,7 @@
 	
 	function afficherBieres(nrBiere){
 
-		var params = "";
+	/*	var params = "";
 		var req = new AjaxRequest("POST","casesTouchees.html",params, true);
 		req.handleResponse = function() {
 			rep=req.xhr.responseText;
@@ -188,7 +188,7 @@
 
 			}
 		};
-		req.process();	
+		req.process();	*/
 		$("#tablesAPlacer").append("<div id='bieres'></div>").hide().fadeIn("slow");
 		$("#msgTop").text("Cliquez sur le bar de droite");
 				
