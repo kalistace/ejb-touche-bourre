@@ -1,9 +1,7 @@
 package projetAAE.ipl.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Calendar;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -13,11 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import projetAAE.ipl.domaine.ETable;
 import projetAAE.ipl.domaine.Soiree;
-import projetAAE.ipl.domaine.Soiree.Etat;
 import projetAAE.ipl.usecases.GestionSoiree;
-import projetAAE.ipl.valueObject.XY;
 
 
 @WebServlet("/encours.html")
@@ -47,13 +42,15 @@ public class EnCours extends javax.servlet.http.HttpServlet implements
 		try {
 			 soiree = gestionSoiree.commencerSoiree(nomSoiree);
 		} catch (Exception e) {
-			//soireeFiniei
-			if(soiree.getEtat()==Etat.FINIE){
+			try {
+				soiree = gestionSoiree.finirSoiree(nomSoiree,(Calendar)sess.getAttribute("dateDebut"));
+			} catch (Exception e1) {}
+			
 				request.setAttribute("var",soiree.getGagnant());
 				RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
 				rd.forward(request, response);
 				return;
-			}
+			
 		}
 
 		

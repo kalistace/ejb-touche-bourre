@@ -1,10 +1,8 @@
 package projetAAE.ipl.servlets;
 
 import java.io.IOException;
-import java.io.PushbackInputStream;
 
 import javax.ejb.EJB;
-import javax.jms.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import projetAAE.ipl.listener.SessionListener;
+import projetAAE.ipl.domaine.Soiree;
 import projetAAE.ipl.usecases.GestionSoiree;
 
 /**
@@ -52,8 +50,9 @@ javax.servlet.Servlet  {
 			session2.setAttribute("nomSoiree", request.getParameter("nomSoiree"));
 		}
 		//session.setMaxInactiveInterval(5);
-		ucc.creerSoiree(request.getParameter("nomSoiree"), (String) session.getAttribute("pseudo"));
-		//attribut soiree
+		Soiree soiree = ucc.creerSoiree(request.getParameter("nomSoiree"), (String) session.getAttribute("pseudo"));
+		session.setAttribute("dateDebut", soiree.getDateDebut());
+		
 		RequestDispatcher rd = getServletContext().getNamedDispatcher("Soiree");
 		rd.forward(request, response);
 	}
