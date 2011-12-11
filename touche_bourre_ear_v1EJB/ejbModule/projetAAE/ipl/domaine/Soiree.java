@@ -92,6 +92,7 @@ public class Soiree implements Serializable {
 				}
 				if (soiree.nbrFetardConnecte == 0) {
 					soiree.etat = FINIE;
+					soiree.dateFin = new GregorianCalendar();
 					// pas de gagnant
 				}
 				return true;
