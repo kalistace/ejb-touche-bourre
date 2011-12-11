@@ -186,6 +186,8 @@
 		for(i=0;i<nrBiere;i++){
 			$("#bieres").append("<img alt='beer' src='img/beer.png'/>").hide().fadeIn("slow");
 		}
+		$("#msgTopRes").fadeIn();
+		$("#tablesTouchees").fadeIn();
 	
 	}
 	
@@ -267,17 +269,17 @@
 		for ( t in table)
 		{
 			var img = $(document.createElement("img")).attr({ src: 'img/servie.png'}).addClass("servie");
+			var texte = $(document.createElement("span")).addClass("servieTexte").text(tournee-1);
 			var tab =  $.trim(table[t]);
 			var x = $("."+tab).children().length;
 			for(var i=0;i<x;i++){
 				if($("."+tab).children().eq(i).children().length == 1 ){
 					$("."+tab).children().eq(i).append(img);
+					$("."+tab).children().eq(i).append(texte);
 					break;
 				}
 			}
 		}
-		$("#msgTopRes").fadeIn();
-		$("#tablesTouchees").fadeIn();
 	}
 
 		
@@ -498,10 +500,10 @@
 
 </div>
 
-<p id="msgTopRes" style ="display:;" class="msg">Tables servies:</p>
-<div id="tablesTouchees" style ="display:;" >
+<p id="msgTopRes" style ="display:none;" class="msg">Tables servies:</p>
+<div id="tablesTouchees" style ="display:none;" >
 <!--  -->
-
+<div style="width: 210px">
 <div class="TableDeCouple" style="width: 90px">
 	<div class="caseH"><img alt="case" src="img/couple1.png"/></div>
 	<div class="caseH"><img alt="case" src="img/couple2.png"/></div>
@@ -531,6 +533,7 @@
 	<div class="caseH"><img alt="case" src="img/comptoire3.png"/></div>
 	<div class="caseH"><img alt="case" src="img/comptoire4.png"/></div>
 	<div class="caseH"><img alt="case" src="img/comptoire5.png"/></div>
+</div>
 </div>
 </div>
 

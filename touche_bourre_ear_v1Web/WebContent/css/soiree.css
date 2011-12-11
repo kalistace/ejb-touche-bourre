@@ -123,14 +123,26 @@
 	background-position: 0px -58px;
 }
 
-#msgTopRes, #tablesTouchees {
+#msgTopRes{
 
 	margin-top : 100px;
 }
-#tablesTouchees .caseH {
-	margin-top : 100px;
+#tablesTouchees div {
+	float: left;
+
 }
 .servie {
 	position:relative;
+    z-index:0;
+    top:-40px; 
+}
+.servieTexte {
+	position:relative;
     z-index:1;
+    font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      color: #000;
+       top:-80px; 
+    
 }
