@@ -179,4 +179,33 @@ input:focus { outline:none; }
 	background-color: #058103;
 }
 
+#msgTopRes, #tablesTouchees {
+	
+	margin: auto;
+	margin-top : 200px;
+}
+.servie {
+position:absolute;
 
+z-index:1;
+}
+
+.journaux {
+	margin: auto;
+	width: 500px;
+	border-collapse: collapse;
+	border: 1px solid #FFFFFF;
+}
+
+.journaux td {
+	padding-left: 10px;
+}
+
+.journal {
+	padding: 10px;
+	margin: auto;
+	margin-bottom: 20px;
+	background-color: #C5C4C4;
+	width: 480px;
+	display: none;
+}
