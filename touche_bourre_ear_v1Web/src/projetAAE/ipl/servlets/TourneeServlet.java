@@ -46,7 +46,6 @@ public class TourneeServlet extends javax.servlet.http.HttpServlet implements
 		String nomSoiree = (String)sess.getAttribute("nomSoiree");
 		String pseudo = (String)sess.getAttribute("pseudo");
 		Soiree soiree = null;
-		System.out.println("COORD:"+coords);
 		List<XY> listeCoord = new ArrayList<XY>();
 		
 		String[] ncoords = coords.split(",");
@@ -58,10 +57,7 @@ public class TourneeServlet extends javax.servlet.http.HttpServlet implements
 
 		try{
 		soiree = gestionSoiree.lancerUneTournee(nomSoiree, pseudo, listeCoord);
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
+		}catch(Exception e){}
 
 		
 		

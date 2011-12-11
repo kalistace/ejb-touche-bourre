@@ -46,14 +46,13 @@ public class CasesTouchees extends javax.servlet.http.HttpServlet implements
 		String pseudo = (String)sess.getAttribute("pseudo");
 		Soiree soiree = null;
 
-		List<XY> listeCoord = new ArrayList<XY>();
 		try {
 			soiree = gestionSoiree.commencerSoiree(nomSoiree);
 		} catch (Exception e) {}
 		
 		
 		
-		Fetard_Soiree fs = soiree.getFetard_Soiree(pseudo);
+		Fetard_Soiree fs = soiree.getAdversaire(soiree.getFetard_Soiree_Courant());
 		List<Tournee> mesTournees = fs.getMesTournees();
 		
 		Tournee tournee = mesTournees.get(mesTournees.size()-1);

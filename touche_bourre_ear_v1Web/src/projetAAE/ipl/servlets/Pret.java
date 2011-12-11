@@ -90,8 +90,7 @@ public class Pret extends javax.servlet.http.HttpServlet implements
 			soiree = gestionSoiree.commencerSoiree(nomSoiree);
 			}
 			catch(Exception e) {
-				System.out.println(e.getMessage());
-				e.printStackTrace();
+				
 				request.setAttribute("var",2);//timer
 				RequestDispatcher rd = getServletContext().getNamedDispatcher("RepPret");
 				rd.forward(request, response);
