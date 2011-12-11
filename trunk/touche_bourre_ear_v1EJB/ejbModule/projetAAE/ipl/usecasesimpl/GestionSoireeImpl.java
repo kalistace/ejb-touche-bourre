@@ -72,8 +72,7 @@ public class GestionSoireeImpl implements GestionSoiree {
 
 	@Override
 	public Soiree fetardPret(String nomSoiree, String pseudoFetard,
-			Map<ETable, List<XY>> tables) throws MemePositionException,
-			TableDejaPlaceeException, CaseDejaOccupeeException {
+			Map<ETable, List<XY>> tables) throws MemePositionException, CaseDejaOccupeeException {
 
 		Fetard fetard = fetardDao.rechercher(pseudoFetard);
 		Soiree soiree = soireeDao.rechercheSoireeNonFinie(nomSoiree);
@@ -105,10 +104,8 @@ public class GestionSoireeImpl implements GestionSoiree {
 
 		try {
 			soiree.lancerTournee(soiree, coord);
-		} catch (ArgumentInvalideException e) {
-			throw new Exception("mauvaises coordonnées");
 		} catch (DejaToucheException e) {
-			throw new Exception("coordonnées sur bateau déjà touché !");
+			throw new Exception("Case déjà touchée par une salve antérieure");
 		}
 
 		soiree = soireeDao.chargerTournee(pseudoFetard, soiree);
