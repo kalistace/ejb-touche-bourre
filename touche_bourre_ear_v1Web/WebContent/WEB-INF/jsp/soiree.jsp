@@ -163,11 +163,7 @@
         					gererTournee(coord.toString());
         					coord = new Array();
         					tournee++;
-        					//gere tournee
-        					//envoyer resultats
-        					//recupérer resulats
-        					//afficher resulat
-        					//changer le joueur courant
+ 
         					
         				}
 
@@ -179,7 +175,20 @@
 	});
 	
 	function afficherBieres(nrBiere){
-		
+
+		var params = "";
+		var req = new AjaxRequest("POST","casesTouchees.html",params, true);
+		req.handleResponse = function() {
+			rep=req.xhr.responseText;
+			if($.trim(rep)=="")return;
+			var bieres = rep.split(",");		
+			for ( b in bieres)
+			{
+				$("#tabTirs").eq(biere[b].charAt(1)).children().eq(biere[b].charAt(0)).addClass(".toucheBar");
+
+			}
+		};
+		req.process();	
 		$("#tablesAPlacer").append("<div id='bieres'></div>").hide().fadeIn("slow");
 		$("#msgTop").text("Cliquez sur le bar de droite");
 				
