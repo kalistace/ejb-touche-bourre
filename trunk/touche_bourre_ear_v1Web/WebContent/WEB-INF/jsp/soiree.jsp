@@ -23,15 +23,13 @@
 	var deuxiemeConnecte = 0;
 	var refeshIntervalPretId;
 	var refeshIntervalTour;
-
+	var refreshIntervalDeco;
 	var refreshIntervalId = setInterval( "deuxJoueursConnectes()", 3000 );
+	
 
 	
 	
 	$(document).ready(function() {
-
-	//	alert('${nomSoiree}');
-		
 		
 		$( ".draggable" ).draggable({ revert: 'invalid',
 									  grid: [ 40,40 ],		  
@@ -144,6 +142,17 @@
 
         		} 
         );
+        
+		$("#tabTirs td").bind("contextmenu", function(e) {
+		    return false;
+		});
+		$("#tabTirs td").mousedown(function(event) {
+			if(event.which==3){
+
+				$(this).toggleClass("bleu");
+			}
+		});
+		        
 
 		var coord = new Array();                  
         $("#tabTirs td").click(function(){
@@ -185,8 +194,9 @@
 			rep = $.trim(rep);
 			var bieres = rep.split(",");		
 			for ( b in bieres)
-			{			
-				$("#tabPlacement").children().eq(bieres[b].charAt(1)).children().eq(bieres[b].charAt(0)).addClass(".toucheBar");
+			{							
+				//.append("<img alt='beer' src='img/beer.png' class='toucheBar'/>")
+				 $("#tabPlacement").children().children().eq(bieres[b].charAt(1)).children().eq(bieres[b].charAt(0)).addClass("toucheBar");
 			}
 			}
 		};
@@ -218,6 +228,7 @@
 		req.process();	
 		if(deuxiemeConnecte != 0){
 			clearInterval(refreshIntervalId);
+			refreshIntervalDeco = setInterval( "deco()", 3000 );
 		} 
 	}
 
@@ -257,6 +268,8 @@
 				refeshIntervalTour=setInterval("courant()",3000);		
 			}else {
 				alert("Partie Finie!"+$.trim(rep)+" a gagné!");
+				//affiche btn accueil
+				clearInterval(refeshIntervalTour);
 				clearInterval(refeshIntervalTour);
 			}
 		};
@@ -294,6 +307,28 @@
 		}
 	}
 
+	function deco() {
+		var params = "";
+		var req = new AjaxRequest("POST","deconnecte.html",params, true);
+		req.handleResponse = function() {
+			rep=req.xhr.responseText;
+			if(rep==1){
+				alert("Adversaire déconnecté, partie terminé");
+				stopAllIntervals();
+			}else if(rep!=2){
+				alert("Adversaire déconnecté, vous avez gagné!");
+				stopAllIntervals();
+				}
+		};
+		req.process();	
+	}
+
+	function stopAllIntervals(){
+		clearInterval(refeshIntervalPretId);
+		clearInterval(refeshIntervalTour);
+		clearInterval(refreshIntervalDeco);
+		clearInterval(refreshIntervalId);
+	}
 		
 	
 	</script>
