@@ -16,11 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import projetAAE.ipl.exceptions.ArgumentInvalideException;
 import projetAAE.ipl.exceptions.CaseDejaOccupeeException;
 import projetAAE.ipl.exceptions.DejaToucheException;
 import projetAAE.ipl.exceptions.MemePositionException;
-import projetAAE.ipl.exceptions.TableDejaPlaceeException;
+import projetAAE.ipl.exceptions.NombreDeBieresIncorrectParTourneeException;
 import projetAAE.ipl.valueObject.XY;
 
 @Entity
@@ -140,9 +139,9 @@ public class Fetard_Soiree implements Serializable {
 	// prends un tableau de "coups" en paramètre pour créer une "salve" et
 	// l'ajouter au fetard_soirée
 	public Tournee lancerTournee(List<XY> coord)
-			throws DejaToucheException {
+			throws DejaToucheException, NombreDeBieresIncorrectParTourneeException {
 		if (coord.size() != nbBieresParTournee)
-			return null;
+			throw new NombreDeBieresIncorrectParTourneeException();
 
 		// vérifier si on ne lance pas une Tournee sur des cases déjà atteintes
 		for (Tournee t : mesTournees) {

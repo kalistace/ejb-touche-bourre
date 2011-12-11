@@ -18,6 +18,7 @@ import projetAAE.ipl.exceptions.ArgumentInvalideException;
 import projetAAE.ipl.exceptions.CaseDejaOccupeeException;
 import projetAAE.ipl.exceptions.DejaToucheException;
 import projetAAE.ipl.exceptions.MemePositionException;
+import projetAAE.ipl.exceptions.NombreDeBieresIncorrectParTourneeException;
 import projetAAE.ipl.exceptions.TableDejaPlaceeException;
 import projetAAE.ipl.usecases.GestionSoiree;
 import projetAAE.ipl.valueObject.XY;
@@ -104,6 +105,8 @@ public class GestionSoireeImpl implements GestionSoiree {
 
 		try {
 			soiree.lancerTournee(soiree, coord);
+		} catch (NombreDeBieresIncorrectParTourneeException d) {
+			throw new Exception("Nombre de bières incorrect pour cette tournée");
 		} catch (DejaToucheException e) {
 			throw new Exception("Case déjà touchée par une salve antérieure");
 		}

@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 import projetAAE.ipl.exceptions.CaseDejaOccupeeException;
 import projetAAE.ipl.exceptions.DejaToucheException;
 import projetAAE.ipl.exceptions.MemePositionException;
+import projetAAE.ipl.exceptions.NombreDeBieresIncorrectParTourneeException;
 import projetAAE.ipl.valueObject.XY;
 
 @Entity
@@ -101,7 +102,7 @@ public class Soiree implements Serializable {
 		EN_COURS {
 
 			boolean lancerTournee(Soiree soiree, List<XY> coord)
-					throws DejaToucheException {
+					throws DejaToucheException, NombreDeBieresIncorrectParTourneeException {
 				soiree.fetard_Soiree_Courant.lancerTournee(coord);
 
 				soiree.fetard_Soiree_Courant = soiree
@@ -149,7 +150,7 @@ public class Soiree implements Serializable {
 		}
 
 		boolean lancerTournee(Soiree soiree, List<XY> coord)
-				throws DejaToucheException {
+				throws DejaToucheException, NombreDeBieresIncorrectParTourneeException {
 			return false;
 		}
 	}
@@ -216,7 +217,7 @@ public class Soiree implements Serializable {
 	}
 
 	public boolean lancerTournee(Soiree soiree, List<XY> coord)
-			throws DejaToucheException {
+			throws DejaToucheException, NombreDeBieresIncorrectParTourneeException {
 		return etat.lancerTournee(soiree, coord);
 	}
 
