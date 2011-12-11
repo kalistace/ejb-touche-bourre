@@ -260,8 +260,8 @@
 	}
 	
 	function tableServies(rep){
+		if($.trim(rep)=="")return;
 		var table = rep.split(",");		
-		if(table.length==0)return;
 		for ( t in table)
 		{
 			var img = $(document.createElement("img")).attr({ src: 'img/servie.png'}).addClass("servie");
