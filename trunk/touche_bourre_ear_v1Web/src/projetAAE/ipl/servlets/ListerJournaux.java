@@ -54,7 +54,7 @@ public class ListerJournaux extends HttpServlet {
 		List<Soiree> journaux = ucc.listerSoireesFinies((String) session.getAttribute("pseudo"));
 		request.setAttribute("monPseudo", session.getAttribute("pseudo"));
 		request.setAttribute("journaux", journaux);
-		Map<Long, List<String>> mapTournees = new HashMap<Long, List<String>>();
+		Map<Integer, List<String>> mapTournees = new HashMap<Integer, List<String>>();
 		for (Soiree soiree : journaux) {
 			List<Tournee> tournees = soiree.listePermuteeEtOrdonneeDeTournees();
 			List<String> resultats = new ArrayList<String>();
@@ -179,9 +179,10 @@ public class ListerJournaux extends HttpServlet {
 				duree += time.getSeconds() + ".";
 				resultats.add(duree);
 			}
-			if (resultats.size()==0)
+			if (resultats.size()==0) {
 				resultats.add("Pas de souvenirs de cette soirée.");
-			mapTournees.put(new Long(soiree.getId()), resultats);
+			}
+			mapTournees.put(soiree.getId(), resultats);
 		}
 		request.setAttribute("mapTournees", mapTournees);
 		RequestDispatcher rd = getServletContext().getNamedDispatcher("Journaux");

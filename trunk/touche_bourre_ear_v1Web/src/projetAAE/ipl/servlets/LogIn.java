@@ -38,12 +38,13 @@ javax.servlet.Servlet  {
 		String pseudo = request.getParameter("pseudo");
 
 		
-		HttpSession session = request.getSession(); //crée une session
+		HttpSession session = request.getSession(false); //crée une session
 		
 		synchronized (session) {
 			if (session.getAttribute("pseudo") != null) {
-				response.sendRedirect(response.encodeRedirectURL("index.jsp?alreadyLogged=1"));
-				return;
+				session.removeAttribute("pseudo");
+				session.invalidate();
+				session = request.getSession(true);
 			}
 			session.setAttribute("pseudo", pseudo);
 			gestionFetard.enregistrer(pseudo);

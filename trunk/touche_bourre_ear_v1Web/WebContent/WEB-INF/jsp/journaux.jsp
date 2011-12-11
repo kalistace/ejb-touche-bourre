@@ -7,11 +7,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Bons souvenirs de copains</title>
 <link rel="stylesheet" type="text/css"  href="./css/styles.css"/>
+<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script src="js/afficheJournal.js" type="text/javascript"></script>
 </head>
 <body>
 	<h1>Selectionnez une soirée:</h1>
 	<c:forEach var="soiree" items="${journaux}">
-		<table border=1>
+		<table class="journaux">
 			<tr><td colspan="2">${soiree.nom}</td></tr>
 			<tr>
 				<c:choose>
@@ -32,15 +34,11 @@
 					</c:when>
 				</c:choose>
 				<td>
-					<c:url var="urlJournal" value="journal.html"/>
-					<form action="${urlJournal}" method="post">
-					<c:set var="soiree" value="${soiree}" scope="request"/>
-					<input class = "btnSmall" type = "submit" value = "Journal"/>
-					</form>
+					<input class = "btnSmall" type = "button" value = "Journal" id="${soiree.id}"/>
 				</td>
 			</tr>
 		</table>
-		<div>
+		<div class="journal" id="div${soiree.id}">
 			<c:forEach var="ligne" items="${mapTournees[soiree.id]}">
 				<c:out value="${ligne}"/>
 			</c:forEach>

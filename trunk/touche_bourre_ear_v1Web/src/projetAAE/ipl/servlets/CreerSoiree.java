@@ -37,7 +37,7 @@ javax.servlet.Servlet  {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(true);
 		if(session == null || (session!= null && session.getAttribute("pseudo") == null)) {
 			response.sendRedirect(response.encodeRedirectURL("index.jsp?timeout=1"));
 			return;
@@ -47,7 +47,7 @@ javax.servlet.Servlet  {
 		synchronized (session2) {
 			if (session2.getAttribute("nomSoiree") != null) {
 				session2.invalidate(); // détruit la session
-				session = request.getSession();
+				session = request.getSession(true);
 			}
 			session2.setAttribute("nomSoiree", request.getParameter("nomSoiree"));
 		}
