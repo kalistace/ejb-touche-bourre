@@ -134,7 +134,7 @@
         				if(rep == 1) {
         				  afficherBieres();
         				  $("#pret").fadeOut();
-        				} else { /*2*/
+        				} else { 
             				$("#msgTop").fadeOut().fadeIn().text("En attente de l'autre fétard!");
             				intervalPret();
             				$("#pret").fadeOut();
