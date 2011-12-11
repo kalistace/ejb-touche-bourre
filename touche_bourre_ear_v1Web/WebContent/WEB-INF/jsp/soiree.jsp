@@ -267,8 +267,9 @@
 				clearInterval(refeshIntervalTour);
 				refeshIntervalTour=setInterval("courant()",3000);		
 			}else {
-				alert("Partie Finie!"+$.trim(rep)+" a gagné!");
-				//affiche btn accueil
+				window.onbeforeunload = function() {};
+				alert("Partie Finie! "+$.trim(rep)+" a gagné!");
+				$("#btnAcc").fadeIn();
 				clearInterval(refeshIntervalTour);
 				clearInterval(refeshIntervalTour);
 			}
@@ -313,10 +314,14 @@
 		req.handleResponse = function() {
 			rep=req.xhr.responseText;
 			if(rep==1){
+				window.onbeforeunload = function() {};
 				alert("Adversaire déconnecté, partie terminé");
+				$("#btnAcc").fadeIn();
 				stopAllIntervals();
 			}else if(rep!=2){
+				window.onbeforeunload = function() {};
 				alert("Adversaire déconnecté, vous avez gagné!");
+				$("#btnAcc").fadeIn();
 				stopAllIntervals();
 				}
 		};
@@ -472,11 +477,12 @@
 </tr>
 
 </table>
-<input id="pret" class = "btnSmall" type = "submit" value = "Prêt" style="display:none" />
+<center><input id="pret" class = "btnSmall" type = "submit" value = "Prêt" style="display:none" /></center>
 
 </div>
 
 <div class="milieu" style ="" >
+<p id="btnAcc" style="display:none;" ><form action=""><input class = "btnSmall" type = "submit" value = "Accueil" /></form></p>
 <p id="msgTop" class="msg">Attendez l'autre joueur...</p>
 <div id="tablesAPlacer" style ="display:none;" >
 <div class="draggable 1">
