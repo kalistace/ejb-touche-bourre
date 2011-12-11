@@ -58,9 +58,9 @@ public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao
 	}
 
 	@Override
-	public Soiree rechercheSoireeFinie(String nomSoiree, Calendar dateBegin) {
+	public Soiree rechercheDerniereSoireeFinie(String nomSoiree) {
 		Etat etat = Etat.FINIE;
-		String queryString = "select s from Soiree s where s.nom = ?1 and s.etat = ?2 and s.dateDebut = ?3";
-		return recherche(queryString, nomSoiree, etat, dateBegin);
+		String queryString = "select s from Soiree s where s.id = (select max(s.id) from Soiree s  where s.nom = ?1 and s.etat = ?2)";
+		return recherche(queryString, nomSoiree, etat);
 	}
 }
