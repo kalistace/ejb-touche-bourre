@@ -12,7 +12,9 @@
 </head>
 <body>
 	<h1>Selectionnez une soirée:</h1>
-	
+	<c:if test="${empty journaux}">
+		<p class="warningmsg"> Il n'y a aucun journal pour le moment </p>
+	</c:if>
 	<c:forEach var="soiree" items="${journaux}">
 		<table class="journaux">
 			<tr><td colspan="2">${soiree.nom}</td></tr>
