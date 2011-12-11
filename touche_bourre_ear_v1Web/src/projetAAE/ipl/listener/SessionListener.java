@@ -16,7 +16,7 @@ import projetAAE.ipl.usecases.GestionSoiree;
 
 public class SessionListener implements HttpSessionListener {
 
-	private static final int TIMEOUTGENERAL = 120;
+	private static final int TIMEOUTGENERAL = 3600;
 	
 	private static final int TIMEOUTPARTIE = 5;
 	
