@@ -51,7 +51,7 @@ public class SoireeDaoImpl extends DaoImpl<Integer, Soiree> implements SoireeDao
 	@Override
 	public List<Soiree> chargerTournee(String pseudoFetard, List<Soiree> soirees) {
 		for(Soiree s : soirees){
-			this.chargerTournee(pseudoFetard, s);
+			s = this.chargerTournee(pseudoFetard, s);
 		}
 		return soirees;
 	}
